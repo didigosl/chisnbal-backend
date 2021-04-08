@@ -341,7 +341,8 @@ class IUser extends Model
         $this->create_time = date('Y-m-d H:i:s');
 
         $conf = conf();
-        if($conf['register_audit']){
+        //if($conf['register_audit']){
+        if(self::checkRegReview() == 1){
             $this->status = 0;
         }
         else{
@@ -572,6 +573,19 @@ class IUser extends Model
 
             ]);
             $MoneyLog->save();
+        }
+    }
+
+    //判断是否需要审核
+     public static  function checkRegReview()
+    {
+        $check_setting = db()->fetchOne("select * from s_setting where name='user_review'");
+        if(!empty($check_setting) && $check_setting['value'] == 0)
+        {
+            return 0;
+        }
+        else{
+            return 1;
         }
     }
 }

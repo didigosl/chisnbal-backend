@@ -14,6 +14,8 @@
 						<input role="value" type="text" name="<?=$Setting->name?>" placeholder="请输入<?=$Setting->text?>" value="<?=$Setting->value?>" class="col-xs-10 col-sm-5" />
 					<?php elseif($Setting->type=='textarea'):?>
 						<textarea role="value" name="<?=$Setting->name?>" id="" rows="5" class="form-control"><?=$Setting->value?></textarea>
+					<?php  elseif($Setting->type=='checkbox'):?>
+						<input type="checkbox" role="value" name="<?=$Setting->name?>" class="form-check-input" value="1" <?php if($Setting->value == 1) { echo "checked";}?> />
 					<?php endif;?>
 						<p class="help-inline"> <?=$Setting->intro?></p>
 					</div>

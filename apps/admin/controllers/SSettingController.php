@@ -80,6 +80,10 @@ class SSettingController extends ControllerAuth {
                         
                     }
                 }
+				if(!isset($data['user_review'])){
+					$data['user_review'] = 0;
+				}
+
 				
 			}
 
@@ -279,7 +283,8 @@ class SSettingController extends ControllerAuth {
 
         $names[] = 'order_pay_expired';
         $names[] = 'order_finish_expired';
-        
+        //注册用户需要通过审核
+		$names[] = 'user_review';
         $list = [];
         if(!empty($names)){
             $list = SSetting::find([
