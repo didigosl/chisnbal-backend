@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>share redirect</title>
+    <style>
+    .download{color: #4D4D4D; padding: 7.2% 6.8% 9.3%;}
+	.download .entry-hd{font-size: 2.4em; font-weight: bold; text-align: center;}
+	.download-btn{padding-top: 9%; text-align: center;}
+	.download-btn .android-btn{ width:auto; margin:0 auto;}
+	
+	.footer-bg{background: #2D2D2D; color: #E4E4E4; padding: 3.4% 2%; text-align: center;}
+	.footer-bg .entry-con{font-size: 1em;}
+	
+	#weixin-tip{display:none; position: fixed; left:0; top:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); width: 100%; height:100%; z-index: 100;} 
+	#weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%; position: relative;}
+	#weixin-tip .close{
+		color: #fff;
+		padding: 5px;
+		font: bold 20px/20px simsun;
+		text-shadow: 0 1px 0 #ddd;
+		position: absolute;
+		top: 0; left: 5%;
+	}
+
+    #weixin-tip img{
+        width:100%;
+    }
+
+</style>
+</head>
+<body>
+
+<div id="weixin-tip"><p><img src="<?=$this->config->params->staticsPath?>w/imgs/wx-mask.png" alt="微信打开"/></p></div>
+
+<script src='<?=$this->config->params->staticsPath?>back/js/jquery.min.js'></script>
+<script type="text/javascript" >
+var is_weixin = (function() {
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+})();
+
+$(function(){
+    var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight;
+
+    if(is_weixin){
+        $('#weixin-tip').css('height',winHeight+'px')  ;
+        $('#weixin-tip').show();
+    }
+    else{
+        isInstalled();
+    }
+});
+
+
+function isInstalled(){
+
+    var download_url = '';
+    var app_scheme = '';
+
+    if(navigator.userAgent.match(/android/i)) {
+        download_url = '<?= $android_download_url ?>';   //下载链接
+        app_scheme = '<?= $android_scheme . $token ?>';
+    }
+
+    if(navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)){
+        download_url = '<?= $ios_download_url ?>';   //下载链接
+        app_scheme = '<?= $ios_scheme . $token ?>';
+    }
+    window.location = app_scheme;//打开某手机上的某个app应用
+    setTimeout(function(){
+        window.location = download_url;//如果超时就跳转到app下载页
+    },500);
+}
+
+</script>
+</body>
+</html>

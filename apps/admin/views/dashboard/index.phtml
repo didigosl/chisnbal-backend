@@ -1,0 +1,106 @@
+<?php
+use \Common\Components\Assets;
+?>
+
+<div class="row">
+
+<?php //$this->flashSession->output()?>
+	<div class="alert alert-block alert-success">
+
+		<i class="ace-icon fa fa-check green"></i>
+
+		欢迎进入
+		<strong class="green">
+			<?=$this->settings['app_name']?>信息管理系统
+			<small>(v<?=$this->settings['app_version']?>)</small>
+		</strong>
+
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="col-sm-12">
+				<h4 class="row header smaller lighter blue">
+					<span class="col-sm-7">
+					<i class="ace-icon fa fa-th-large"></i>
+					数据总览
+					</span>					
+				</h4>
+			</div>
+			<div class="space-6" style="clear:both"></div>
+
+			<div class=" col-lg-8 col-md-10 col-sm-12 infobox-container">
+
+			<?php if(!$shop_id):?>
+				<a href="<?=$this->url->get($module.'/i_user/index')?>" class="infobox infobox-green infobox-small infobox-dark">
+
+					<div class="infobox-icon">
+						<i class="ace-icon fa fa-user"></i>
+					</div>
+					<div class="infobox-data">
+						<div class="infobox-content"><?=$user_total?></div>
+						<div class="infobox-content">会员</div>
+					</div>
+				</a>
+			<?php endif;?>
+				<a href="<?=$this->url->get($module.'/i_goods_spu/index')?>" class="infobox infobox-blue infobox-small infobox-dark">
+					<div class="infobox-icon">
+						<i class="ace-icon fa fa-gift"></i>
+					</div>
+					<div class="infobox-data">
+						<div class="infobox-content"><?=$spu_total?></div>
+						<div class="infobox-content">商品</div>
+					</div>
+				</a>
+			<?php if($shop_id):?>
+				<a href="<?=$this->url->get($module.'/i_flash_sale/index')?>" class="infobox infobox-red infobox-small infobox-dark">
+					<div class="infobox-icon">
+						<i class="ace-icon fa fa-shopping-cart"></i>
+					</div>
+					<div class="infobox-data">
+						<div class="infobox-content"><?=$flashsale_total?></div>
+						<div class="infobox-content">抢购</div>
+					</div>
+				</a>
+			<?php endif;?>
+			<?php 
+			if($shop_id){
+				$action = 'index';
+			}
+			else{
+				$action = 'list';
+			}
+			?>
+
+				<a href="<?=$this->url->get($module.'/i_order/'.$action)?>" class="infobox infobox-orange infobox-small infobox-dark">
+					<div class="infobox-icon">
+						<i class="ace-icon fa fa-tasks"></i>
+					</div>
+					<div class="infobox-data">
+						<div class="infobox-content"><?=$order_total?></div>
+						<div class="infobox-content">订单</div>
+					</div>
+				</a>
+			
+			<?php if($shop_id && $conf['enable_vip_rebate']):?>
+				<div class="infobox infobox-red infobox-small infobox-dark">
+					<div class="infobox-icon">
+						<i class="ace-icon fa fa-usd"></i>
+					</div>
+					<div class="infobox-data">
+						<div class="infobox-content">0</div>
+						<div class="infobox-content">待提现</div>
+					</div>
+				</div>
+			<?php endif;?>
+				<div class="space-6"></div>
+				
+
+			</div>
+		</div>
+<!-- /.col -->
+	</div><!-- /.row -->
+
+	<!-- #section:custom/extra.hr -->
+	<div class="hr hr32 hr-dotted"></div>
+</div>

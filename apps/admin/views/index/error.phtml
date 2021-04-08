@@ -1,0 +1,66 @@
+<div class="row">
+	<div class="col-xs-12">
+		<!-- PAGE CONTENT BEGINS -->
+
+		<!-- #section:pages/error -->
+		<div class="error-container">
+			<div class="well">
+				<h1 class="grey lighter smaller">
+					<span class="blue bigger-125">
+						<i class="ace-icon fa fa-random"></i>
+						500
+					</span>
+					发生了一点意外
+				</h1>
+
+				<hr />
+				<h3 class="lighter smaller">
+					<?=htmlspecialchars($msg)?>
+				</h3>
+
+				<div>
+					<?php
+					if(SERV_ENV=='local'){
+						echo nl2br($trace);
+					}
+					?>
+				</div>
+
+
+				<div class="space"></div>
+				
+				<div>
+					<h4 class="lighter smaller"></h4>
+
+					<ul class="list-unstyled spaced inline bigger-110 margin-15">
+						<li>
+							<i class="ace-icon fa fa-hand-o-right blue"></i>
+							如果您有任何疑问，请联系系统管理员
+						</li>
+
+					</ul>
+				</div>
+
+				<hr />
+				<div class="space"></div>
+
+				<div class="center">
+					<a href="javascript:history.back()" class="btn btn-grey">
+						<i class="ace-icon fa fa-arrow-left"></i>
+						返回上一页
+					</a>
+					<!--
+					<a href="#" class="btn btn-primary">
+						<i class="ace-icon fa fa-tachometer"></i>
+						Dashboard
+					</a>
+					-->
+				</div>
+			</div>
+		</div>
+
+		<!-- /section:pages/error -->
+
+		<!-- PAGE CONTENT ENDS -->
+	</div><!-- /.col -->
+</div><!-- /.row -->

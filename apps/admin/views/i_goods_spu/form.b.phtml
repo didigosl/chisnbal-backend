@@ -1,0 +1,1189 @@
+<?php
+use Common\Models\IGoodsSpu as Spu;
+use Common\Models\ILabel;
+use Common\Models\IUserLevel;
+use Common\Models\IDistributionType;
+use Phalcon\Tag;
+
+$conf = conf();
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" id="spuForm" method="post" action="<?=$this->url->get($base_url.'/'.($M->spu_id?'update':'create'))?>" enctype="multipart/form-data">
+				<input type="hidden" id="" name="spu_id" value="<?=$M->spu_id?>">
+				<input type="hidden" name="referer" value="<?=$this->request->getHTTPReferer() ?>">
+			<?php if($this->conf['enable_multi_shop']):?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> 平台分类</label>
+
+					<div class="col-sm-10">
+						<div class="form-row">
+							<select name="" id="selectSort"></select>
+							<input type="hidden" id="sort_id" name="sort_id" value="">
+						</div>
+						
+					</div>
+				</div>
+			<?php endif;?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> 商品分类</label>
+
+					<div class="col-sm-10">
+						<div class="form-row">
+							分类一&nbsp; :
+							<select name="" id="selectCategory1"></select>
+							<a id="rmCategoryBtn1" class="red" href="javascript:void(0)" title="清除分类">
+								<i class="ace-icon fa fa-trash-o bigger-130"></i>
+							</a>
+							<input type="hidden" id="category_id1" name="category_id1" value="">
+						</div>
+						<div class="form-row">
+							分类二:
+							<select name="" id="selectCategory2"></select>
+							<a id="rmCategoryBtn2" class="red" href="javascript:void(0)" title="清除分类">
+								<i class="ace-icon fa fa-trash-o bigger-130"></i>
+							</a>
+							<input type="hidden" id="category_id2" name="category_id2" value="">
+						</div>
+						<div class="form-row">
+							分类三:
+							<select name="" id="selectCategory3"></select>
+							<a id="rmCategoryBtn3" class="red" href="javascript:void(0)" title="清除分类">
+								<i class="ace-icon fa fa-trash-o bigger-130"></i>
+							</a>
+							<input type="hidden" id="category_id3" name="category_id3" value="">
+						</div>
+						
+					</div>
+				</div>
+
+            <?php if($conf['enable_distribution_type']): ?>
+                <div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right">  <?=$M->getAttr('distribution_type_id')?></label>
+
+					<div class="col-sm-10">
+						<?php 
+						Tag::setDefault('distribution_type_id',$M->distribution_type_id);
+						echo Tag::select([
+							'distribution_type_id',
+							IDistributionType::find([
+                                'shop_id=:shop_id:',
+                                'bind'=>[
+                                    'shop_id'=>auth()->getShopId()
+                                ]
+                            ]),
+							'using'=>['distribution_type_id','name'],
+							'useEmpty'=>'true',
+							'emptyText'=>'选择配货类型',
+						]);
+						?>
+					</div>
+				</div>
+            <?php endif;?>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('cover')?></label>
+
+					<div class="col-sm-10">
+						<?php if($M->cover):?>
+						<div class="thumb-list">
+							<img class="thumb" src="<?=$M->getFmtCover()?>" alt="">
+						</div>							
+			
+						<?php endif;?>
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="cover" name="cover" class="input-file" value="<?=$M->cover?>" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('pics')?></label>
+
+					<div class="col-sm-10">
+			
+						<div id="current_pics" class="uploader-list ">						
+							
+							<?php 
+							if($M->pics):
+								$pics = explode(',', $M->pics);
+							?>
+							<?php foreach($M->getFmtPics() as $k=>$v):?>
+								<div class="img-item thumbnail uploaded">
+									<img class="thumb" src="<?=$v?>">
+									<input type="hidden" name="pics[]" value="<?=$pics[$k]?>">
+									<a href="javascript:void(0)" class="remove">
+										<i class=" ace-icon fa fa-times"></i>
+									</a>
+								</div>									
+							<?php endforeach;?>
+							<?php endif?>
+					
+							<div class="clear"></div>
+						</div>
+						<div id="picUploader" class="wu-example">
+						    <!--用来存放文件信息-->
+						    <div id="picList" class="uploader-list"></div>
+						    <div class="clear"></div>
+						    <div class="btns">
+						        <div id="picPicker" type="button">选择图片</div>
+						        <button id="uploadPicBtn" type="button" class="btn btn-default">开始上传</button>
+						    </div>
+						</div>
+
+						<!-- <input id="pics" type="hidden" name="pics"></input> -->
+
+					</div>
+					<div class=" col-sm-offset-2 help-inline">建议上传的图片格式：JPG/PNG/GIF</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('video')?></label>
+
+					<div class="col-sm-10">
+						<div id="current_videos">
+						
+							<?php if($M->video):?>
+								<a href="<?=$M->video?>" target="_blank" class="btn btn-grey btn-lg">
+									<i class="ace-icon fa fa-play-circle-o fa-2x icon-only"></i>
+								</a>
+							<?php endif?>
+							
+						</div>
+						<div id="videoUploader" class="wu-example">
+						    <!--用来存放文件信息-->
+						    <div id="videoList" class="uploader-list"></div>
+						    <div class="clear"></div>
+						    <div class="btns">
+						        <div id="videoPicker" type="button">选择视频</div>
+						        <button id="uploadVideoBtn" type="button" class="btn btn-default">开始上传</button>
+						        
+						    </div>
+						    <input id="video" type="hidden" name="video">
+						</div>
+
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('spu_name')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="spu_name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->spu_name?>" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('sn')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="sn" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->sn?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('labels')?></label>
+
+					<div class="col-sm-10">
+						<?php 
+						$labels = ILabel::find(['shop_id=0 OR shop_id=:shop_id:','bind'=>['shop_id'=>$this->auth->getShopId()]]);
+						foreach($labels as $Label):
+						?>
+						<label>
+							<?=$Label->label_name?>
+							<input type="checkbox" name="labels[]" value="<?=$Label->label_id?>" <?php if(in_array($Label->label_id,$cur_labels)):?>checked<?php endif;?> />
+						</label>
+						
+						<?php 
+						endforeach;
+						 ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('origin_price')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="origin_price" placeholder="" class="col-xs-10 col-sm-5" value="<?=fmtMoney($M->origin_price)?>" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('price')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="price" placeholder="" class="col-xs-10 col-sm-5" value="<?=fmtMoney($M->price)?>" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('cost_price')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="cost_price" placeholder="" class="col-xs-10 col-sm-5" value="<?=fmtMoney($M->cost_price)?>" />
+					</div>
+				</div>
+			<?php if($conf['enable_vip_rebate']):?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> 商品返利</label>
+
+					<div class="col-sm-10">
+						<?php 
+						$levels = IUserLevel::find(['level_id>1']);
+						foreach($levels as $Level):
+						 ?>
+						<div class="form-row">
+							<?=$Level->level_name?>：
+							<input type="text" name="rebate[<?=$Level->level_id?>]" value="<?=$rebates[$Level->level_id]['rebate']?>"> 元 （请填写返利金额）
+						</div>
+						<?php 
+						endforeach; ?>
+						<label >
+							<input type="checkbox" name="rebate_with_discount" <?php if($M->rebate_with_discount):?>checked<?php endif;?> > 与其他优惠共享
+						</label>
+					</div>
+				</div>
+			<?php endif;?>
+				<div class="form-group spu-stock-row">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('stock')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="stock" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->stock?>" />
+					</div>
+				</div>
+
+                <div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('unit')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="unit" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->unit?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('min_in_cart')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="min_in_cart" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->min_in_cart?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('min_to_buy')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="min_to_buy" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->min_to_buy?>" />
+					</div>
+				</div>
+
+			<?php if($this->conf['delivery_fee_type']=='measure'):?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('weight')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="weight" placeholder="" class="input-sm" value="<?=$M->weight?>" /> 千克
+					</div>
+				</div>
+			<?php endif;?>
+
+				<div class="form-group sku-row">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> 商品规格</label>
+
+					<div class="col-sm-10">
+						<div id="specsContainer">
+							<?php
+							if($M->spu_id):
+							foreach($specs as $Spec): ?>
+							<div class="form-row">
+								<div><b><?=$Spec->spec_name?></b></div>
+								<div class="spec-inputs">
+								<?php 
+								foreach($Spec->getArrSpecs() as $v): 
+									$spec_value = $Spec->spec_name.':'.$v;
+								?>
+									<label>
+										<input class="ace spec-checkbox" type="checkbox" name="spec[<?=$Spec->spec_id?>][]" value="<?=$spec_value?>" <?php if(!$M->has_default_sku AND $spec_data[$Spec->spec_id] AND in_array($spec_value,$spec_data[$Spec->spec_id])): ?>checked="checked"<?php endif;?>>
+										<span class="lbl"> <?=$v?></span>
+									</label>
+									
+								<?php endforeach; ?>
+								</div>
+							</div>
+							<?php 
+							endforeach; 
+							endif;
+							?>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="form-group sku-row">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> 规格设置</label>
+
+					<div class="col-sm-10">
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th></th>
+									<th>规格</th>
+									<th>货号</th>
+									<th>库存</th>
+									<th>价格</th>
+								</tr>
+							</thead>
+
+							<tbody id="skuListContainer"></tbody>
+						</table>
+						<input type="hidden" name="skus" value="">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> 
+						<?=$M->getAttr('content')?>
+					</label>
+
+					<div class="col-sm-10">
+						<div>
+							<script id="form_content" name="content" type="text/plain"><?=$M->content?></script>
+						</div>
+						
+					</div>
+				</div>
+
+                <div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><?=$M->getAttr('seq')?></label>
+
+					<div class="col-sm-10">
+						<input type="number" id="" name="seq" placeholder="" class="input-sm" value="<?=$M->seq?>" /> 商品将按此数字从大到小排序
+					</div>
+				</div>
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-4 col-md-8">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>				
+			</form>
+		</div>
+	</div>
+</div>
+
+<script id="specsList" type="text/x-jsrender">
+{^{for specs}}
+<div class="form-row">
+	<div><b>{^{:spec_name}}</b></div>
+	<div class="spec-inputs">
+		{{for specs}}
+			<label>
+				<input class="ace spec-checkbox" type="checkbox" data-link="name{:'spec['+#parent.parent.data.spec_id+'][]'} k{:#parent.parent.data.spec_id} v{:#parent.parent.data.spec_name+':'+#data}" value="">
+				<span class="lbl"> {{: #data}}</span>
+			</label>
+			<!-- <input type="text" name=""  data-link="value{:#parent.parent.data.spec_name+':'+#data}"> -->
+		{{/for}}
+
+	</div>
+</div>
+{{/for}}
+</script>
+
+<script id="skuList" type="text/x-jsrender">
+{^{for list}}
+{^{if status>0}}
+{^{if default_flag==0}}
+<tr>
+	<td>{^{:sku_id ? sku_id : ''}}</td>
+	<td>
+		{^{:spec_info}}
+		<input type="hidden" data-link="name{:'sku['+#getIndex()+'][id]'} value{:sku_id}">
+		<input type="hidden" data-link="name{:'sku['+#getIndex()+'][status]'} value{:status}">
+		<input type="hidden" data-link="name{:'sku['+#getIndex()+'][default_flag]'} value{:default_flag}">
+	</td>
+	<td>
+		<input class="jsview-input" data-var="sn" type="text" value="" data-link="name{:'sku['+#getIndex()+'][sn]'} value{:sn}" >
+	</td>
+	<td>
+		<input class="jsview-input" data-var="stock" type="text" data-link="name{:'sku['+#getIndex()+'][stock]'} value{:stock}">
+	</td>
+	<td>
+		<input class="jsview-input" data-var="price" type="text" data-link="name{:'sku['+#getIndex()+'][price]'} value{:price}">
+	</td>
+</tr>
+{{/if}}
+{{/if}}
+{{/for}}
+</script>
+<?php
+$enable_multi_shop = $this->conf['enable_multi_shop'];
+$enable_no_sku = $this->conf['enable_no_sku'];
+$def_category1 = $categories[0] ?  trim($categories[0]['merger']) : '';
+$def_category2 = $categories[1] ? trim($categories[1]['merger']) : '';
+$def_category3 = $categories[2] ? trim($categories[2]['merger']) : '';
+
+$category1_change = count(explode(',', $def_category1));
+
+
+$get_category_infos_url = $this->url->get($module.'/data/getCategoryInfos');
+
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get($module.'/data/getCategories',['shop_id'=>$shop_id]));
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get($module.'/data/getSorts',[]));
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var spu_id = parseInt($M->spu_id);
+var has_default_sku = parseInt($M->has_default_sku);
+var enable_multi_shop = parseInt($enable_multi_shop);
+var enable_no_sku = '$enable_no_sku';
+var get_category_infos_url = '$get_category_infos_url';
+var category_change_count = 0;
+var category1_change = $category1_change - 1;
+// console.log('category1_change:'+category1_change);
+var spec_data = JSON.parse('$spec_data_json');
+console.log('spec_data:');
+console.log(spec_data);
+$(function(){
+
+	if((spu_id && has_default_sku) || (!spu_id && enable_no_sku)){
+        $('.sku-row').hide();
+    }
+    else{
+        $('.spu-stock-row').hide();
+    }
+
+	if(enable_multi_shop){
+		var sortSelect = new LinkageSel({
+			data:sorts,
+			select: '#selectSort',
+			head:'选择平台分类',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:false,
+			defVal:[$def_sort]
+		});
+
+		sortSelect.onChange(function(){
+			$('#sort_id').val(sortSelect.getSelectedValue());
+		});
+	}
+	
+
+	var linkSelect1 = new LinkageSel({
+		data:categories,
+		select: '#selectCategory1',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:false,
+		defVal:[$def_category1]
+	});
+
+	var linkSelect2 = new LinkageSel({
+		data:categories,
+		select: '#selectCategory2',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:false,
+		defVal:[$def_category2]
+	});
+
+	var linkSelect3 = new LinkageSel({
+		data:categories,
+		select: '#selectCategory3',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:false,
+		defVal:[$def_category3]
+	});
+
+	linkSelect1.onChange(function(){
+		$('#category_id1').val(linkSelect1.getSelectedValue());
+		// console.log($('#category_id1').val());
+		category_change_count++;
+		// console.log(category_change_count);
+		if(category_change_count > category1_change){
+			console.log(get_category_infos_url);
+			$.get(get_category_infos_url,{category_id:linkSelect1.getSelectedValue()},function(result){
+
+				if(result.status){
+					spec_total = result.data.specs.length;
+					if(result.data.specs.length>0){
+						$('.sku-row').show();
+						// console.log(result.data);
+						var tpl = $.templates("#specsList"); 
+						tpl.link("#specsContainer", result.data);
+						bindSpecCheckbox();
+					}
+					
+				}
+				else{
+					errorMsg(result.msg);
+				}
+			});
+		}
+	});
+	linkSelect2.onChange(function(){
+		$('#category_id2').val(linkSelect2.getSelectedValue());
+		// console.log($('#category_id2').val());
+	});
+	linkSelect3.onChange(function(){
+		$('#category_id3').val(linkSelect3.getSelectedValue());
+		// console.log($('#category_id3').val());
+	});
+	
+	$('#rmCategoryBtn1').click(function(){
+		layer.confirm("确定清除此分类信息吗？",function(index){
+			linkSelect1.changeValues([''],true);
+			layer.close(index);
+		});
+		
+	});
+	$('#rmCategoryBtn2').click(function(){
+		layer.confirm("确定清除此分类信息吗？",function(index){
+			linkSelect2.changeValues([''],true);
+			layer.close(index);
+		});
+		
+	});
+	$('#rmCategoryBtn3').click(function(){
+		layer.confirm("确定清除此分类信息吗？",function(index){
+			linkSelect3.changeValues([''],true);
+			layer.close(index);
+		});
+		
+	});
+});
+EOT;
+?>
+<?php 
+$spec_total = (int)count($specs);
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+
+var specs = new Array();
+//当前主分类存在多少规格
+var spec_total = $spec_total;
+var has_default_sku = parseInt('$M->has_default_sku');
+var sku_names;
+var skus = JSON.parse('$skus');
+
+$(function(){
+	displaySkus();
+});
+//多数组交叉组合
+var pailie = function(arr){
+	console.log('arr.length'+arr.length);
+	if(arr.length>1){
+        var len1=arr[0].length, len2=arr[1].length, newArr=arr.slice(0), temp=[];
+        for(var i=0;i<len1;i++){
+            for(var j=0;j<len2;j++){
+                temp.push(arr[0][i]+','+arr[1][j])
+            }
+        }
+
+        newArr.splice(0,2,temp);
+        return arguments.callee(newArr)
+    }
+    return arr[0]
+}
+
+var bindSpecCheckbox = function(){
+	$.each($('.spec-checkbox'),function(i,o){
+
+		console.log('spec v:'+$(this).attr('v'));
+		console.log('spec_data[k]:');
+		console.log(spec_data[$(this).attr('k')]);
+		$(o).val($(this).attr('v'));
+		var idx = $.inArray($(this).attr('v'),spec_data[$(this).attr('k')])
+		if(idx >= 0 && has_default_sku==0){
+			console.log('in_array:'+idx);
+			o.checked = true;
+		}
+	});
+
+	$('.spec-checkbox').change(function(){
+		var specs_tmp = new Array();
+		//当前选中的规格值
+		var specs = [];
+		$.each($('.spec-checkbox:checked'),function(i,o){
+			if(!specs_tmp[$(o).attr('name')]){
+				specs_tmp[$(o).attr('name')] = new Array();
+			}
+			specs_tmp[$(o).attr('name')].push($(o).attr('v'));
+		})
+		
+		var k = 0;
+		for(var i in specs_tmp){
+			
+			specs[k] = specs_tmp[i];
+			k++;
+		}
+		
+		console.log('specs:');
+		console.log(specs);
+		var specs_length = Object.getOwnPropertyNames(specs).length - 1;
+		//console.log('specs.length:'+specs_length);
+		var len ;
+		console.log('specs_length:'+specs_length+' '+spec_total);
+		//如果没有选择完全部的规格，就不会渲染出sku列表
+		if(specs_length < spec_total){
+			len = 0;
+			sku_names = new Array(0);
+		}
+		else{
+			len = 1
+			for( var i in specs){
+				len = len * specs[i].length;
+			}
+		
+			//console.log('len:'+len);
+			var sku_names = new Array(len);
+
+		    sku_names = pailie(specs);
+		}
+
+		console.log('sku_names:');
+		console.log(sku_names);
+		
+		var current_sku_names = new Array();
+		for(var i in skus){
+			current_sku_names.push(skus[i]['spec_info']);
+		}
+		//console.log('current_sku_names:');
+		//console.log(current_sku_names);
+		//将新增的勾选加入skus列表
+		for(var i in sku_names){
+			console.log('sku_names[i]:'+sku_names[i]);
+			var key = $.inArray(sku_names[i],current_sku_names);
+			console.log('key:'+key);
+			if( key < 0 ){
+				skus.push( {'spec_info':sku_names[i],'status':1,'sn':'','stock':'','price':'','sku_id':0,'default_flag':0} );
+			}
+			else{
+				skus[key]['status'] = 1;
+			}
+		}
+		//将取消勾选的置为隐藏
+		for(var i in skus){
+			
+			if( $.inArray(skus[i]['spec_info'],sku_names ) < 0 ){
+				console.log('设为隐藏');
+				console.log(skus[i]['spec_info']);
+				// console.log(sku_names);
+				skus[i]['status'] = 0;
+			}
+		}
+
+		console.log(skus);
+		displaySkus();
+	});
+}
+
+
+var displaySkus = function(){
+	console.log('displaySkus');
+	var data = {};
+	data.list = skus;
+	var tpl = $.templates("#skuList"); 
+	tpl.link("#skuListContainer", data);
+	jsviewInputBind();	
+}
+
+var jsviewInputBind = function(){
+
+	$('.jsview-input').change(function(){
+		var view = $.view(this);
+		var row = view.data;
+		var index = view.index;
+		// console.log($(this).attr('data-var'));
+		console.log($(this).val());
+		if($(this).attr('data-var')=='sn' && $(this).val().length>25){
+			// console.log(row);
+			errorMsg('货号长度不能超过25位');
+			$(this).val(row.sn);
+			// return false;
+		}
+		else{
+			$.observable(row).setProperty($(this).attr('data-var'),$(this).val());
+		}
+		
+		
+	});
+}
+
+EOT;
+?>
+<?php
+$swf_url = $this->url->get('/webuploader/Uploader.swf');
+$video_url = $this->url->get($module.'/upload/video',["field_name"=>'file']);
+$pic_url = $this->url->get($module.'/upload/image',["field_name"=>'file']);
+$this->assets->css['head'][] = 'inc::webuploader/webuploader.css';
+$this->assets->js['foot'][] = 'inc::webuploader/webuploader.min.js';
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+	$('.uploader-list .remove').click(function(){
+		var _this = this;
+		layer.confirm("确定要删除此图片吗？",function(index){
+			$(_this).parent().remove();
+			layer.close(index);
+		});
+		
+	});
+});
+EOT;
+$this->assets->js['foot'][] = <<<EOT
+raw::
+\$(function(){
+
+	var \$ = jQuery,
+    \$videolist = \$('#videoList'),
+
+    // Web Uploader实例
+    videoUploader;
+	
+	// 初始化Web Uploader
+	videoUploader = WebUploader.create({
+
+	    // 自动上传。
+	    auto: false,
+
+	    runtimeOrder:'html5',
+
+	    chunked:false,
+
+	    // swf文件路径
+	    swf: '$swf_url',
+
+	    // 文件接收服务端。
+	    server: '$video_url',
+
+	    // 选择文件的按钮。可选。
+	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+	    pick: {
+	    	id:"#videoPicker",
+	    	multiple:false
+	    },
+
+	    fileNumLimit:1,
+
+	    // 只允许选择文件，可选。
+	    accept: {
+	    	//title: 'Images',
+	    	extensions: 'mp4',
+	    	//mimeTypes: 'image/*'
+	    }
+  	});
+
+  	$('#uploadVideoBtn').click(function(){
+  		console.log('start uploading...');
+  		videoUploader.upload();
+  	});
+
+	// 当有文件添加进来的时候
+	videoUploader.on( 'fileQueued', function( file ) {
+		var \$li = \$(
+        '<div id="' + file.id + '" class="video-item thumbnail">' +
+          '<a href="javascript:void(0)" class="btn btn-white btn-lg"><i class="ace-icon fa fa-play-circle-o fa-2x icon-only"></i></a>' +
+          //'<div class="info">' + file.name + '</div>' +
+        '</div>'
+        ),
+		\$img = \$li.find('img');
+
+    	//\$videolist.append( \$li );
+    	\$videolist.html( \$li );
+    	/*
+	    // 创建缩略图
+	    videoUploader.makeThumb( file, function( error, src ) {
+			if ( error ) {
+			\$img.replaceWith('<span>不能预览</span>');
+			return;
+			}
+
+	      	\$img.attr( 'src', src );
+	    }, thumbnailWidth, thumbnailHeight );
+	    */
+  	});
+
+	// 文件上传过程中创建进度条实时显示。
+	videoUploader.on( 'uploadProgress', function( file, percentage ) {
+		var \$li = \$( '#'+file.id ),
+		  	\$percent = \$li.find('.progress span');
+
+		// 避免重复创建
+		if ( !\$percent.length ) {
+		  \$percent = \$('<p class="progress"><span></span></p>')
+		      .appendTo( \$li )
+		      .find('span');
+		}
+		console.log(percentage);
+		\$percent.css( 'width', percentage * 100 + '%' );
+	});
+
+	videoUploader.on( 'uploadAccept', function( file, response ) {
+	    if ( response.status=='fail' ) {
+	        layer.alert(response.msg);
+	        return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	videoUploader.on( 'uploadSuccess', function( file , data ) {
+		console.log('upload success');
+		//console.log(data);
+		\$( '#'+file.id ).addClass('upload-state-done');
+		//var result = '{"name":"'+data.name+'","size":"'+data.size+'","url":"'+data.url+'"}';
+		var result = data.url;
+		var input_value = $('#video').val();
+
+		$('#video').val((input_value ? input_value+',' : "")+result);
+	});
+
+	// 文件上传失败，现实上传出错。
+	videoUploader.on( 'uploadError', function( file ) {
+		console.log('upload error');
+		var \$li = \$( '#'+file.id ),
+		  	\$error = \$li.find('div.error');
+
+		// 避免重复创建
+		if ( !\$error.length ) {
+		  	\$error = \$('<div class="error"></div>').appendTo( \$li );
+		}
+
+		\$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	videoUploader.on( 'uploadComplete', function( file ) {
+		console.log('upload complete');
+		\$( '#'+file.id ).find('.progress').remove();
+
+	});
+
+	// 先从文件队列中移除之前上传的图片，第一次上传则跳过
+	$("#videoPicker").on('click', function () {
+		if (!WebUploader.Uploader.support()) {
+            var error = "上传控件不支持您的浏览器！请尝试升级flash版本或者使用Chrome引擎的浏览器。<a target='_blank' href='http://se.360.cn'>下载页面</a>";
+            console.log(error);
+            return;
+        }
+		var id = \$videolist.find("div").attr("id");
+		//alert(id);
+		if (undefined != id) {
+			videoUploader.removeFile(videoUploader.getFile(id));
+		}
+    });
+});
+EOT;
+?>
+<?php
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+\$(function(){
+
+	var \$ = jQuery,
+    \$piclist = \$('#picList'),
+    // 优化retina, 在retina下这个值是2
+    ratio = window.devicePixelRatio || 1,
+
+    // 缩略图大小
+    thumbnailWidth = 100 * ratio,
+    thumbnailHeight = 100 * ratio,
+
+    // Web Uploader实例
+    picUploader;
+	
+	// 初始化Web Uploader
+	picUploader = WebUploader.create({
+
+	    // 自动上传。
+	    auto: false,
+
+	    runtimeOrder:'html5',
+
+	    chunked:false,
+
+	    // swf文件路径
+	    swf: '$swf_url',
+
+	    // 文件接收服务端。
+	    server: '$pic_url',
+
+	    // 选择文件的按钮。可选。
+	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+	    pick: {
+	    	id:"#picPicker",
+	    	multiple:true
+	    },
+
+	    //fileNumLimit:1,
+
+	    // 只允许选择文件，可选。
+	    accept: {
+	    	title: 'Images',
+	    	// extensions: 'mp3',
+	    	mimeTypes: 'image/*'
+	    }
+  	});
+
+  	$('#uploadPicBtn').click(function(){
+  		console.log('start uploading...');
+  		picUploader.upload();
+  	});
+
+
+	// 当有文件添加进来的时候
+	picUploader.on( 'fileQueued', function( file ) {
+		console.log('selected one file');
+		var \$li = \$(
+        '<div id="' + file.id + '" class="img-item thumbnail">' +
+          '<img class="thumb">' +
+          '<input type="hidden" name="pics['+file.id+']" value="">' + 
+          '<a class="remove" href="javascript:void(0)"><i class=" ace-icon fa fa-times"></i></a>' +
+          //'<div class="info">' + file.name + '</div>' +
+        '</div>'
+        ),
+		\$img = \$li.find('img');
+
+    	\$piclist.append( \$li );
+    	//\$piclist.html( \$li );
+    	
+	    // 创建缩略图
+	    picUploader.makeThumb( file, function( error, src ) {
+			if ( error ) {
+				console.log('error:'+error);
+				\$img.replaceWith('<span>不能预览</span>');
+				return;
+			}
+
+	      	\$img.attr( 'src', src );
+	      	console.log('src:'+src);
+	    }, thumbnailWidth, thumbnailHeight );
+
+	    \$li.on('click', '.remove', function() {
+	    	console.log('remove');
+	    	\$(this).parent().remove();
+		    picUploader.removeFile( file );
+		})
+
+	    
+  	});
+
+	// 文件上传过程中创建进度条实时显示。
+	picUploader.on( 'uploadProgress', function( file, percentage ) {
+		var \$li = \$( '#'+file.id ),
+		  	\$percent = \$li.find('.progress span');
+
+		// 避免重复创建
+		if ( !\$percent.length ) {
+		  \$percent = \$('<p class="progress"><span></span></p>')
+		      .appendTo( \$li )
+		      .find('span');
+		}
+		console.log(percentage);
+		\$percent.css( 'width', percentage * 100 + '%' );
+	});
+
+	picUploader.on( 'uploadAccept', function( file, response ) {
+	    if ( response.status=='fail' ) {
+	        layer.alert(response.msg);
+	        return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	picUploader.on( 'uploadSuccess', function( file , data ) {
+		console.log('upload success');
+		//console.log(data);
+		\$( '#'+file.id ).addClass('uploaded');
+		// var result = '{"name":"'+data.name+'","size":"'+data.size+'","url":"'+data.url+'"}';
+		var result = data.url;
+		var input_value = $('#pics').val();
+
+		$('input[name="pics['+file.id+']"]').val(result);
+	});
+
+	// 文件上传失败，现实上传出错。
+	picUploader.on( 'uploadError', function( file ) {
+		console.log('upload error');
+		var \$li = \$( '#'+file.id ),
+		  	\$error = \$li.find('div.error');
+
+		// 避免重复创建
+		if ( !\$error.length ) {
+		  	\$error = \$('<div class="error"></div>').appendTo( \$li );
+		}
+
+		\$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	picUploader.on( 'uploadComplete', function( file ) {
+		console.log('upload complete');
+		\$( '#'+file.id ).find('.progress').remove();
+
+	});
+/*
+	// 先从文件队列中移除之前上传的图片，第一次上传则跳过
+	$("#picsPicker").on('click', function () {
+		if (!WebUploader.Uploader.support()) {
+            var error = "上传控件不支持您的浏览器！请尝试升级flash版本或者使用Chrome引擎的浏览器。<a target='_blank' href='http://se.360.cn'>下载页面</a>";
+            console.log(error);
+            return;
+        }
+		var id = \$piclist.find("div").attr("id");
+		//alert(id);
+		if (undefined != id) {
+			//picUploader.removeFile(picUploader.getFile(id));
+		}
+    });
+*/
+});
+EOT;
+?>
+<?php
+// $http_host = $this->request->getHttpHost();
+$editor_img_upload_url = $this->url->get($module."/upload/image",["field_name"=>'upfile',"editorid"=>time()]);
+$this->assets->js['foot'][] = 'inc::http://'.$this->request->getHttpHost().'/ueditor/ueditor.config.js';
+$this->assets->js['foot'][] = 'inc::http://'.$this->request->getHttpHost().'/ueditor/ueditor.all.min.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+// document.domain = '$http_host';
+var content_editor;
+$(function(){
+	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	UE.Editor.prototype.getActionUrl = function(action) {
+	    if (action == 'uploadimage' ) {
+	        return '$editor_img_upload_url';
+	    } else {
+	        return this._bkGetActionUrl.call(this, action);
+	    }
+	}
+
+	content_editor = UE.getEditor('form_content');
+
+	$('#previewBtn').click(function(){
+		$('#container').html('<iframe width="100%" height="100%" src="$preview_url"></iframe>');
+
+        var dialog = \$('#container').dialog({
+        	dialogClass:'previewDialog',
+            modal: true,
+            title: "<h4 class='smaller'><i class='ace-icon fa fa-check'></i> 预览</h4>",
+            title_html: true,
+            width:457,
+            height:842,
+            buttons: [ 
+                {
+                    
+                },
+               
+            ]
+        });
+	});
+});
+EOT;
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var enable_no_sku = parseInt('$enable_no_sku');
+$(function(){
+	$('#spuForm').submit(function(){
+		var errors = [];
+		
+		if($('#sort_id').length && $('#sort_id').val().length==0){
+			errors.push('必须设置平台分类');
+		}
+
+		if($('#category_id1').val().length==0){
+			errors.push('必须设置分类一');
+		}
+
+		if($('input[name="spu_name"]').val().length==0){
+			errors.push('必须填写商品名称');
+			
+		}
+
+		if($('input[name="sn"]').val().length==0){
+			errors.push('必须填写货号');
+			
+		}
+
+		if($('input[name="price"]').val() <= 0){
+			errors.push('必须填写商品价格');
+			
+		}
+
+		if($('input[name="stock"]').val().length==0){
+			errors.push('必须填写商品数量');
+			
+		}
+
+		if($('input[name="min_in_cart"]').val().length==0){
+			errors.push('每次加入购物车数量');
+			
+		}
+
+		if($('input[name="min_to_buy"]').val().length==0){
+			errors.push('最少购买数量');
+			
+		}
+	
+		// console.log(skus);
+		if(!enable_no_sku && skus.length==0){
+			errors.push('至少需要添加一种商品规格');
+			
+		}
+		console.log('sku_length:'+skus.length);
+		if(skus.length){
+			//检测sku
+			for(var i=0; i<skus.length; i++){
+				
+				skus[i]['stock'] = skus[i]['stock'].replace(' ','');
+				skus[i]['price'] = skus[i]['price'].replace(' ','');
+				skus[i]['sn'] = skus[i]['sn'].replace(' ','');
+				// console.log(skus[i].sn);
+				// console.log(skus[i].stock);
+                // console.log(skus[i].price);
+                
+                if(!skus[i].stock){
+                    skus[i].stock = $('input[name="stock"]').val();
+                }
+                if(!skus[i].price){
+                    skus[i].price = $('input[name="price"]').val();
+                }
+                
+				if(skus[i].status>0 && ((!skus[i].stock && !skus[i].stock!==0) || !skus[i].price)){
+				 	errors.push('必须完整填写全部商品规格的库存、价格信息');
+				}
+			}
+			// return false;
+			// console.log(JSON.stringify(skus));
+			$('input[name="skus"]').val(JSON.stringify(skus));
+		}
+		
+
+		if(errors.length>0){
+			errorMsg(errors.join('<br>'));
+			return false;
+		}
+		return true;
+	});
+});
+
+EOT;
+?>

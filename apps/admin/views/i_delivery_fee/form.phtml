@@ -1,0 +1,59 @@
+<?php
+use Common\Models\IDeliveryFee;
+use Common\Models\IArea;
+use Phalcon\Tag;
+
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" method="post" action="<?=$this->url->get($base_url.'/'.($M->id?'update':'create'))?>" >
+				<input type="hidden" id="" name="id" value="<?=$M->id?>">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('area_id')?></label>
+
+					<div class="col-sm-9">
+						<select name="" id="selectParent"></select>
+						<input type="hidden" id="area_id" name="area_id" value="<?=$M->area_id?>">
+					</div>
+				</div>
+				
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('fee')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="fee" placeholder="" class="col-xs-10 col-sm-5" value="<?=fmtMoney($M->fee)?>" />
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<?php
+$defVal = ($M->Area->merger ? trim($M->Area->merger,',').',' : '').$M->area_id;
+?>
+<script>
+	$(function(){
+		ajaxForm();
+		var linkSelect = new LinkageSel({
+			data:areas,
+			select: '#selectParent',
+			head:'选择地区',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:'$loaderImg',
+			defVal:[<?=$defVal?>]
+		});
+
+		linkSelect.onChange(function(){
+			$('#area_id').val(linkSelect.getSelectedValue());
+			console.log($('#area_id').val());
+		});
+
+	});
+</script>

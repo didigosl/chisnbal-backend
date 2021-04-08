@@ -1,0 +1,131 @@
+<?php
+use Common\Models\ISort;
+use Phalcon\Tag;
+
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" method="post" action="<?=$this->url->get($base_url.'/'.($M->sort_id?'update':'create'))?>"  enctype="multipart/form-data">
+				<input type="hidden" id="" name="sort_id" value="<?=$M->sort_id?>">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('parent_id')?></label>
+
+					<div class="col-sm-9">
+						<select name="" id="selectParent"></select>
+						<input type="hidden" id="parent_id" name="parent_id" value="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('sort_cover')?></label>
+
+					<div class="col-sm-9">
+						<?php if($M->sort_cover):?>
+						<div class="thumb-list">
+							<img class="thumb" src="<?=$M->sort_cover?>" alt="">
+						</div>
+						
+						<?php endif;?>
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="categoryCover" name="sort_cover" class="input-file" value="<?=$M->sort_cover?>" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('sort_name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="sort_name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->sort_name?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('seq')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="seq" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->seq?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('recommend_flag')?></label>
+
+					<div class="col-sm-9">
+						<input type="checkbox" class="ace" name="recommend_flag" value="1" id="recommend_flag" <?php if($M->recommend_flag): ?>checked="checked"<?php endif; ?> />
+						<label class="lbl" for="recommend_flag"></label>
+					</div>
+				</div>
+
+				<div class="form-group" id="recommendPicRow" style="<?php if(!$M->recommend_flag):?>display:none<?php endif;?>">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('recommend_pic')?></label>
+
+					<div class="col-sm-9">
+						<?php if($M->recommend_pic):?>
+						<div class="thumb-list">
+							<img class="thumb" src="<?=$M->recommend_pic?>" alt="">
+						</div>
+						<?php endif;?>
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="recommendPic" name="recommend_pic" class="input-file" value="<?=$M->recommend_pic?>" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-4 col-md-8">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php 
+$loaderImg = $this->url->get('js/linkagesel/images/ui-anim_basic_16x16.gif');
+$defVal = trim($M->merger,',');
+$this->url->setBaseUri($this->request->getScheme().'://'.$this->request->getHttpHost().'/');
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getSorts',[]));
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+	var linkSelect = new LinkageSel({
+		data:sorts,
+		select: '#selectParent',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:'$loaderImg',
+		defVal:[$defVal]
+	});
+
+	linkSelect.onChange(function(){
+		$('#parent_id').val(linkSelect.getSelectedValue());
+		console.log($('#parent_id').val());
+	});
+
+	$('#recommend_flag').change(function(){
+		if(this.checked){
+			$('#recommendPicRow').show();
+		}
+		else{
+			$('#recommendPicRow').hide();
+		}
+	});
+
+	
+
+});
+EOT;
+ ?>

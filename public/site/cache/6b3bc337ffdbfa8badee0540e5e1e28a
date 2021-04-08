@@ -1,0 +1,509 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:3299:"Deutsche Sprache und Literatur (60 LP) Version 2007: Gilt für alle Studierende, die das Studium dieses Programms bis einschließlich Sommersemester 2013 begonnen haben. Die Anmeldung für die Auslosung des Teilmoduls, in dem die Hausarbeit im Modul Fachdidaktik (MA GyGe, BK, HRSGe) geschrieben wird, war bis zum 13.12.2019 über … Fachsemester auf das Praxissemester vorbereitet. Fachsemester auf das Praxissemester vorbereitet. Die Studierenden werden bereits in Ihren Fachdidaktik-Seminaren im 1. »Literatur und Medienpraxis (LuM)« ist ein Zwei-Fach-Master-Studiengang an der Universität Duisburg-Essen, der sich mit Fragen der Literaturvermittlung beschäftigt und seine Schwerpunkte in den Bereichen Verlagswesen, Zeitungswesen, Hörfunk, Videopraxis und Wissenschaft hat. lehramtsstudiengÄnge deutsch; 2-fach bachelor sprache, literatur, kultur und kommunikation (slkuk) 2-fach master sprache und kultur (suk) 1-fach master sprache und kultur (suk) für GyGe). Die Neuregelungen zum Qualifikationsnachweis im Themengebiet Inklusion treten nach neuer Änderungsordnung 2016 LABG mit Veröffentlichungsdatum des Verkündungsblattes in Kraft, somit für Studierende, die das … M.Ed.-Studierende, die zum WiSe 16/17 in den Master eingeschrieben wurden, wird das Fachdidaktik-Modul des ersten Fachsemesters nach der Änderungsordnung 2014 anerkannt. Informationen zur Fachdidaktik Deutsch - Primarstufe ... finden Sie auf der Webseite der Fachdidaktik Sekundarstufe: fd-deutsch.uni-saarland.de. Stand 16.12.2019 Teilfach-Auslosung im Modul Fachdidaktik im WS 2019/20 für M.Ed. Staatsexamen in Literatur- und Sprachdidaktik: ⇒ Merkblatt 1. Bitte beachten Sie folgende Merkblätter zum 1. Stand 16.01.2020 Zeitplan für die mündlichen Prüfungen im Modul Aktuelle Diskussionen in der Germanistik (HRSGe) im SoSe 2019. Staatsprüfung Literaturdidaktik Stand Juni 2019 ⇒ Merkblatt 1. Herzlich willkommen auf der Startseite des Bereichs Literaturwissenschaft und -didaktik im Fach Deutsch für die Sekundarstufe I und II . Stand 16.12.2019 Teilfach-Auslosung im Modul Fachdidaktik im WS 2019/20 für M.Ed. 922 Cardiac Research Gesellschaft für medizinisch-biotechnologische Forschung mbH Das Unternehmen ist ein Kooperationsprojekt der Herzzentren Dortmund, Duisburg, Osnabrück-Bad R Stand 18.03.2020 (13:20 Uhr) Wichtige Informationen des Instituts für Germanistik bezüglich der aktuellen Lage (Corona Virus) Sehr geehrte Studierende des Instituts für Germanistik, aufgrund der aktuellen Situation herrscht auch in unserem Institut verständlicherweise große Unsicherheit hinsichtlich der Arbeitsabläufe und Regelungen. (HRSGe / GyGe /BK) . Die Literaturdidaktik für die Sekundarstufen an der UDE lehrt und beforscht Wege des literarischen Lernens, also des Lernens durch Literatur- und Medienerfahrungen. 922 Cardiac Research Gesellschaft für medizinisch-biotechnologische Forschung mbH Das Unternehmen ist ein Kooperationsprojekt der Herzzentren Dortmund, Duisburg, Osnabrück-Bad R Germanistik / Studium / Fachdidaktik Fachdidaktik. Bachelor B.A. Hier finden Sie einen Flyer , auf dem wir die wichtigsten allgemeinen Informationen kompakt zusammengefasst haben. Stoffwechsel Stoﬀwechsel OWL Heute: scheint, Monate, Punkte, Roadster Roadﬆer Gesamtpreis Probieren Beitrag. ";s:7:"keyword";s:40:"mein name ist nobody ganzer film deutsch";s:5:"links";s:10784:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kelly-family-tour-2020-hamburg'>Kelly Family Tour 2020 Hamburg</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-stadtwerk-regensburg-fahrzeuge-und-technik-gmbh'>Das Stadtwerk Regensburg Fahrzeuge Und Technik Gmbh</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=schwangerschaftsdiabetes-wert-nach-1-stunde'>Schwangerschaftsdiabetes Wert Nach 1 Stunde</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-farbe-aus-dem-all-2019'>Die Farbe Aus Dem All 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=gasthof-zum-lamm-beim-griechen-ingolstadt'>Gasthof Zum Lamm Beim Griechen Ingolstadt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mattes-kerkeling-bruder-von-hape'>Mattes Kerkeling Bruder Von Hape</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-neues-tor-bad-wimpfen-speisekarte'>Hotel Neues Tor Bad Wimpfen Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kreisliga-a2-n%C3%B6rdlicher-schwarzwald-reserve'>Kreisliga A2 Nördlicher Schwarzwald Reserve</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wann-wurde-das-oldenburger-schloss-gebaut'>Wann Wurde Das Oldenburger Schloss Gebaut</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sylt-f%C3%BCr-den-kleinen-geldbeutel'>Sylt Für Den Kleinen Geldbeutel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=86697-oberhausen-an-der-donau'>86697 Oberhausen An Der Donau</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=soul-and-bowl-schweinfurt-%C3%B6ffnungszeiten'>Soul And Bowl Schweinfurt öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-hei%C3%9Ft-der-fluss-in-m%C3%BCnster'>Wie Heißt Der Fluss In Münster</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=starlight-express-essen-und-trinken'>Starlight Express Essen Und Trinken</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=tag-der-offenen-t%C3%BCr-feuerwehr-duisburg-2020'>Tag Der Offenen Tür Feuerwehr Duisburg 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-kr%C3%A4nkungen-der-menschheit-hau-hebbel-am-ufer-hau2-6-februar'>Die Kränkungen Der Menschheit Hau Hebbel Am Ufer Hau2 6 Februar</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=fachhochschule-f%C3%BCr-verwaltung-66287-quierschied'>Fachhochschule Für Verwaltung 66287 Quierschied</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wohnung-mit-aufzug-in-rutesheim-kaufen'>Wohnung Mit Aufzug In Rutesheim Kaufen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=anmeldung-schulpraktische-studien-uni-frankfurt'>Anmeldung Schulpraktische Studien Uni Frankfurt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=remax-immobilien-angebote-in-leimen'>Remax Immobilien Angebote In Leimen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sound-and-music-production-darmstadt-erfahrung'>Sound And Music Production Darmstadt Erfahrung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=letztendlich-sind-wir-dem-universum-egal-soundtrack'>Letztendlich Sind Wir Dem Universum Egal Soundtrack</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=berliner-platz-1-neu-kopiervorlagen'>Berliner Platz 1 Neu Kopiervorlagen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=online-purchase-uk-online-shop'>Online Purchase Uk Online Shop</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=frankfurt-berlin-flug-und-hotel'>Frankfurt Berlin Flug Und Hotel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=welche-gesch%C3%A4fte-gibt-es-in-der-stadtgalerie-velbert'>Welche Geschäfte Gibt Es In Der Stadtgalerie Velbert</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=harry-potter-zauberspr%C3%BCche-und-bewegungen'>Harry Potter Zaubersprüche Und Bewegungen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=holz-und-feuer-kirchheim-teck-restaurant'>Holz Und Feuer Kirchheim Teck Restaurant</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hochgeschwindigkeitsstrecke-von-dresden-nach-prag'>Hochgeschwindigkeitsstrecke Von Dresden Nach Prag</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mit-dem-boot-nach-london'>Mit Dem Boot Nach London</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=rami-malek-nachts-im-museumberechnung-kita-geb%C3%BChren-nicht-verheiratet'>Rami Malek Nachts Im Museumberechnung Kita Gebühren Nicht Verheiratet</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=gasthaus-germania-dettingen-an-der-iller'>Gasthaus Germania Dettingen An Der Iller</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotels-in-bonn-bad-godesberg'>Hotels In Bonn Bad Godesberg</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=c-o-berlin-ausstellung-2018'>C O Berlin Ausstellung 2018</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=manuel-neuer-hochzeit-italien-hotel'>Manuel Neuer Hochzeit Italien Hotel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pizza-welt-bad-schallerbach-speisekarte'>Pizza Welt Bad Schallerbach Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wetter-hamburg-7-tage-zoover'>Wetter Hamburg 7 Tage Zoover</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-perfekte-geheimnis-altstadtkino-ingolstadt'>Das Perfekte Geheimnis Altstadtkino Ingolstadt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=the-lord-of-the-rings-wizard'>The Lord Of The Rings Wizard</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=great-gatsby-party-outfit-herren'>Great Gatsby Party Outfit Herren</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=aria-hotel-n%C3%BCrnberg-e-mail'>Aria Hotel Nürnberg E Mail</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=residenz-am-yachthafen-wohnung-27'>Residenz Am Yachthafen Wohnung 27</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=italienisches-restaurant-in-bad-pyrmont'>Italienisches Restaurant In Bad Pyrmont</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=zusatz-mehr-events-in-untergrund-untergrund-club-28-dezember'>Zusatz Mehr Events In Untergrund Untergrund Club 28 Dezember</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=tierisch-gut-karlsruhe-2019-aussteller'>Tierisch Gut Karlsruhe 2019 Aussteller</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=zugverbindung-m%C3%B6nchengladbach-nach-d%C3%BCsseldorf-flughafen'>Zugverbindung Mönchengladbach Nach Düsseldorf Flughafen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-viele-einwohner-hat-russland-2019'>Wie Viele Einwohner Hat Russland 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kongress-am-park-programm-2020'>Kongress Am Park Programm 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=siedlung-an-den-fichten-wiesbaden'>Siedlung An Den Fichten Wiesbaden</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=%C3%BCber-die-schelde-die-maas-und-den-rhein'>über Die Schelde Die Maas Und Den Rhein</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mecklenburgische-seenplatte-mit-hund-erfahrung'>Mecklenburgische Seenplatte Mit Hund Erfahrung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=augsburger-figurentheater-pettersson-und-findus'>Augsburger Figurentheater Pettersson Und Findus</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ist-singen-ein-starkes-verb'>Ist Singen Ein Starkes Verb</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=www-poseidon-bretten-de-%C3%B6ffnungszeiten'>Www Poseidon Bretten De öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=museen-dresden-freier-eintritt-freitag'>Museen Dresden Freier Eintritt Freitag</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=geb%C3%A4ude-an-der-ringstra%C3%9Fe-quiz'>Gebäude An Der Ringstraße Quiz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wann-wurde-das-forum-romanum-gebaut'>Wann Wurde Das Forum Romanum Gebaut</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=white-house-bad-oeynhausen-eigentumswohnung'>White House Bad Oeynhausen Eigentumswohnung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-waren-sissi-und-ludwig-ii-verwandt'>Wie Waren Sissi Und Ludwig Ii Verwandt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sturm-der-liebe-besetzung-2019'>Sturm Der Liebe Besetzung 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-neuen-auf-hallig-s%C3%BCderoog'>Die Neuen Auf Hallig Süderoog</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=nike-air-force-1-herren'>Nike Air Force 1 Herren</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=zeit-der-%C3%BCberschwemmung-des-nils'>Zeit Der überschwemmung Des Nils</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=neuer-italiener-norderstedt-ulzburger-stra%C3%9Fe'>Neuer Italiener Norderstedt Ulzburger Straße</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-f%C3%BCrstenberg-bad-neuenahr-parken'>Hotel Fürstenberg Bad Neuenahr Parken</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=neuburg-an-der-donau-sehensw%C3%BCrdigkeiten'>Neuburg An Der Donau Sehenswürdigkeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=glanz-auf-dem-vulkan-taufkirchen'>Glanz Auf Dem Vulkan Taufkirchen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=max-stromeyer-stra%C3%9Fe-37-dhl'>Max Stromeyer Straße 37 Dhl</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=line-6-pod-ux2-driver'>Line 6 Pod Ux2 Driver</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=honig-im-kopf-stiftung-theater-lindenhof-7-februar'>Honig Im Kopf Stiftung Theater Lindenhof 7 Februar</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-weit-ist-es-von-trier-nach-frankreich'>Wie Weit Ist Es Von Trier Nach Frankreich</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=weihnachtsmarkt-regensburg-thurn-und-taxis'>Weihnachtsmarkt Regensburg Thurn Und Taxis</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=halloren-halle-tag-der-offenen-t%C3%BCr-2019'>Halloren Halle Tag Der Offenen Tür 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=modulhandbuch-uni-due-lehramt-englisch'>Modulhandbuch Uni Due Lehramt Englisch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=eishockey-oberliga-nord-live-ticker'>Eishockey Oberliga Nord Live Ticker</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=geschichte-von-m%C3%BCnchen-f%C3%BCr-kinder'>Geschichte Von München Für Kinder</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=taverna-mykonos-griechische-restaurant-schorndorf'>Taverna Mykonos Griechische Restaurant Schorndorf</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ausflugsziele-owl-kindern-schlechtem-wetter'>Ausflugsziele Owl Kindern Schlechtem Wetter</a>,
+";s:7:"expired";i:-1;}

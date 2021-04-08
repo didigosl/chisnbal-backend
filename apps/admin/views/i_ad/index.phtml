@@ -1,0 +1,39 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IAd;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+           
+            <a class="btn btn-success btn-sm" href="<?=$this->url->get($base_url.'/create')?>">
+                <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </a>
+        </form>
+    </div>
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            [IAd::getAttr('ad_name'),'ad_name'],
+            [IAd::getAttr('position_type'),'{$o}->getAdPosition()','function'],
+            ['生效时间','{$o}->start_time."至".{$o}->end_time','function'],
+            [IAd::getAttr('status'),'{$o}->getStatusContext({$o}->status)','function'],
+        ],
+        'buttons'=>['update','delete'],
+        'buttonsCfg'=>[
+            'update'=>[
+                'type'=>'href'
+            ]
+        ],
+        'page'=>$page,
+        ));
+    ?>
+
+    </div>
+</div>
+

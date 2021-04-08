@@ -1,0 +1,34 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IExcel;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+            
+            <a class="btn btn-success btn-sm" href="<?=$this->url->get($base_url.'/create')?>">
+                <i class="ace-icon fa fa-upload bigger-110"></i>上传导入
+            </a>
+        </form>
+    </div>
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            [IExcel::getAttr('name'),'name'],
+            [IExcel::getAttr('total'),'total'],
+            [IExcel::getAttr('status'),'status'],
+            [IExcel::getAttr('create_time'),'create_time'],
+        ],
+        'buttons'=>[],
+        'page'=>$page,
+        ));
+    ?>
+
+    </div>
+</div>
+

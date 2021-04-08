@@ -1,0 +1,45 @@
+<?php
+use Common\Models\ISpec;
+use Phalcon\Tag;
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/'.($M->spec_id?'update':'create'))?>">
+				<input type="hidden" id="" name="spec_id" value="<?=$M->spec_id?>">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('category_id')?></label>
+
+					<div class="col-sm-9">
+						 <p><?=$M->Category->getFullName() ?></p>
+						<input type="hidden" id="" name="category_id" value="<?=$M->category_id?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('spec_name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="spec_name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->spec_name?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('specs')?></label>
+
+					<div class="col-sm-9">
+						<textarea name="specs" rows="5" cols="45"><?=$M->specs?></textarea>
+						<div class="help-block">多个规格值之间用“,”分隔</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		ajaxForm();
+	});
+</script>

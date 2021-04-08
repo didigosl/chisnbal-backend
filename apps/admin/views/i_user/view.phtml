@@ -1,0 +1,109 @@
+
+<div class="profile-user-info profile-user-info-striped">
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('user_id')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->user_id?>
+		</div>
+	</div>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('name')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->name?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('gender')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->gender?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('phone')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->phone?>
+		</div>
+    </div>
+    
+    <div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('email')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->email?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('birth')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->birth?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('photo')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->photo?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('address')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->address?>
+		</div>
+	</div>
+	
+	
+	
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('#checkBtn').click(function(){
+			$.post('<?=$this->url->get($base_url.'/check')?>',{id:$(this).attr('data-id')},function(result){
+					if(result.status=='1'){
+						successMsg(result.msg);
+                        location.reload();
+					}
+					
+			});
+		});
+
+		var $overflow = '';
+		var colorbox_params = {
+			rel: 'colorbox',
+			reposition:true,
+			scalePhotos:true,
+			scrolling:false,
+			previous:'<i class="ace-icon fa fa-arrow-left"></i>',
+			next:'<i class="ace-icon fa fa-arrow-right"></i>',
+			close:'&times;',
+			current:'{current} of {total}',
+			maxWidth:'100%',
+			maxHeight:'100%',
+			onOpen:function(){
+				$overflow = document.body.style.overflow;
+				document.body.style.overflow = 'hidden';
+			},
+			onClosed:function(){
+				document.body.style.overflow = $overflow;
+			},
+			onComplete:function(){
+				$.colorbox.resize();
+			}
+		};
+
+		$('a[data-rel="colorbox"]').colorbox(colorbox_params);
+	})
+</script>

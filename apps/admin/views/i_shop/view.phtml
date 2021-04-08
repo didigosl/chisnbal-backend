@@ -1,0 +1,83 @@
+
+<div class="profile-user-info profile-user-info-striped">
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('shop_id')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->shop_id?>
+		</div>
+	</div>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('shop_name')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->shop_name?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('contact_man')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->contact_man?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('tel')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->tel?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('logo')?> </div>
+
+		<div class="profile-info-value">
+		<?php if($M->logo):?>
+			<img src="<?=$M->logo?>" width="100">
+		<?php endif;?>
+		</div>
+	</div>
+
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('intro')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->intro?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('user_id')?> </div>
+
+		<div class="profile-info-value">
+		<?php if($M->user_id):?>
+			<?=$M->User->phone?>(<?=$M->User->name?>)
+		<?php endif;?>
+		</div>
+	</div>
+
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('create_time')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->create_time?>
+		</div>
+	</div>
+<?php if($M->check_time):?>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('check_time')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->check_time?>
+		</div>
+	</div>
+<?php endif;?>
+	
+	
+	
+</div>

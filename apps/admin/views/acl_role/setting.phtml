@@ -1,0 +1,98 @@
+<!-- /.page-header -->
+<div class="widget-box">	
+
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/setting')?>">
+				<input type="hidden" id="update_id" name="id" value="">
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for="update_name"> 角色</label>
+
+					<div class="col-sm-10">
+						<p><?=$Role->intro?></p>
+						<input type="hidden" name="role_id" value="<?=$Role->id?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for="update_name"> 权限</label>
+
+					<div class="col-sm-10">
+						<div class="acl-setting">
+						<?php 
+						foreach ($resources as $resource_id => $resource):
+							if(!empty($resource['desc'])):
+						?>
+							<div>
+								<label class="resource-item"><input type="checkbox" <?php if(in_array($resource_id.'-0',$accesses)):?>checked="checked"<?php endif;?> class="resource_input" name="resources[]" value="<?=$resource_id?>">  <?=$resource['desc']?></label>
+								<div class="action-items">
+								<?php 
+								foreach($resource['actions'] as $action):
+									if(!empty($action['desc'])):
+									$action_value = $resource_id.'-'.$action['id'];
+								?>
+								
+									<label class="flat-checkbox"><input type="checkbox" class="action_input" name="actions[]" value="<?=$action_value?>" <?php if(in_array($resource_id.'-0',$accesses) or in_array($action_value,$accesses)):?>checked="checked"<?php endif;?> > <!-- <?=$action['name']?> --> <?=$action['desc']?></input></label>
+								
+								<?php 
+									endif;
+								endforeach;
+								?>
+								</div>
+
+							</div>
+							
+						<?php 
+							endif;
+						endforeach;
+						?>
+						</div>
+						
+					</div>
+				</div>
+				
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn btn-info" type="submit">
+							<i class="ace-icon fa fa-check bigger-110"></i>
+							提交
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php
+$this->assets->js['foot'][] = <<<EOT
+raw::$(function(){
+    $('input.resource_input').change(function(){
+ 
+		var _this = this;
+		$.each($(this).parent().siblings('.action-items').find('label input'),function(i,o){
+			o.checked = _this.checked
+		});
+    	
+    });
+
+    $('input.action_input').change(function(){
+
+		var resource_input = $(this).parent().parent().siblings('.resource-item').find('input[type="checkbox"]');
+    	var input_total = $(this).parent().parent().children('label').length;
+    	var checked_input_total = $(this).parent().parent().find('input:checked').length;
+    	var unchecked_input_total = input_total-checked_input_total;
+	
+
+    	if(input_total==checked_input_total && !resource_input[0].checked){
+    		console.log('resource true');
+			resource_input[0].checked = true;
+    	}
+
+    	if(input_total!=checked_input_total && resource_input[0].checked){
+    		console.log('resource false');
+			resource_input[0].checked = false;
+    	}
+    });
+});
+EOT;
+?>

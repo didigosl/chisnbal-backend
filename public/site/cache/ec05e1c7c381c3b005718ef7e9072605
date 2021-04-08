@@ -1,0 +1,506 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:3206:"Dezember 2018 im St. Josef-Hospital in Bochum stationär eingeliefert worden. In Behandlung von Frau Dr. Monika Janot Matuschek, Herrn Andreas Redel und Herrn Prof. Dr.med. Details zu St. Josef-Hospital in 44791 Bochum mit allen Fachabteilungen, Anfahrtsbeschreibung, Ausstattung und vieles mehr zum Klinikum. Am zweiten Tag werden Sie von Ihrem PJ-Bauftragten empfangen und starten mit Ihrer praktischen Ausbildung am St.-Josefs-Hospital. PJ-Tertial Chirurgie in St. Josef - Hospital (3/2015 bis 6/2015) Station(en) Diverse Einsatzbereiche Poliklinik / Ambulanz / Sprechstunde, Station, Notaufnahme, OP, Diagnostik Heimatuni Bochum Helios hat die Mitarbeiter darüber informiert, dass es keine Zukunft für das St. Josefs-Hospital gibt. Unsere Fachbereiche. Machen Sie Karriere im Helios St. Josefs-Hospital Bochum-Linden Ob Arzt, Therapeut, Pflege- oder Verwaltungskraft - wir freuen uns auf jeden neuen Mitarbeiter. Auf dem Gelände des St. Josef-Hospital in Bochum findet sich zudem der Neubau des Gesundheitszentrums JosefCarree, welches im März 2010 eröffnet wurde. In der heute veröffentlichten Klinikliste 2018 des Nachrichtenmagazins FOCUS rangiert das Haus auf Platz 28, in Nordrhein-Westfalen Platz auf Platz sieben und im Ruhrgebiet auf Platz zwei. Unsere Fachbereiche im … Öffnungszeiten. Die Krankenhauslandschaft in Bochum verändert sich. Öffnungszeiten. Hier finden Sie den passenden Job. Alexandrinenstraße 5 44791 Bochum. W. Uhl der mich dann operierte, war ich "BESTENS" aufgehoben. 34.500 Patienten stationär und rd. Suche Suchen. Im St. Josef-Hospital, St. Elisabeth-Hospital, St. Maria-Hilf-Krankenhaus (jeweils Bochum), dem Marien-Hospital (Bochum-Wattenscheid) und der Klinik Blankenstein (Hattingen) werden jährlich mehr als 50.000 Patienten stationär und fast 160.000 Menschen ambulant versorgt. Es befindet sich vor dem Haupteingang zum Krankenhaus und reicht bis zum Kreisverkehr Klinikstraße, Gudrunstraße. Sowohl die Suche nach der passenden Klinik als auch die Tätigkeit im Krankenhaus sollen Freude bereiten - mit STEIGBÜGEL können wir dies gemeinsam möglich machen. Welcome International Medical Services - EN These pages provide information to patients without German health insurance about accommodation, requirements and costs. Bochum. Das St. Josef Hospital in Bochum zählt zu den führenden Krankenhäusern in Deutschland. Notaufnahme St. Elisabeth-Hospital. Welcome.  Famulatur Dermatologie in St. Josef - Hospital (1/2016 bis 2/2016) Krankenhaus St. Josef - Hospital Stadt Bochum Station(en) DT1 Fachrichtung Dermatologie Zeitraum 1/2016 bis 2/2016 Einsatzbereiche Station, Poliklinik / Ambulanz / Sprechstunde Beschäftigt werden mehr als 2600 Mitarbeiter. PJ-Tertial Neurologie in St. Josef - Hospital (1/2019 bis 4/2019) Station(en) NR1 (Neurodegeneration), NR2 (Stroke Unit), NR3 (Neuroimmunologie) Einsatzbereiche Station Heimatuni Bochum Sie können mit den modernen bildgebenden Verfahren (Computer-/Kernspintomographie und PET-CT) heute viel früher diagnostiziert werden. Die kleinste Klinik in Bochum schließt. 133.000 ambulant behandelt. Das St. Josef-Hospital Bochum ist ein Krankenhaus in Bochum-Grumme, am Stadtpark Bochum gelegen. ";s:7:"keyword";s:27:"st josef hospital bochum pj";s:5:"links";s:10528:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kann-ich-mein-auto-%C3%BCberall-anmelden-2018'>Kann Ich Mein Auto überall Anmelden 2018</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=statistisches-landesamt-bremen-wahlergebnisse-2019'>Statistisches Landesamt Bremen Wahlergebnisse 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-dresdner-hof-%C3%A4u%C3%9Fere-oybiner-stra%C3%9Fe-zittau'>Hotel Dresdner Hof äußere Oybiner Straße Zittau</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sc-dhfk-leipzig-d-jugend'>Sc Dhfk Leipzig D Jugend</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=com-pho-viet-cottbus-speisekarte'>Com Pho Viet Cottbus Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kleidung-produzieren-lassen-t%C3%BCrkei-kosten'>Kleidung Produzieren Lassen Türkei Kosten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sportbuzzer-peine-held-der-woche'>Sportbuzzer Peine Held Der Woche</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=riedenburg-bad-f%C3%BCssing-veranstaltungen-2019'>Riedenburg Bad Füssing Veranstaltungen 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=steckbrief-katze-grundschule-3-klasse'>Steckbrief Katze Grundschule 3 Klasse</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=victoria-serie-staffel-4-deutsch'>Victoria Serie Staffel 4 Deutsch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=real-berlin-wedding-m%C3%BCllerstra%C3%9Fe-%C3%B6ffnungszeiten'>Real Berlin Wedding Müllerstraße öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=cineplex-dehttps-www-google-de'>Cineplex Dehttps Www Google De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=lange-nacht-der-kirchen-peterskirche'>Lange Nacht Der Kirchen Peterskirche</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=soziale-sicherung-im-%C3%BCberblick-m%C3%BCnchen'>Soziale Sicherung Im überblick München</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=standesamt-der-samtgemeinde-hagen-amtsplatz-hagen-im-bremischen'>Standesamt Der Samtgemeinde Hagen Amtsplatz Hagen Im Bremischen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bosch-expert-for-wood-165'>Bosch Expert For Wood 165</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=uniklinik-regensburg-dermatologie-offene-sprechstunde'>Uniklinik Regensburg Dermatologie Offene Sprechstunde</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=essen-prenzlauer-berg-mit-vergn%C3%BCgen'>Essen Prenzlauer Berg Mit Vergnügen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wer-steigt-ab-bundesliga-2019'>Wer Steigt Ab Bundesliga 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pizzeria-il-gusto-speisekarte-guben'>Pizzeria Il Gusto Speisekarte Guben</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=d%C3%BCrrr%C3%B6hrsdorfer-fleisch-angebot-der-woche'>Dürrröhrsdorfer Fleisch Angebot Der Woche</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=open-air-festival-essen-werden-2019'>Open Air Festival Essen Werden 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=b%C3%BCrgermeisterwahl-neustadt-am-r%C3%BCbenberge-live-ticker'>Bürgermeisterwahl Neustadt Am Rübenberge Live Ticker</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ps4-spiele-ab-12-media-markt'>Ps4 Spiele Ab 12 Media Markt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=lina-laune-land-kinderland-indoorspielplatz'>Lina Laune Land Kinderland Indoorspielplatz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=www-veranstaltungen-in-schwerte-de'>Www Veranstaltungen In Schwerte De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=place-de-la-r%C3%A9publique-paris'>Place De La République Paris</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=real-family-and-friends-anmelden'>Real Family And Friends Anmelden</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=novina-hotel-herzogenaurach-restaurant-speisekarte'>Novina Hotel Herzogenaurach Restaurant Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-komme-ich-auf-den-kronplatz'>Wie Komme Ich Auf Den Kronplatz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=zoo-prag-mit-euro-bezahlen'>Zoo Prag Mit Euro Bezahlen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=feuerwehrmann-sam-sammelfiguren-serie-2'>Feuerwehrmann Sam Sammelfiguren Serie 2</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=neuburg-an-der-donau-sehensw%C3%BCrdigkeiten'>Neuburg An Der Donau Sehenswürdigkeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=liebe-tut-weh-ced-songtext'>Liebe Tut Weh Ced Songtext</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=agentur-f%C3%BCr-arbeit-herford-jobs'>Agentur Für Arbeit Herford Jobs</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=b%C3%BCrgermeisterwahl-2020-lauf-an-der-pegnitz'>Bürgermeisterwahl 2020 Lauf An Der Pegnitz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=laut-und-drau%C3%9Fen-rotenburg-2019'>Laut Und Draußen Rotenburg 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=1-zimmer-wohnung-kassel-wilhelmsh%C3%B6he'>1 Zimmer Wohnung Kassel Wilhelmshöhe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sv-r%C3%B6chling-v%C3%B6lklingen-live-ticker'>Sv Röchling Völklingen Live Ticker</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=nach-anrede-gro%C3%9F-oder-klein-deutsch'>Nach Anrede Groß Oder Klein Deutsch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=altr%C3%B6mische-gl%C3%BCcksg%C3%B6ttin-7-buchstaben-kreuzwortr%C3%A4tsel'>Altrömische Glücksgöttin 7 Buchstaben Kreuzworträtsel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=altstadt-hotel-zur-post-stralsund-bewertung'>Altstadt Hotel Zur Post Stralsund Bewertung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=orte-in-der-n%C3%A4he-von-stuttgart'>Orte In Der Nähe Von Stuttgart</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=berlin-schicksalsjahre-einer-stadt-1983-sprecherin'>Berlin Schicksalsjahre Einer Stadt 1983 Sprecherin</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mei%C3%9Fner-weihnacht-weihnachtsmarkt-mei%C3%9Fen-gewerbeverein-mei%C3%9Fen-ev-26-november'>Meißner Weihnacht Weihnachtsmarkt Meißen Gewerbeverein Meißen Ev 26 November</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ebay-kleinanzeigen-immobilien-57290-neunkirchen'>Ebay Kleinanzeigen Immobilien 57290 Neunkirchen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=scandic-berlin-potsdamer-platz-sauna'>Scandic Berlin Potsdamer Platz Sauna</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=restaurant-st%C3%B6rtebeker-hamburg-leonardo-speisekarte'>Restaurant Störtebeker Hamburg Leonardo Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=therme-erding-rabatt-code-2019'>Therme Erding Rabatt Code 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=stadtbibliothek-bad-vilbel-kommende-veranstaltungen'>Stadtbibliothek Bad Vilbel Kommende Veranstaltungen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=vita-activa-oder-vom-t%C3%A4tigen-leben'>Vita Activa Oder Vom Tätigen Leben</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=agentur-f%C3%BCr-arbeit-detmold-organigramm'>Agentur Für Arbeit Detmold Organigramm</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=welt-der-dinosaurier-urzeit-ausstellung'>Welt Der Dinosaurier Urzeit Ausstellung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pizzeria-capri-hagen-online-bestellen'>Pizzeria Capri Hagen Online Bestellen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=weihnachtsessen-m%C3%BClheim-an-der-ruhr'>Weihnachtsessen Mülheim An Der Ruhr</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=weihnachtsmarkt-regensburg-mit-der-bahn'>Weihnachtsmarkt Regensburg Mit Der Bahn</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=tgz-bad-belzig-cafeteria-speiseplan'>Tgz Bad Belzig Cafeteria Speiseplan</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bus-101-berlin-fehrbelliner-platz'>Bus 101 Berlin Fehrbelliner Platz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=weihnachten-auf-r%C3%BCgen-mit-hund'>Weihnachten Auf Rügen Mit Hund</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=aussichtspunkte-mit-auto-erreichbar-in-der-n%C3%A4he'>Aussichtspunkte Mit Auto Erreichbar In Der Nähe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=haus-der-wissenschaft-science-slam'>Haus Der Wissenschaft Science Slam</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ich-bin-ein-kleiner-tanzb%C3%A4r-gitarre'>Ich Bin Ein Kleiner Tanzbär Gitarre</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=twingle-men%C3%BC-m%C3%B6venpick-stuttgart-2019'>Twingle Menü Mövenpick Stuttgart 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=v%C3%B6gel-theater-bremen-weser-kurier'>Vögel Theater Bremen Weser Kurier</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=jobsuche-als-zfa-in-f%C3%BCrth'>Jobsuche Als Zfa In Fürth</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=lang-und-schwarz-exchange-handelszeiten'>Lang Und Schwarz Exchange Handelszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bad-m%C3%BCnstereifel-restaurant-en-de-h%C3%B6ll'>Bad Münstereifel Restaurant En De Höll</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bosch-garden-of-earthly-delights'>Bosch Garden Of Earthly Delights</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bad-nauheim-verkaufsoffener-sonntag-2020'>Bad Nauheim Verkaufsoffener Sonntag 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=minijob-bekommt-der-arbeitgeber-bescheid'>Minijob Bekommt Der Arbeitgeber Bescheid</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=staatsexamen-lehramt-bayern-herbst-2019-ergebnisse'>Staatsexamen Lehramt Bayern Herbst 2019 Ergebnisse</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=stadt-und-kap-in-der-t%C3%BCrkei-6-buchstaben'>Stadt Und Kap In Der Türkei 6 Buchstaben</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=urlaub-mit-2-hunden-%C3%B6sterreich'>Urlaub Mit 2 Hunden österreich</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=johannes-oerding-%C3%B6vb-arena-18-m%C3%A4rz'>Johannes Oerding övb Arena 18 März</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wann-sind-die-wenigsten-touristen-in-prag'>Wann Sind Die Wenigsten Touristen In Prag</a>,
+";s:7:"expired";i:-1;}

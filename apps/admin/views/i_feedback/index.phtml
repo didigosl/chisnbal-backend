@@ -1,0 +1,34 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IFeedback;
+ ?>
+
+
+<div class="row tabs-wrapper">
+    <div class="col-xs-12" style="text-align: right">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            ['ID','feedback_id'],
+            [IFeedback::getAttr('title'),'htmlspecialchars({$o}->title)','function'],
+            // [IFeedback::getAttr('content'),'htmlspecialchars({$o}->content)','function'],
+            [IFeedback::getAttr('user_id'),'{$o}->user_id>0 ? "会员：".{$o}->User->name : "游客：".{$o}->nickname','function'],
+            [IFeedback::getAttr('create_time'),'date("Y-m-d",strtotime({$o}->create_time))','function'],
+        ],
+        'buttons'=>['view'],       
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ]
+        ));
+    ?>
+
+    </div>
+</div>

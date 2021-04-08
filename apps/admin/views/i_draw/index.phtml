@@ -1,0 +1,118 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IDraw;
+use Common\Models\IUser;
+ ?>
+
+
+<div class="row tabs-wrapper">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+            <input type="text" name="name" class="input-middle" placeholder="姓名" value="<?=$vars['name']?>" />
+            <input type="text" name="phone" class="input-middle" placeholder="电话" value="<?=$vars['phone']?>" />
+           
+                        
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+            
+        </form>
+    </div>
+    <div class="col-xs-12">
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>1])?>" class="btn btn-sm <?php if($vars['status']==1):?>btn-primary<?php else:?>btn-info<?php endif;?>">审核中的提现</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>2])?>" class="btn btn-sm <?php if($vars['status']==2):?>btn-primary<?php else:?>btn-info<?php endif;?>">已完成的提现</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>-1])?>" class="btn btn-sm <?php if($vars['status']==-1):?>btn-primary<?php else:?>btn-info<?php endif;?>">已拒绝的提现</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    if($vars['status']==1){
+        $buttons = ['pass','refuse'];
+    }
+    else{
+        $buttons = [];
+    }
+
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            ['ID','draw_id'],
+            [IUser::getAttr('name'),'{$o}->User->name','function'],
+            [IUser::getAttr('phone'),'{$o}->User->phone','function'],
+            [IUser::getAttr('level_id'),'{$o}->User->userLevel->level_name','function'],
+            [IDraw::getAttr('amount'),'fmtMoney({$o}->amount)','function'],
+            [IDraw::getAttr('create_time'),'date("Y-m-d",strtotime({$o}->create_time))','function'],
+            [IDraw::getAttr('status'),'{$o}->getStatusContext({$o}->status)','function']
+        ],
+        'buttons'=>$buttons,
+        'buttonsCfg'=>[
+            'pass'=>[
+                'iconCss'=>'fa-circle-o ',
+                'type'=>'ajax',
+                'url'=>'i_draw/check',
+                'title'=>'通过',
+                'btnCss'=>'btn-success pass-btn'
+            ],
+            'refuse'=>[
+                'iconCss'=>'fa-ban ',
+                'type'=>'ajax',
+                'url'=>'i_draw/check',
+                'title'=>'拒绝',
+                'btnCss'=>'btn-purple refuse-btn'
+            ],
+
+        ],
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ]
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$freeze_url = $this->url->get($base_url.'/freeze');
+$resetpsw_url = $this->url->get($base_url.'/resetpsw');
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.pass-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要通过此提现申请吗？', function(index){
+            $.get($(env).attr('ajax'),{act:'pass'},function(result){
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            
+        });
+    });
+
+    $('.refuse-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要拒绝此提现申请吗？', function(index){
+            $.get($(env).attr('ajax'),{act:'refuse'},function(result){
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            
+        });
+    });
+});
+EOT;
+ ?>

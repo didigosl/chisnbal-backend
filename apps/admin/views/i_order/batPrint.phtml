@@ -1,0 +1,102 @@
+<?php
+use Common\Libs\Func;
+use Phalcon\Tag;
+?>
+<div class="row">
+    <div class="col-xs-12" style="text-align:right">
+        <button class="btn btn-sm btn-inverse" id="printBtn">						
+        <i class="ace-icon fa fa-print bigger-110"></i>
+        全部打印
+        </button>
+    </div>
+    <div class="col-xs-12">
+        <div id="printContainer">
+        <?php 
+        $seq = 0;
+        foreach($list as $item):
+        ?>
+            <div>
+        <?php
+            foreach($item['skus'] as $index=>$data): 
+            $seq++;
+        ?>
+        
+                <table class="table">
+                    <tr>
+                        <td>
+                            <div class="col-xs-12">
+                                <div class="col-xs-3" style="">
+                                <?php if($Shop->logo):?>
+                                    <img src="<?=Func::staticPath($Shop->logo)?>" alt="" style="max-height:50px">
+                                <?php endif;?>
+                                </div>
+                                <div class="col-xs-5">
+                                    <div>配货单类型：<b class="print-strong"><?php if($data['distribution_type']): echo $data['distribution_type']['name'];else: echo '-'; endif;?></b></div>
+                                    <div>Codigo:<?=$item['Order']->sn?></div>
+                                    <div>Fecha de pedido:<?=$item['Order']->create_time?></div>
+                                    <div>Pagina:<?=$seq?>/<?=$totalPage?></div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <p><?=$item['Order']->User->name?></p>
+                                    <p><?=$item['Order']->User->country_code?> <?=$item['Order']->User->phone?></p>
+                                </b>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="table print-table" border="1">
+                                <tr>
+                                    <!-- <th>foto</th> -->
+                                    <th>Referencia</th>
+                                    <th>producto</th>
+                                    <th>precio</th>
+                                    <th>stock</th>
+                                    <th>Cantidad/Uds</th>
+                                </tr>
+                                <?php foreach($data['list'] as $OrderSku):?>
+                                <tr>
+                                    <!-- <td><img class="thumb" src="<?=$OrderSku->Spu->cover?>"></td> -->
+                                    <td><?=$OrderSku->Sku->sku_sn?></td>
+                                    <td><b class="print-strong"><?=$OrderSku->Spu->spu_name?></b></td>
+                                    <td><?=fmtMoney($OrderSku->price)?></td>
+                                    <td><?=$OrderSku->Sku->stock?></td>
+                                    <td><b class="print-strong"><?=$OrderSku->num?></b>/
+                                    <?php 
+                                        $spec_info = $OrderSku->getFmtSpecInfo(); 
+                                        if($spec_info){
+                                            echo $spec_info[0]['val'];
+                                        }
+                                        else{
+                                            echo $OrderSku->Spu->unit;
+                                        }
+                                        
+                                    ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach;?>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                </table>
+            
+                <div style="page-break-after:always;"></div>
+            <?php endforeach;?>
+            </div>
+        <?php endforeach;?>
+        </div>
+    </div>
+    
+</div>
+<?php 
+$this->assets->js['foot'][] = 'inc::back/js/jquery.print.min.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('#printBtn').click(function(){
+        $("#printContainer").print();
+    });
+});
+EOT;
+?>

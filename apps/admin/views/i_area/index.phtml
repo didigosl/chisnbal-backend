@@ -1,0 +1,45 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IArea;
+?>
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+        <?php if($Parent->level<3):?>           
+            <button id="addBtn" type="button" class="btn btn-success btn-sm addBtn" ajax="<?=$this->url->get($base_url.'/create',['parent_id'=>$vars['parent_id']])?>">
+                <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </button>
+        <?php endif;?>
+        </form>
+    </div>
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    if($Parent && $Parent->level==2){
+        $grid->run(array(
+            'cols'=>[
+                [IArea::getAttr('name'),'name'],
+                [IArea::getAttr('status'),'{$o}->status==1?"启用":""','function'],
+            ],
+            'buttons'=>['update','delete'],
+            'buttonsCfg'=>[],
+            'page'=>$page,
+            ));
+    }
+    else{
+        $grid->run(array(
+            'cols'=>[
+                [IArea::getAttr('name'),'"<a href=\"".\Phalcon\Di::getDefault()->get("url")->get("/i_area/index",["parent_id"=>{$o}->area_id])."\">".{$o}->name."</a>"','function'],
+                [IArea::getAttr('status'),'{$o}->status==1?"启用":""','function'],
+            ],
+            'buttons'=>['update','delete'],
+            'buttonsCfg'=>[],
+            'page'=>$page,
+            ));
+    }
+    
+    ?>
+    </div>
+</div>

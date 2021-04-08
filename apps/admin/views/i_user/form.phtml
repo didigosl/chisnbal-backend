@@ -1,0 +1,164 @@
+<?php
+use Common\Models\IUser;
+use Common\Models\IUserLevel;
+use Common\Models\SAdmin;
+use Phalcon\Tag;
+$conf = conf();
+?>
+
+<div class="tabbable">
+	<ul class="nav nav-tabs" id="myTab">
+		<li class="active">
+			<a data-toggle="tab" href="#basicForm">
+				<i class="green ace-icon fa fa-home bigger-120"></i>
+				基本信息
+			</a>
+		</li>
+		<li>
+			<a data-toggle="tab" href="#address">
+				收货地址
+				<span class="badge badge-danger"><?=count($addresses)?></span>
+			</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div id="basicForm" class="tab-pane in active">
+
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/'.($M->user_id?'update':'create'))?>">
+				<input type="hidden" id="" name="user_id" value="<?=$M->user_id?>">				
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right">  <?=$M->getAttr('level_id')?></label>
+
+					<div class="col-sm-9">
+						<?php 
+						Tag::setDefault('level_id',$M->level_id);
+						echo Tag::select([
+							'level_id',
+							IUserLevel::find(),
+							'using'=>['level_id','level_name'],
+							'useEmpty'=>'true',
+							'emptyText'=>'选择VIP等级',
+						]);
+						?>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->name?>" />
+					</div>
+				</div>				
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"> <?=$M->getAttr('phone')?></label>
+
+					<div class="col-sm-9">
+						
+						<input type="text" id="" name="phone" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->phone?>" />
+					</div>
+                </div>
+                
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"> <?=$M->getAttr('email')?></label>
+
+					<div class="col-sm-9">
+						
+						<input type="text" id="" name="email" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->email?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"> <?=$M->getAttr('gender')?></label>
+
+					<div class="col-sm-9">
+						<?php 
+						foreach(IUser::getGenderContext() as $k=>$v):
+							if($k):
+						?>
+						<label>
+							<input type="radio" name="gender" value="<?=$k?>" <?php if($M->gender==$k):?>checked<?php endif;?>> <?=$v?>
+						</label>
+						<?php
+							endif;
+						endforeach; ?>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"> <?=$M->getAttr('age')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="age" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->age ? $M->age : ''?>" />
+					</div>
+				</div>
+            
+            <?php if($conf['customer_service']):?>
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right">  <?=$M->getAttr('kf_admin_id')?></label>
+
+					<div class="col-sm-9">
+						<?php 
+						Tag::setDefault('kf_admin_id',$M->kf_admin_id);
+						echo Tag::select([
+							'level_id',
+							SAdmin::find(['shop_id=:shop_id:','bind'=>['shop_id'=>$shop_id]]),
+							'using'=>['id','username'],
+							'useEmpty'=>'true',
+							'emptyText'=>'选择专属客服',
+						]);
+						?>
+					</div>
+				</div>
+            <?php endif;?>
+				
+			</form>
+		</div>
+		<div id="address" class="tab-pane">
+            <?php foreach($addresses as $item):?>
+            <i class="ace-icon fa fa-user"></i> <b><?=$item['man']?></b> <i class="ace-icon fa fa-phone"></i> <b><?=$item['phone']?></b> <?=$item['area']?>
+			<p><?=$item['address']?></p>
+            <hr>
+            <?php endforeach;?>
+		</div>
+	</div>
+</div>					
+<script>
+	$('input.date-picker').datepicker({
+    	dateFormat:'yy-mm-dd',
+		autoclose: true,
+		todayHighlight: true,
+	});
+
+	$('.chosen-select').chosen({allow_single_deselect:true}); 
+	$('.chosen-select').next().css({'width':250});
+
+</script>
+
+<?php
+// $this->assets->css['head'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.css";
+// $this->assets->js['foot'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.js";
+// $this->assets->js['foot'][] = "inc::js/timepicker/i18n/jquery-ui-timepicker-zh-CN.js";
+
+/*$this->assets->js['foot'][] = <<<EOT
+raw::
+\$(function(){
+
+	$('.chosen-select').chosen({allow_single_deselect:true}); 
+	//resize the chosen on window resize
+	$(window).on('resize.chosen', function() {
+		var w = $('.chosen-select').parent().width();
+		$('.chosen-select').next().css({'width':w});
+	}).trigger('resize.chosen');
+
+
+    \$('input.date-picker').datepicker({
+    	dateFormat:'yy-mm-dd',
+		autoclose: true,
+		todayHighlight: true,
+	});
+});
+EOT;*/
+?>

@@ -1,0 +1,373 @@
+<?php 
+$module = $this->getDi()->get('dispatcher')->getModuleName();
+
+?>
+<div class="grid-wrapper">
+        <div class="table-header"><?=$gridName?></div>
+
+        <div>
+            <table class="table table-striped table-bordered table-hover dataTable">
+                <thead>
+                    <tr>
+                    <?php if($rowCheckbox):?>
+                        <th class="center">
+                            <label class="position-relative">
+                                <input type="checkbox" class="ace ids" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                    <?php endif;?>
+                        <?php foreach($cols as $col):?>
+                        <?php if(!$col[3]['hidden']):?>
+                        <th>
+                        <?php
+                        echo $col[0];
+                        ?>
+                        </th>
+                        <?php endif;?>
+                        <?php endforeach;?>
+                        <!--
+                        <th class="hidden-480">Clicks</th>
+
+                        <th> <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                            Update
+                        </th>
+                        <th class="hidden-480">Status</th>
+                        -->
+                        <?php if(!empty($buttons) and !$hideBtnCol):?><th>操作</th><?php endif;?>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php 
+                    if(!empty($page->items)):
+                    foreach($page->items as $k=>$data):
+
+                    ?>
+                    <tr>
+                    <?php if($rowCheckbox):?>
+                        <td class="center">
+                            <label class="position-relative">
+                                <input type="checkbox" class="ace" name="ids[]" value="<?=$primeData ? $data[$primeData]->{$data[$primeData]->getPkCol()} : $data->{$data->getPkCol()}?>" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                    <?php endif;?>
+                        <?php 
+                        /*
+                        foreach($cols as $col=>$col_name):
+                        ?>
+                        <td>                            
+                            <?php //echo objAttr($data,$col)?>
+                        </td>
+                        <?php endforeach;
+                        */
+                        ?>
+                        <?php foreach($cols as $col):?>
+                        <?php if(!$col[3]['hidden']):?>
+                        <td>                            
+                            <?php 
+                            if('attr'==$col[2] or empty($col[2])){
+                                $attrs = explode('.', $col[1]);
+                                $var = $data;
+                                foreach ($attrs as $attr) {
+                                    $var = $var->$attr;
+                                }
+                                echo $var;
+                            }
+                            elseif('function'==$col[2]){
+                                echo eval("echo ".str_replace(['{$o}','{$this}'], ['$data','$this'], $col[1]).";");
+                            }
+                            ?>
+
+                        </td>
+                        <?php endif;?>
+                        <?php endforeach;?>
+                    <?php if(!empty($buttons) and !$hideBtnCol):?>
+                        <td>
+                            <div class=" action-buttons">
+                                <?php foreach($buttons as $btn):?>
+                                <?php if(isset($buttonsCfg[$btn])):?>
+                                    <?php /*
+                                <a title="<?=$buttonsCfg[$btn]['title']?>" class="<?=$buttonsCfg[$btn]['btnCss']?>" container='<?=$btn?>' <?php echo $buttonsCfg[$btn]['type']?>="<?php echo $this->url->get($module.'/'.(strpos($buttonsCfg[$btn]['url'],'/')!==false ? '' :$this->dispatcher->getControllerName()).'/'.$buttonsCfg[$btn]['url'],[$buttonsCfg[$btn]['url_param']=>$data->{$data->getPkCol()}])?>">
+                                    <i class="ace-icon fa <?=$buttonsCfg[$btn]['iconCss']?> bigger-130"></i>
+                                </a>
+                                    */?>
+                                   <a title="<?=$buttonsCfg[$btn]['title']?>" class="btn btn btn-minier <?=$buttonsCfg[$btn]['btnCss']?>" container='<?=$btn?>' <?php echo $buttonsCfg[$btn]['type']?>="<?php echo $this->url->get($module.'/'.(strpos($buttonsCfg[$btn]['url'],'/')!==false ? '' :$this->dispatcher->getControllerName()).'/'.$buttonsCfg[$btn]['url'],[$buttonsCfg[$btn]['url_param']=>($primeData ? $data[$primeData]->{$data[$primeData]->getPkCol()} : $data->{$data->getPkCol()})])?>">
+                                    <i class="ace-icon fa <?=$buttonsCfg[$btn]['iconCss']?> bigger-130"></i> <?=$buttonsCfg[$btn]['title']?>
+                                </a>
+                                <?php endif;?>
+                                <?php endforeach;?>
+                                
+                            </div>                           
+                        </td>
+                    <?php endif;?>
+                    </tr>
+                    <?php
+                    endforeach;
+                    else:
+                    ?>
+                    <?php
+                    endif;
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <?php if(!$hidePage and $page->total_pages):?>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="dataTables_info" id="bottomBtns">
+                <?php if(is_array($bottomButtons)):?>
+                    <?php foreach($bottomButtons as $k=>$b):?>
+                    <button class="btn btn-sm <?=$b['cssClass']?> multiFormBtn" id="bottom<?=ucfirst($k)?>" ajax="<?=$this->url->get($module.'/'.$this->dispatcher->getControllerName().'/'.$b['ajax'])?>"><?=$b['text']?></button>
+                    <?php endforeach;?>
+                <?php endif;?>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="dataTables_paginate paging_bootstrap">
+                    <ul class="pagination">
+                       
+                        <?php $vars['p'] = 1;?>
+                        <li class="prev <?php if($page->current<=1):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/'.$action,$vars)?>"><i class="fa fa-angle-double-left"></i></a></li>
+                        <?php $vars['p'] = $page->current-1 ?>
+                        <li class="prev <?php if($page->current<=1):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/'.$action,$vars)?>"><i class="fa fa-angle-left"></i></a></li>
+                        <?php
+                        $num = 3;
+                        if($page->current-$num<=1){
+                            $start = 1 ;
+                        }
+                        else{
+                            $start = $page->current - $num;
+                        }
+
+                        if($page->current+$num>=$page->total_pages){
+                            $end = $page->total_pages;
+                        }
+                        else{
+                            $end = $page->current + $num;
+                        }
+
+                        $p = $start;
+                        $vars = $this->view->vars;
+                        //var_dump($vars);exit;
+                        $vars['menu'] = $this->request->getQuery('menu');
+                        while($p<=$end){
+                            $vars['p'] = $p;
+                        ?>
+                        <li class="<?php if($page->current==$p):?>active<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/'.$action,$vars)?>"><?=$p?></a></li>
+                        <?php
+                            $p++;
+                        }
+                        ?>
+                        <?php $vars['p'] = $page->current+1;?>
+                        <li class="next <?php if($page->current>=$page->total_pages):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/'.$action,$vars)?>"><i class="fa fa-angle-right"></i></a></li>
+                        <?php $vars['p'] = $page->total_pages;?>
+                        <li class="next <?php if($page->current>=$page->total_pages):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/'.$action,$vars)?>"><i class="fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                     <div class="page_info"><?php if(!$hidePageStat):?><span>共有<?=$page->total_pages?>页，总计<?=$page->total_items?>条</span><?php endif;?></div>
+                </div>
+            </div>
+        </div>
+        <?php endif;?>
+</div>
+<?php
+
+$this->assets->js['foot']['grid'] = <<<EOT
+raw::$(function(){
+        $(document).on('click', 'th input:checkbox' , function(){
+            var that = this;
+            $(this).closest('table').find('tr > td:first-child input:checkbox')
+            .each(function(){
+                this.checked = that.checked;
+                $(this).closest('tr').toggleClass('selected');
+            });
+        });
+
+        var formType = '{$formType}';
+
+        $('.viewBtn[ajax]').on('click',function(){
+          
+            $.get($(this).attr('ajax'),function(result){
+                if(result.status==1){
+                    $('#container').html(result.data);
+                    var dialog = $('#container').dialog({
+                            modal: true,
+                            title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 查看</h4></div>",
+                            title_html: true,
+                            width:600,
+                            height:'auto'                        
+                        });
+                }
+                else{
+                    errorMsg(result.msg);
+                }
+                
+            });
+        });
+
+
+        $( ".formBtn[ajax]" ).on('click', function(e) {
+            e.preventDefault(); 
+            $.get($(this).attr('ajax'),function(result){
+   
+                if(result.status=="1"){
+
+                    $('#container').html(result.data);
+
+                    if(typeof afterFormBtnAct!=='undefined'){
+                        afterFormBtnAct();
+                    }
+
+                    var dialog = $('#container').dialog({
+                        modal: true,
+                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 表单</h4></div>",
+                        title_html: true,
+                        width:600,
+                        height:'auto',
+                        buttons: [ 
+                            {
+                                text: "取消",
+                                "class" : "btn btn-xs",
+                                click: function() {
+                                    $( this ).dialog( "close" ); 
+                                } 
+                            },
+                            {
+                                text: "提交",
+                                "class" : "btn btn-primary btn-xs",
+                                "id":"editSubmit",
+                                click: function() {
+
+                                    var _this = this;
+
+                                    if(formType=='ajax'){
+                                        $.post($('#container form').attr('action'),$('#container form').serialize(),function(result){
+                                            if(result.status==1){
+                                                successMsg(result.msg);
+                                                $(_this).dialog("close"); 
+
+                                                location.reload();
+                                            }
+                                            else{
+                                                errorMsg(result.msg);
+                                                // $(_this).dialog("close"); 
+                                                
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        $('#container form').submit();
+                                        //$( this ).dialog( "close" );
+                                    }
+
+                                } 
+                            }
+                        ]
+                    });
+                }
+                
+            })
+               
+
+        });
+
+        $( ".addBtn" ).on('click', function(e) {
+
+            $.get($(this).attr('ajax'),function(result){
+                $('#container').html(result.data);
+                if(typeof afterAddBtnAct!=='undefined'){
+                    afterAddBtnAct();
+                }
+            
+                var dialog = $('#container').dialog({
+                    modal: true,
+                    title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 表单</h4></div>",
+                    title_html: true,
+                    width:750,
+                    height:'auto',
+                    open:function(){
+                        if(typeof(dialog_open)!='undefined'){
+                            dialog_open();
+                        }
+                    },
+                    buttons: [ 
+                        {
+                            text: "取消",
+                            "class" : "btn btn-xs",
+                            click: function() {
+                                $( this ).dialog( "close" ); 
+                            } 
+                        },
+                        {
+                            text: "提交",
+                            "class" : "btn btn-primary btn-xs",
+                            "id":"editSubmit",
+                            click: function() {
+                                var _this = this;
+
+                                if(formType=='ajax'){
+                                    $.post($('#container form').attr('action'),$('#container form').serialize(),function(result){
+                                        if(result.status==1){
+                                            successMsg(result.msg);
+                                            $(_this).dialog("close"); 
+
+                                            location.reload();
+                                        }
+                                        else{
+                                            errorMsg(result.msg);
+                                            // $(_this).dialog("close"); 
+                                            
+                                        }
+                                    });
+                                }else{
+                                    $('#container form').submit();
+                                    //$( this ).dialog( "close" );
+                                }
+                                
+                                
+                            } 
+                        }
+                    ]
+                });
+            });
+
+            
+            
+        });
+
+        $( ".deleteBtn[ajax]" ).on('click', function(e) {
+            if(confirm('确定要删除此条数据吗？')){
+                $.get($(this).attr('ajax'),{id:$(this).attr('data-id')},function(result){
+                    if(result.status==1){
+                        successMsg(result.msg);
+                        location.reload();
+                    }
+                    else{
+                        errorMsg(result.msg);
+                    }
+                })
+            }
+        });
+
+        $('#bottomBtns button').on('click',function(e){
+            //alert($("input[name='ids[]']").serialize());
+            if(confirm('确定要'+$(this).text()+'这些信息吗？')){
+                $.post($(this).attr('ajax'),$("input[name='ids[]']").serialize(),function(result){
+                    if(result.status==1){
+                        successMsg(result.msg);
+                        location.reload();
+                    }
+                    else{
+                        errorMsg(result.msg);
+                    }
+                })
+            }
+        });
+    });
+
+    
+EOT;
+
+?>

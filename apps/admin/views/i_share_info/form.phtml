@@ -1,0 +1,307 @@
+<?php 
+use Phalcon\Tag;
+use Common\Libs\Func;
+ ?>
+<div class="widget-box">
+	
+
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/update')?>" enctype="multipart/form-data">
+				<input type="hidden" id="i_id" name="id" value="<?=$M->id?>">
+			
+				<input type="hidden" name="referer" value="<?=$this->request->getHTTPReferer()?>">
+
+				<div class="form-group">
+
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('title')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="form_title" name="title" placeholder="" class="col-xs-10 col-sm-4" value="<?=htmlspecialchars($M->title)?>" />
+					
+					</div>
+				</div>
+
+				<div class="form-group">
+
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('sub_title')?></label>
+
+					<div class="col-sm-10">
+                        <textarea name="sub_title" id="" cols="80" rows="3"><?=htmlspecialchars($M->sub_title)?></textarea>
+						
+					</div>
+				</div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('app_name')?></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" id="form_app_name" name="app_name" placeholder="" class="col-xs-10 col-sm-4" value="<?=htmlspecialchars($M->app_name)?>" />
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('app_sub_name')?></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" id="form_app_sub_name" name="app_sub_name" placeholder="" class="col-xs-10 col-sm-4" value="<?=htmlspecialchars($M->app_sub_name)?>" />
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('ios_url')?></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" id="form_ios_url" name="ios_url" placeholder="" class="col-xs-10 col-sm-4" value="<?=htmlspecialchars($M->ios_url)?>" />
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('android_url')?></label>
+
+                    <div class="col-sm-10">
+                        <input type="text" id="form_android_url" name="android_url" placeholder="" class="col-xs-10 col-sm-4" value="<?=htmlspecialchars($M->android_url)?>" />
+                        
+                    </div>
+                </div>
+			
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('logo')?></label>
+
+					<div class="col-sm-10">
+						<div>
+							<?php if($M->logo):?>
+								<img  class="thumb" src="<?=str_replace('_m','_s',$M->logo)?>" /><br><br>
+							<?php endif;?>	
+						</div>
+						
+						<input type="file" name="logo" placeholder="" class="col-xs-10 col-sm-5" />
+					</div>
+				</div>
+
+                <div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('pics')?></label>
+
+					<div class="col-sm-10">
+			
+						<div id="current_pics" class="uploader-list ">						
+							
+							<?php 
+							if($M->pics):
+								$pics = explode(',', $M->pics);
+							?>
+							<?php foreach($M->getFmtPics() as $k=>$v):?>
+								<div class="img-item thumbnail uploaded">
+									<img class="thumb" src="<?=$v?>">
+									<input type="hidden" name="pics[]" value="<?=$pics[$k]?>">
+									<a href="javascript:void(0)" class="remove">
+										<i class=" ace-icon fa fa-times"></i>
+									</a>
+								</div>									
+							<?php endforeach;?>
+							<?php endif?>
+					
+							<div class="clear"></div>
+						</div>
+						<div id="picUploader" class="wu-example">
+						    <!--用来存放文件信息-->
+						    <div id="picList" class="uploader-list"></div>
+						    <div class="clear"></div>
+						    <div class="btns">
+						        <div id="picPicker" type="button">选择图片</div>
+						        <button id="uploadPicBtn" type="button" class="btn btn-default">开始上传</button>
+						    </div>
+						</div>
+
+						<!-- <input id="pics" type="hidden" name="pics"></input> -->
+
+					</div>
+					<div class=" col-sm-offset-2 help-inline">建议上传的图片格式：JPG/PNG/GIF</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('intro')?></label>
+
+					<div class="col-sm-10">
+						<textarea name="intro" cols="80" rows="3"><?=$M->intro?></textarea>
+					</div>
+				</div>
+				
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<?php
+$pic_url = $this->url->get($module.'/upload/image',["field_name"=>'file']);
+$this->assets->css['head'][] = 'inc::webuploader/webuploader.css';
+$this->assets->js['foot'][] = 'inc::webuploader/webuploader.min.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var content_editor;
+$(function(){
+	
+	var \$ = jQuery,
+    \$piclist = \$('#picList'),
+    // 优化retina, 在retina下这个值是2
+    ratio = window.devicePixelRatio || 1,
+
+    // 缩略图大小
+    thumbnailWidth = 100 * ratio,
+    thumbnailHeight = 100 * ratio,
+
+    // Web Uploader实例
+    picUploader;
+	
+	// 初始化Web Uploader
+	picUploader = WebUploader.create({
+
+	    // 自动上传。
+	    auto: false,
+
+	    runtimeOrder:'html5',
+
+	    chunked:false,
+
+	    // swf文件路径
+	    swf: '$swf_url',
+
+	    // 文件接收服务端。
+	    server: '$pic_url',
+
+	    // 选择文件的按钮。可选。
+	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+	    pick: {
+	    	id:"#picPicker",
+	    	multiple:true
+	    },
+
+	    //fileNumLimit:1,
+
+	    // 只允许选择文件，可选。
+	    accept: {
+	    	title: 'Images',
+	    	// extensions: 'mp3',
+	    	mimeTypes: 'image/*'
+	    }
+  	});
+
+  	$('#uploadPicBtn').click(function(){
+  		console.log('start uploading...');
+  		picUploader.upload();
+  	});
+
+
+	// 当有文件添加进来的时候
+	picUploader.on( 'fileQueued', function( file ) {
+		console.log('selected one file');
+		var \$li = \$(
+        '<div id="' + file.id + '" class="img-item thumbnail">' +
+          '<img class="thumb">' +
+          '<input type="hidden" name="pics['+file.id+']" value="">' + 
+          '<a class="remove" href="javascript:void(0)"><i class=" ace-icon fa fa-times"></i></a>' +
+          //'<div class="info">' + file.name + '</div>' +
+        '</div>'
+        ),
+		\$img = \$li.find('img');
+
+    	\$piclist.append( \$li );
+    	//\$piclist.html( \$li );
+    	
+	    // 创建缩略图
+	    picUploader.makeThumb( file, function( error, src ) {
+			if ( error ) {
+				console.log('error:'+error);
+				\$img.replaceWith('<span>不能预览</span>');
+				return;
+			}
+
+	      	\$img.attr( 'src', src );
+	      	console.log('src:'+src);
+	    }, thumbnailWidth, thumbnailHeight );
+
+	    \$li.on('click', '.remove', function() {
+	    	console.log('remove');
+	    	\$(this).parent().remove();
+		    picUploader.removeFile( file );
+		})
+
+	    
+  	});
+
+	// 文件上传过程中创建进度条实时显示。
+	picUploader.on( 'uploadProgress', function( file, percentage ) {
+		var \$li = \$( '#'+file.id ),
+		  	\$percent = \$li.find('.progress span');
+
+		// 避免重复创建
+		if ( !\$percent.length ) {
+		  \$percent = \$('<p class="progress"><span></span></p>')
+		      .appendTo( \$li )
+		      .find('span');
+		}
+		console.log(percentage);
+		\$percent.css( 'width', percentage * 100 + '%' );
+	});
+
+	picUploader.on( 'uploadAccept', function( file, response ) {
+	    if ( response.status=='fail' ) {
+	        layer.alert(response.msg);
+	        return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	picUploader.on( 'uploadSuccess', function( file , data ) {
+		console.log('upload success');
+		//console.log(data);
+		\$( '#'+file.id ).addClass('uploaded');
+		// var result = '{"name":"'+data.name+'","size":"'+data.size+'","url":"'+data.url+'"}';
+		var result = data.url;
+		var input_value = $('#pics').val();
+
+		$('input[name="pics['+file.id+']"]').val(result);
+	});
+
+	// 文件上传失败，现实上传出错。
+	picUploader.on( 'uploadError', function( file ) {
+		console.log('upload error');
+		var \$li = \$( '#'+file.id ),
+		  	\$error = \$li.find('div.error');
+
+		// 避免重复创建
+		if ( !\$error.length ) {
+		  	\$error = \$('<div class="error"></div>').appendTo( \$li );
+		}
+
+		\$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	picUploader.on( 'uploadComplete', function( file ) {
+		console.log('upload complete');
+		\$( '#'+file.id ).find('.progress').remove();
+
+	});
+});
+EOT;
+
+?>

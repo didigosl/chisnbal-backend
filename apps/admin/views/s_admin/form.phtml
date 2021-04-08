@@ -1,0 +1,92 @@
+<?php
+use Common\Models\SAclRole;
+use Common\Models\SAdmin;
+use Common\Models\ISchool;
+use Phalcon\Tag;
+?>
+<div class="widget-box">	
+
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/'.($M->id?'update':'create'))?>">
+				<input type="hidden" id="update_id" name="id" value="<?=$M->id?>">				
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="update_username"> 角色</label>
+
+					<div class="col-sm-9">
+						<?php
+						if($M->acl_role_id){
+							Tag::setDefault("acl_role_id", $M->acl_role_id);
+						}
+						if($this->auth->getShopId()){
+							if($conf['enable_multi_shop']){
+								$roles = SAclRole::find(['id>1 AND shop_id=:shop_id:','bind'=>['shop_id'=>$shop_id]]);
+							}
+							else{
+								$roles = SAclRole::find('id>2 ');
+							}
+						}
+						else{
+							$roles = SAclRole::find('id>1 AND shop_id=0 ');
+						}
+						
+						echo $this->tag->select(
+								[
+									'acl_role_id',
+									$roles,
+									'using'=>['id','intro'],
+									'update_acl_role_id'
+								]
+							);
+						?>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="update_username"> 帐号</label>
+
+					<div class="col-sm-9">
+						<input type="text" id="update_username" name="username" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->username?>" />
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="update_value"> 密码</label>
+
+					<div class="col-sm-9">
+						<input type="text" id="update_value" name="password" placeholder="" class="col-xs-10 col-sm-5" />
+					</div>
+				</div>
+
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="update_name"> 昵称</label>
+
+					<div class="col-sm-9">
+						<input type="text" id="update_name" name="name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->name?>" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function(){
+
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		//resize the chosen on window resize
+		$(window).on('resize.chosen', function() {
+			var w = $('.chosen-select').parent().width();
+			$('.chosen-select').next().css({'width':250});
+		}).trigger('resize.chosen');
+
+		$('form').submit(function(){
+			if($('input[name="password"]').val().length==0){
+				errorMsg('请输入管理员密码');
+				return false;
+			}
+		});
+
+	});
+</script>

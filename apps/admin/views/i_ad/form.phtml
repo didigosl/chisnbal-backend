@@ -1,0 +1,692 @@
+<?php
+use Common\Models\ICategory;
+use Common\Models\IAd;
+use Common\Models\IGoodsSpu as Spu;
+use Phalcon\Tag;
+
+?>
+<div class="widget-box">
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" id="form" role="form" method="post" action="<?=$this->url->get($base_url.'/'.($M->ad_id?'update':'create'))?>"  enctype="multipart/form-data">
+				<input type="hidden" id="" name="ad_id" value="<?=$M->ad_id?>">
+
+				
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('ad_name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="ad_name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->ad_name?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('position_type')?></label>
+
+					<div class="col-sm-9">
+						<?php
+						if($ad_pos):
+						?>
+						<p><?=IAd::getPositionTypeContext($M->position_type)?> ：<?=$ad_pos['name']?></p>
+						<input type="hidden" name="position_type" value="<?=$M->position_type?>">
+						<input type="hidden" name="ad_pos_id" value="<?=$M->ad_pos_id?>">
+						<?php
+						else:
+				            Tag::setDefault('position_type',$M->position_type);
+				            echo Tag::selectStatic ([
+				                'position_type',
+				               	[
+				               		'index'  => '首页',
+            						'category'   => '分类页',
+				               	],
+				                'useEmpty'=>'true',
+				            ]);
+			            endif;
+			            ?>
+					</div>
+				</div>
+		<?php if($shop_id):?>
+				<div class="form-group category-row" style="<?php if($M->position_type=='index'):?>display:none<?php endif;?>">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('category_id')?></label>
+
+					<div class="col-sm-9">
+						<select name="" id="selectCategory"></select> <span class="tips-row">如不选择分类，则显示在所有分类页</span>
+						<input type="hidden" id="category_id" name="category_id" value="">
+					</div>
+				</div>
+		<?php else:?>
+				<div class="form-group category-row" style="<?php if($M->position_type=='index'):?>display:none<?php endif;?>">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('sort_id')?></label>
+
+					<div class="col-sm-9">
+						<select name="" id="selectSort"></select> <span class="tips-row">如不选择分类，则显示在所有分类页</span>
+						<input type="hidden" id="sort_id" name="sort_id" value="">
+					</div>
+				</div>
+		<?php endif;?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> 显示时间</label>
+
+					<div class="col-sm-9">
+						<input type="text" name="start_time" placeholder="" class=" datetime-picker" value="<?=$M->start_time?>" />
+						至
+						<input type="text" name="end_time" placeholder="" class="datetime-picker" value="<?=$M->end_time?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('img')?></label>
+
+					<div class="col-sm-9">
+						<?php if($M->img):?>
+						<div class="thumb-list">
+							<img class="thumb" src="<?=$M->getFmtImg()?>" alt="">
+						</div>
+						
+						<?php endif;?>
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="categoryCover" name="img" class="input-file" value="<?=$M->img?>" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('link_url')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="link_url" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->link_url?>" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> 跳转到</label>
+
+					<div class="col-sm-9">
+						<input type="hidden" id="linkType" name="link_type" value="<?=$M->link_type ? $M->link_type:'category'?>">
+						<input type="hidden" id="linkId" name="link_id" value="">
+						<div id="tabs">
+							<ul>
+								<li>
+									<a href="#tabs-1">分类页面</a>
+								</li>
+						<?php if($shop_id):?>
+								<li>
+									<a href="#tabs-2">单个商品</a>
+								</li>
+                                <li>
+									<a href="#tabs-3">系列商品</a>
+								</li>
+						<?php endif;?>
+							</ul>
+
+							<div id="tabs-1">
+								<select name="" id="linkCategory"></select> 
+							</div>
+						<?php if($shop_id):?>
+							<div id="tabs-2">
+								<button type="button" class="btn btn-sm btn-purple" id="chooseSpuBtn">选择商品</button>
+								<div id="chosenSpuListContainer" style="margin-top:10px"></div>
+							</div>
+                            <div id="tabs-3">
+								<button type="button" class="btn btn-sm btn-purple" id="chooseSpuSeriesBtn">选择商品</button>
+								<div id="chosenSpuSeriesListContainer" style="margin-top:10px"></div>
+							</div>
+						<?php endif;?>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-4 col-md-8">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="searchFormContainer" style="display:none">
+	<div class="widget-box">
+    
+	    <div class="widget-body">
+	        <div class="widget-main">
+	            <form id="searchForm" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">  
+                    <input type="hidden" name="category_id" value="">
+	            	<select id="selectCategoryId">
+		                <option value>选择分类</option>
+		            </select>             
+		            <input type="text" name="keyword" class="input-middle" placeholder="商品名称/货号" value="" />
+		            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+		                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+		            </button>
+		        </form>
+	            <input type="hidden" id="chosenUserId" value="">
+	            <input type="hidden" id="chosenName" value="">
+	            <input type="hidden" id="chosenIdNum" value="">
+	        </div>
+	    </div>
+	</div>
+	<div class="row" >
+	    <div class="col-xs-12" id="spuListContainer"></div>
+	    <div class="paginationContainer">
+	    	<ul class="pagination" id="pageContainer"></ul>
+	    </div>
+	</div>
+</div>
+
+<script id="spuList" type="text/x-jsrender">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th colspan="2"><?=Spu::getAttr('spu_name')?></th>
+				<th><?=Spu::getAttr('price')?></th>
+                <th><?=Spu::getAttr('stock')?></th>
+                <th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{^{for data.list ~linkType=linkType}}
+			<tr>
+				<td>
+                    {{if ~linkType=='goods'}}
+                    <label>
+                        <input name="spu" type="radio" class="ace" data-link="value{:spu_id}" />
+                        <span class="lbl"></span>
+                    </label>
+
+                    {{/if}}
+                    {{if ~linkType=='goodsSeries' }}
+                    <label>
+                        <input name="spu" type="checkbox" class="ace" value="{{:spu_id}}" />
+                        <span class="lbl"></span>
+                    </label>
+                    {{/if}}
+				</td>
+				<td><img class="thumb" data-link="src{:cover}" alt=""></td>
+				<td>{^{:spu_name}}</td>
+				<td>{^{:price}}</td>
+				<td>{^{:stock}}</td>
+			</tr>
+		{{/for}}
+		</tbody>
+		
+	</table>
+</script>
+
+<script id="chosenSpuSeriesList" type="text/x-jsrender">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th colspan="2" width="25%"><?=Spu::getAttr('spu_name')?></th>
+				<th><?=Spu::getAttr('price')?></th>
+                <th><?=Spu::getAttr('stock')?></th>
+                <th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		{^{for list}}
+			<tr>
+				<td><img class="thumb" data-link="src{:cover}" alt=""></td>
+				<td>{^{:spu_name}} <input type="hidden" name="spu_id[]" data-link="value{:spu_id}"></td>
+				<td>{^{:price}}</td>
+                <td>{^{:stock}}</td>
+                <td><button type="button" class="btn btn-xs btn-danger dao-remove-series" >删除</button></td>
+			</tr>
+		{{/for}}
+		</tbody>
+		
+	</table>
+</script>
+
+
+<script id="chosenSpuList" type="text/x-jsrender">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th colspan="2" width="25%"><?=Spu::getAttr('spu_name')?></th>
+				<th><?=Spu::getAttr('price')?></th>
+				<th><?=Spu::getAttr('stock')?></th>
+			</tr>
+		</thead>
+		<tbody>
+		{^{for list}}
+			<tr>
+				<td><img class="thumb" data-link="src{:cover}" alt=""></td>
+				<td>{^{:spu_name}} <input type="hidden" name="spu_id[]" data-link="value{:spu_id}"></td>
+				<td>{^{:price}}</td>
+				<td>{^{:stock}}</td>
+			</tr>
+		{{/for}}
+		</tbody>
+		
+	</table>
+</script>
+
+<?php 
+$loaderImg = $this->url->get('js/linkagesel/images/ui-anim_basic_16x16.gif');
+// $cat_select_default = $M->category_id ? trim($M->Category->merger.$M->category_id,',') : '';
+$search_url = $this->url->get($module.'/i_goods_spu/search');
+
+if($M->link_type=='goods'){
+    $tab_active = 1;
+}
+elseif($M->link_type=='goodsSeries'){
+    $tab_active = 2;
+}
+else{
+    $tab_active = 0;
+}
+
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getCategories',['shop_id'=>$shop_id]));
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getSorts',[]));
+$this->assets->css['head'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.css";
+$this->assets->js['foot'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.js";
+$this->assets->js['foot'][] = "inc::js/timepicker/i18n/jquery-ui-timepicker-zh-CN.js";
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var shop_id = '$shop_id';
+var search_url = '$search_url';
+var link_spu = '$link_spu';
+var link_series = '$link_series';
+var goods = [];
+var spu = {
+	spu_id:null,
+	cover:null,
+	spu_name:null,
+	price:null,
+	stock:null
+};
+
+var chosenData = {
+	list:[],
+};
+var chosenSeries = {
+	list:[],
+};
+
+if(link_spu){
+	chosenData.list[0] = JSON.parse(link_spu);
+}
+
+if(link_series){
+	chosenSeries.list = JSON.parse(link_series);
+}
+
+$(function(){
+    displayChosenData();
+    displayChosenSeries();
+	categoryRowDisplay();
+
+	if(parseInt(shop_id)){
+		var catSelect = new LinkageSel({
+			data:categories,
+			select: '#selectCategory',
+			head:'选择分类',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:'',
+			defVal:[$cat_select_default]
+		});
+
+		catSelect.onChange(function(){
+			$('#category_id').val(catSelect.getSelectedValue());
+			console.log($('#category_id').val());
+		});
+
+		var linkSelect1 = new LinkageSel({
+			data:categories,
+			select: '#linkCategory',
+			head:'选择分类',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:'$loaderImg',
+			defVal:[$link_select_default]
+		});
+
+		linkSelect1.onChange(function(){
+            console.log(linkSelect1.getSelectedValue());
+			$('#linkId').val(linkSelect1.getSelectedValue());
+		});
+	}
+	else{
+		var catSelect = new LinkageSel({
+			data:sorts,
+			select: '#selectSort',
+			head:'选择平台分类',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:'$loaderImg',
+			defVal:[$cat_select_default]
+		});
+
+		catSelect.onChange(function(){
+			$('#sort_id').val(catSelect.getSelectedValue());
+			console.log($('#sort_id').val());
+		});
+
+		var linkSelect2 = new LinkageSel({
+			data:sorts,
+			select: '#linkCategory',
+			head:'选择平台分类',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:'$loaderImg',
+			defVal:[$link_select_default]
+		});
+
+		linkSelect2.onChange(function(){
+            console.log(linkSelect2.getSelectedValue());
+			$('#linkId').val(linkSelect2.getSelectedValue());
+		});
+	}
+	
+
+	\$('.datetime-picker').datetimepicker({
+        dateFormat: 'yy-mm-dd', 
+        timeFormat: 'HH:mm:00',
+    });
+
+
+	$('#position_type').change(function(){
+		categoryRowDisplay();
+		
+	});
+
+	$( "#tabs" ).tabs({
+		active:$tab_active,
+		activate: function( event, ui ) {
+			console.log(event);
+            console.log(event.currentTarget.id);
+            
+            goods = [];
+            spu = {};
+
+			if(event.currentTarget.id=='ui-id-2'){
+				$('#linkType').val('goods');
+                $('#linkId').val('');
+            }
+            else if(event.currentTarget.id=='ui-id-3'){
+				$('#linkType').val('goodsSeries');
+                $('#linkId').val('');
+			}
+			else{
+				$('#linkType').val('category');
+				$('#linkId').val(linkSelect.getSelectedValue());
+			}
+			
+		}
+
+	});
+	
+	$('#chooseSpuBtn').click(function(){
+
+        var linkType = $('#linkType').val();
+		var dialog = \$('#searchFormContainer').dialog({
+            modal:true,
+            title:"<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 选择商品</h4></div>",
+            title_html:true,
+            width:700,
+            height:'auto',
+            position:{ my: "center top+10%", at: "center top+10%", of:window },
+            buttons:[
+            	{
+                    text: "选择完成",
+                    "class" : "btn btn-xs btn-success",
+                    click: function() {
+                        $('input[name="spu"]:checked').parentsUntil('tr').hide();
+                        
+                        $.observable(chosenData.list).remove(0);    
+                        $.observable(chosenData.list).insert(spu);  
+                        $('#linkId').val(spu.spu_id); 
+                    	 
+                        $(this).dialog( "close" ); 
+                        
+                    } 
+                },
+                {
+                    text: "关闭",
+                    "class" : "btn btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" ); 
+                    } 
+                },
+                
+            ]
+
+        });
+        getList(search_url, 1, getSearchParams());
+    });
+    
+    $('#chooseSpuSeriesBtn').click(function(){
+
+        var linkType = $('#linkType').val();
+		var dialog = \$('#searchFormContainer').dialog({
+            modal:true,
+            title:"<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 选择商品</h4></div>",
+            title_html:true,
+            width:700,
+            height:'auto',
+            position:{ my: "center top+10%", at: "center top+10%", of:window },
+            buttons:[
+            	{
+                    text: "选择完成",
+                    "class" : "btn btn-xs btn-success",
+                    click: function() {
+
+                    	for(var i=0; i<goods.length; i++){
+                            var has_selected = false;
+                            for(var j=0; j<chosenSeries.list.length; j++){
+                                if(chosenSeries.list[j].spu_id==goods[i].spu_id){
+                                    has_selected = true;
+                                }
+                            }
+
+                            if(!has_selected){
+                                $.observable(chosenSeries.list).insert(goods[i]);  
+                            }
+                            
+                        } 
+
+                        $(this).dialog( "close" ); 
+                        $('#linkId').val(spu.spu_id);
+
+                        removeChosen();
+                    } 
+                },
+                {
+                    text: "关闭",
+                    "class" : "btn btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" ); 
+                    } 
+                },
+                
+            ]
+
+        });
+        getList(search_url, 1, getSearchParams());
+	});
+
+	$('#form').submit(function(){
+		var start = $('input[name="start_time"]').val();
+        var end = $('input[name="end_time"]').val();
+
+        if(start){
+            var start_date = Date.parse(start);
+        }
+        if(end){
+            var end_date = Date.parse(end);
+        }
+
+        if(start_date && end_date){
+            if(start_date>end_date){
+                errorMsg("开始日期不能大于结束日期");
+                return false;
+            }
+        }
+
+        var linkType = $('#linkType').val();
+        if(linkType=='goodsSeries'){
+            var linkId = [];
+            for(var i=0; i<chosenSeries.list.length; i++) {
+                linkId.push(chosenSeries.list[i].spu_id);
+            }
+            console.log(linkId);
+            $('#linkId').val( linkId.join(',') );
+        }
+
+        if(linkType!='category'){
+            if(!$('#linkId').val().length){
+                errorMsg("必须选择商品");
+                return false;
+            }
+        }
+    });
+    
+    var linkSelect = new LinkageSel({
+		data:categories,
+		select: '#selectCategoryId',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:false,
+		defVal:[$def_category1]
+    });
+
+    linkSelect.onChange( function(){
+        $('#searchForm input[name="category_id"]').val(linkSelect.getSelectedValue());
+    } );
+    
+    $('#searchForm').submit(function(){
+        console.log( $(this).serialize() );
+        getList(search_url, 1, getSearchParams());
+        return false;
+    });
+});
+
+function categoryRowDisplay(){
+	if($('#position_type').val()=='category'){
+		$('.category-row').show();
+	}
+	else{
+		$('.category-row').hide();
+	}
+}
+
+//选中一条spu
+var bindSpuRadio = function(){
+
+    var linkType = $('#linkType').val();
+
+	$('input[name="spu"]').change(function(){
+        console.log('changed');
+		if(this.checked){
+            spu = {};
+			spu.spu_id = $(this).val();
+			spu.cover = $(this).parentsUntil('tbody').find('td:eq(1) img').attr('src');
+			spu.spu_name = $(this).parentsUntil('tbody').find('td:eq(2)').text();
+			spu.price = $(this).parentsUntil('tbody').find('td:eq(3)').text();
+            spu.stock = $(this).parentsUntil('tbody').find('td:eq(4)').text();
+            
+            if( linkType=='goodsSeries' ){
+                goods[goods.length] = spu;
+                console.log(goods);
+            }
+        }
+        /*
+		else{
+			spu.spu_id = null;
+			spu.spu_name = null;
+			spu.price = null,
+			spu.stock = null;
+        }
+        */
+	});
+}
+
+var getSearchParams = function(){
+	var params = {
+		category_id:$('#searchForm input[name="category_id"]').val(),
+		keyword:$('#searchForm input[name="keyword"]').val(),
+    }
+	return params;
+}
+
+var page = function(totalPages,page){
+	totalPages = totalPages ? totalPages :1;
+	page = page ? parseInt(page) :1;
+	$('#pageContainer').twbsPagination('destroy');
+	$('#pageContainer').twbsPagination({
+		totalPages: totalPages,
+		first:'首页',
+		prev:'上一页',
+		next:'下一页',
+		last:'尾页',
+		// totalPages:1,
+		startPage:page,
+		visiblePages: 7,
+		initiateStartPageClick:false,
+		onPageClick: function (event, page) {
+			// location.hash = page;
+			getList(search_url,page,getSearchParams());
+		}
+	});
+}
+
+var getList = function (url,p,params){
+
+    var linkType = $('#linkType').val();
+    console.log(params);
+
+    var searchParams = {};
+    for(var k in params){
+        searchParams[k] = params[k] ? params[k] : '';
+    }
+
+    p = p ? p : 1;
+    searchParams['p'] = p;
+    // console.log(searchParams);
+    $.get(url+'?'+Math.random(),searchParams,function(result){
+        
+        var tpl = $.templates("#spuList"); 
+        tpl.link("#spuListContainer", {
+            data:result.data,
+            linkType:linkType
+        });
+        
+        bindSpuRadio();
+        page(result.data.total_pages,p);
+    });    
+}
+
+var displayChosenData = function(){
+	var tpl = $.templates("#chosenSpuList"); 
+    tpl.link("#chosenSpuListContainer", chosenData);
+
+}
+
+
+var displayChosenSeries = function(){
+	var tpl = $.templates("#chosenSpuSeriesList"); 
+    tpl.link("#chosenSpuSeriesListContainer", chosenSeries);
+
+    removeChosen();
+}
+
+var removeChosen = function(){
+    
+    $('.dao-remove-series').click(function(){
+        console.log( $(this).parent().parent().index() )
+        $.observable(chosenSeries.list).remove($(this).parent().parent().index());
+    });
+
+}
+EOT;
+ ?>

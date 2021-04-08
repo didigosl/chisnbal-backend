@@ -1,0 +1,56 @@
+<?php
+use Common\Models\IFeedback;
+use Phalcon\Tag;
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<div class="profile-user-info profile-user-info-striped">
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('title')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->title?></p>
+					</div>
+                </div>
+            <?php if($M->user_id):?>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> 会员 </div>
+
+					<div class="profile-info-value">
+                        <p><?=$M->User->phone?> (<?=$M->User->name?>)</p>
+                        <?php if(!$M->phone || !$M->email):?>
+                        <p>联系方式：<?=$M->phone?> <?=$M->email?></p>
+                        <?php endif;?>
+					</div>
+                </div>
+            <?php else:?>
+                <div class="profile-info-row">
+					<div class="profile-info-name"> 游客 </div>
+
+					<div class="profile-info-value">
+                        <p><?=$M->nickname?></p>
+                        <p>联系方式：<?=$M->phone?> <?=$M->email?></p>
+					</div>
+                </div>
+            <?php endif;?>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('create_time')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->create_time?></p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('content')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->content?></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\ICoupon;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+           
+            <a class="btn btn-success btn-sm" href="<?=$this->url->get($base_url.'/create')?>">
+                <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </a>
+        </form>
+    </div>
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            [ICoupon::getAttr('sn'),'{$o}->sn."<br>".{$o}->coupon_name','function'],
+            [ICoupon::getAttr('amount'),'fmtMoney({$o}->amount)','function'],
+            ['使用限制','implode("<br>",{$o}->getLimitText())','function'],
+            [ICoupon::getAttr('send_total'),'send_total'],
+            [ICoupon::getAttr('used_total'),'used_total'],
+            [ICoupon::getAttr('order_total_amount'),'fmtMoney({$o}->order_total_amount)','function'],
+            ['有效期','{$o}->start_time."起<br>".{$o}->end_time."止"','function'],
+        ],
+        'buttons'=>['delete','view'],
+        'buttonsCfg'=>[
+            'update'=>[
+                'type'=>'href'
+            ]
+        ],
+        'page'=>$page,
+        ));
+    ?>
+
+    </div>
+</div>
+

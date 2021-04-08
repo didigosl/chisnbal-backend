@@ -1,0 +1,118 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IShop;
+use Common\Models\IUser;
+ ?>
+
+
+<div class="row tabs-wrapper">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+            <input type="text" name="shop_name" class="input-middle" placeholder="店铺名称" value="<?=$vars['shop_name']?>" />         
+                        
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+            
+        </form>
+    </div>
+    <div class="col-xs-12">
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>1])?>" class="btn btn-sm <?php if($vars['status']==1):?>btn-primary<?php else:?>btn-info<?php endif;?>">待审店铺</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>-2])?>" class="btn btn-sm <?php if($vars['status']==1):?>btn-primary<?php else:?>btn-info<?php endif;?>">申请被拒的店铺</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>2])?>" class="btn btn-sm <?php if($vars['status']==2):?>btn-primary<?php else:?>btn-info<?php endif;?>">运营中店铺</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>-1])?>" class="btn btn-sm <?php if($vars['status']==-1):?>btn-primary<?php else:?>btn-info<?php endif;?>">冻结的店铺</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    if($vars['status']==1){
+        $buttons = ['view','pass','refuse'];
+    }
+    else{
+        $buttons = ['view'];
+    }
+
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            ['ID','{$o}["s"]->shop_id','function'],
+            [IShop::getAttr('shop_name'),'{$o}["s"]->shop_name','function'],
+            [IShop::getAttr('contact_man'),'{$o}["s"]->contact_man','function'],
+            [IShop::getAttr('tel'),'{$o}["s"]->tel','function'],
+            // [IShop::getAttr('sort_id'),'{$o}["s"]->Sort->sort_name','function'],
+            [IShop::getAttr('create_time'),'{$o}["s"]->create_time?date("Y-m-d",strtotime({$o}["s"]->create_time)):""','function'],
+            [IShop::getAttr('status'),'{$o}["s"]->getStatusContext({$o}["s"]->status)','function']
+        ],
+        'buttons'=>$buttons,
+        'buttonsCfg'=>[
+            'pass'=>[
+                'iconCss'=>'fa-circle-o ',
+                'type'=>'ajax',
+                'url'=>'i_shop/check',
+                'title'=>'通过',
+                'btnCss'=>'btn-success pass-btn'
+            ],
+            'refuse'=>[
+                'iconCss'=>'fa-ban ',
+                'type'=>'ajax',
+                'url'=>'i_shop/check',
+                'title'=>'拒绝',
+                'btnCss'=>'btn-purple refuse-btn'
+            ],
+
+        ],
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ],
+        'primeData'=>'s'
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$freeze_url = $this->url->get($base_url.'/freeze');
+$resetpsw_url = $this->url->get($base_url.'/resetpsw');
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.pass-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要通过此店铺申请吗？', function(index){
+            $.get($(env).attr('ajax'),{act:'pass'},function(result){
+                if(result.status>0){
+                    //successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            
+        });
+    });
+
+    $('.refuse-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要拒绝此店铺申请吗？', function(index){
+            $.get($(env).attr('ajax'),{act:'refuse'},function(result){
+                if(result.status>0){
+                    //successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            
+        });
+    });
+});
+EOT;
+ ?>

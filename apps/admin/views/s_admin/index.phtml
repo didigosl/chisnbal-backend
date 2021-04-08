@@ -1,0 +1,80 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\SAdmin;
+?>
+
+
+<div class="row">
+    <div class="col-xs-12 searchBar">
+        <button id="addBtn" type="button" class="btn btn-success btn-sm addBtn" ajax="<?=$this->url->get($base_url.'/create',['school_flag'=>$vars['school_flag']])?>">
+            <i class="ace-icon fa fa-plus bigger-110"></i>新增<?=$controller_name?>
+        </button>
+    </div>    
+    <div class="col-xs-12">
+
+    <?php
+    if(!$vars['school_flag']){
+        $cols = [
+            // ['ID','id'],
+            ['帐号','username'],    
+            ['昵称','name'],   
+            ['角色','{$o}->aclRole->intro','function'],
+            // ['服务对象','{$o}->sobj->name','function'],
+            //['创建时间','date("Y-m-d",{$o}->create_time)','function'],
+        ];
+    }
+    else{
+        $cols = [
+            // ['ID','id'],
+            ['帐号','username'], 
+            ['昵称','name'],    
+            ['角色','{$o}->aclRole->intro','function'],
+            // ['学校','{$o}->School->school_name','function'],
+            //['创建时间','date("Y-m-d",{$o}->create_time)','function'],
+        ];
+    }
+    
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>$cols,
+        'buttons'=>['update','delete'],
+        'buttonsCfg'=>[],
+        'page'=>$page,
+        'basicUrl'=>$basicUrl,
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$this->assets->css['head'][] = "inc::back/css/chosen.css";
+$this->assets->js['foot'][] = "inc::back/js/chosen.jquery.min.js";
+$this->assets->js['foot'][] = <<<EOT
+raw::$(function(){
+    $('#acl_role_id').change(function(){
+        toggleRole();
+    });
+});
+
+function afterAddBtnAct(){
+    toggleRole();
+}
+
+function afterFormBtnAct(){
+    toggleRole();
+}
+
+function toggleRole(){
+    if($('#acl_role_id').val()==2){
+        $('#sobj_row').show();        
+    }
+    else{
+        $('#sobj_row').hide();
+        $('#service_object_id').val('');
+    }
+}
+EOT;
+
+?>

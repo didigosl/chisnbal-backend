@@ -1,0 +1,531 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:2720:"Ziehen Sie vom anzulegenden Preis zunächst 19 Prozent Mehrwertsteuer ab und verrechnen Sie den Netto-Preis mit dem gemessenen Eigenverbrauch. Es gibt keine Ausnahmen für Sie.  Darin teilen Sie dem Finanzamt mit, wieviel Umsatzsteuer Sie vereinnahmt haben (Einspeisevergütung) und zu welchem Steuersatz (in der Regel 19 Prozent). Der Solarstrom vom eigenen Dach kann als wichtiger Baustein für die Altersvorsorge angesehen werden. Ab Einnahmen von 17.500 EUR/jährlich ist zur Ermittlung des Gewinnes oder des Verlustes aus der Photovoltaikanlage der … Mit der Umsatzsteuer kommt die Pflicht zur Abgabe von regelmäßigen Voranmeldungen. Achtung: Obwohl Sie nur eine Photovoltaikanlage betreiben, gelten sämtliche Rechte und Pflichten zur Gewinnermittlung und Umsatzsteuer, die auch Fabrikanten oder Händler haben. Damit setzt man den gleichen Betrag für den Eigenverbrauch an, den ein Volleinspeiser mehr an Einnahmen versteuert. Photovoltaikanlage und Gewinnermittlung Mit Ihrer Photovoltaikanlage erzielen Sie grundsätzlich einkommensteuer-rechtlich Einkünfte aus Gewerbebetrieb. Daher müssen Sie eine Einkom-mensteuererklärung abgeben und eine Gewinnermittlung einreichen. Voranmeldungen sind wie bei einer Steuererklärung in bestimmten Abständen abzugeben. Noch mehr Funktionen mit der Excel-Vorlage-EÜR. Wie ermittle ich den zu versteuernden Gewinn meiner Photovoltaikanlage? Die Teilwertvermutung, bei der von Seiten des Finanzamtes am wenigsten Widerstand zu erwarten ist, ist der Ansatz der Einspeisevergütung netto pro kWh. Ansatz bei der Umsatzsteuer, bezeichnet als "unentgeltliche Wertabgabe": Über diese Anlagen wird Sonnenenergie in elektrische Energie umgewandelt. Zusammenhang mit dem Erwerb und Betrieb einer Photovoltaik-anlage im privaten Haushalt Der aktuelle Tipp STAND: Februar 2016 Immer mehr Bürgerinnen und Bürger installieren auf dem Dach ihres Hauses eine Photovoltaikanlage. Wichtig ist eine gute Qualität der Komponenten und einwandfreie handwerkliche Verarbeitung von einem seriösen Solarfachbetrieb. Als Unternehmer sind Sie dazu verpflichtet, den Gewinn für das Betreiben Ihrer Photovoltaikanlage … Das Excel-Tool berechnet Ihnen mit nur wenigen Mausklicks die möglichen Kosteneinsparungen pro Jahr oder für 20 Jahre. Mit dem "Photovoltaik-Eigenverbrauchsrechner" können Sie ihre ganz individuellen Einsparmöglichkeiten ermitteln. Wenn einer der folgenden Punkte auf Dich zutrifft, empfehle ich Dir meine umfassende Excel-Vorlage-EÜR, mit der Du auch diese Punkte verarbeiten kannst.Sie ist quasi der große Bruder der Excel-Vorlage-formlose-Gewinnermittlung. Solarstromanlagen bis 10 kWp mit Eigenverbrauch sind in aller Regel finanziell höchst attraktiv. ";s:7:"keyword";s:60:"gewinnermittlung photovoltaikanlage mit eigenverbrauch excel";s:5:"links";s:13620:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=urlaub-mit-hund-am-see-und-berge'>Urlaub Mit Hund Am See Und Berge</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=www-gastronomie-pachtb%C3%B6rse-regensburg-de'>Www Gastronomie Pachtbörse Regensburg De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=teuerste-comunio-spieler-aller-zeiten'>Teuerste Comunio Spieler Aller Zeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=caf%C3%A9-am-markt-goslar-speisekarte'>Café Am Markt Goslar Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=badische-neueste-nachrichten-mediadaten-2020'>Badische Neueste Nachrichten Mediadaten 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=little-italy-new-york-gr%C3%B6%C3%9Fe'>Little Italy New York Größe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flughafen-hannover-ankunft-flugplan-heute'>Flughafen Hannover Ankunft Flugplan Heute</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mercure-hotel-d%C3%BCsseldorf-zentrum-fr%C3%BChst%C3%BCck'>Mercure Hotel Düsseldorf Zentrum Frühstück</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-zur-post-odenthal-veranstaltungen'>Hotel Zur Post Odenthal Veranstaltungen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wetter-in-m%C3%BCllheim-baden-heute'>Wetter In Müllheim Baden Heute</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=tag-der-offenen-t%C3%BCr-uni-greifswald-2019'>Tag Der Offenen Tür Uni Greifswald 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=br%C3%A4ukeller-zell-am-harmersbach-%C3%B6ffnungszeiten'>Bräukeller Zell Am Harmersbach öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=toom-gutschein-aktion-50-f%C3%BCr-40'>Toom Gutschein Aktion 50 Für 40</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=man-energy-solutions-augsburg-mitarbeiter'>Man Energy Solutions Augsburg Mitarbeiter</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=obst-und-gem%C3%BCse-mit-d'>Obst Und Gemüse Mit D</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=feng-shui-hotel-bremen-sauna'>Feng Shui Hotel Bremen Sauna</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=handyparken-aufladen-kreditkarte-funktioniert-nicht'>Handyparken Aufladen Kreditkarte Funktioniert Nicht</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=maintenance-messe-dortmund-2020-aussteller'>Maintenance Messe Dortmund 2020 Aussteller</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=french-open-tickets-preise-2019'>French Open Tickets Preise 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mercure-hotel-stuttgart-airport-messe-stuttgart'>Mercure Hotel Stuttgart Airport Messe Stuttgart</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=center-park-hochsauerland-premium-ferienhaus'>Center Park Hochsauerland Premium Ferienhaus</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ibis-hamburg-alster-city-holzdamm'>Ibis Hamburg Alster City Holzdamm</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=call-a-pizza-m%C3%BCnchen-pasing'>Call A Pizza München Pasing</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=op-de-eck-velbert-mieten'>Op De Eck Velbert Mieten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=cineplex-dehttps-www-google-de'>Cineplex Dehttps Www Google De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=unternehmungen-mit-kleinkind-1-jahr'>Unternehmungen Mit Kleinkind 1 Jahr</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=deniz-restaurant-ebersbach-an-der-fils-hauptstra%C3%9Fe-27'>Deniz Restaurant Ebersbach An Der Fils Hauptstraße 27</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-arena-friedberger-warte-frankfurt'>Hotel Arena Friedberger Warte Frankfurt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=park-inn-berlin-37-etage'>Park Inn Berlin 37 Etage</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=der-gez%C3%A4hmte-widerspenstige-stream-kinox'>Der Gezähmte Widerspenstige Stream Kinox</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=aktuelle-stunde-m%C3%BCnster-sendung-verpasst'>Aktuelle Stunde Münster Sendung Verpasst</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sparkasse-herford-dehttps-www-t-online-de'>Sparkasse Herford Dehttps Www T Online De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=darts-premier-league-2020-live'>Darts Premier League 2020 Live</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-lindner-bad-aibling-weihnachtsmarkt'>Hotel Lindner Bad Aibling Weihnachtsmarkt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ostermarkt-st-wendel-2020-abgesagt'>Ostermarkt St Wendel 2020 Abgesagt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mei-thai-restaurant-saarbr%C3%BCcken-speisekarte'>Mei Thai Restaurant Saarbrücken Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=semesterbeitrag-uni-hannover-wintersemester-2015-16'>Semesterbeitrag Uni Hannover Wintersemester 2015 16</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=festung-k%C3%B6nigstein-open-air-2020'>Festung Königstein Open Air 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=lucky-me-online-rabatt-code'>Lucky Me Online Rabatt Code</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=der-fine-arts-kunstmarkt-im-kloster-eberbach-28-oktober'>Der Fine Arts Kunstmarkt Im Kloster Eberbach 28 Oktober</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=theater-bernburg-spielplan-dezember-2019'>Theater Bernburg Spielplan Dezember 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bus-130-salzburg-fahrplan-2020'>Bus 130 Salzburg Fahrplan 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-zur-traube-nidda-%C3%B6ffnungszeiten'>Hotel Zur Traube Nidda öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sperrung-wiesbadener-kreuz-m%C3%A4rz-2020'>Sperrung Wiesbadener Kreuz März 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=panda-imbiss-r%C3%BCsselsheim-mainstra%C3%9Fe-speisekarte'>Panda Imbiss Rüsselsheim Mainstraße Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=alle-namen-der-welt-liste'>Alle Namen Der Welt Liste</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=amakhala-game-reserve-self-drive'>Amakhala Game Reserve Self Drive</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=scultetus-oberschule-tag-der-offenen-t%C3%BCr'>Scultetus Oberschule Tag Der Offenen Tür</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=aldi-talk-paket-l-buchen'>Aldi Talk Paket L Buchen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=der-wievielte-tag-im-jahr-ist-heute-2019'>Der Wievielte Tag Im Jahr Ist Heute 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=the-calling-roxy-concerts-21-februar'>The Calling Roxy Concerts 21 Februar</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hundert-was-du-im-leben-lernen-wirst-gebraucht'>Hundert Was Du Im Leben Lernen Wirst Gebraucht</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=text-mit-rechtschreibfehlern-zum-korrigieren'>Text Mit Rechtschreibfehlern Zum Korrigieren</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=rwe-power-ag-frechen-telefonnummer'>Rwe Power Ag Frechen Telefonnummer</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=caf%C3%A9-wichtig-scharbeutz-neuer-name'>Café Wichtig Scharbeutz Neuer Name</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=rub-teachers-day-2020-anmeldung'>Rub Teachers Day 2020 Anmeldung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=1000-serbische-dinar-in-euro'>1000 Serbische Dinar In Euro</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ph-karlsruhe-lehramt-sekundarstufe-1'>Ph Karlsruhe Lehramt Sekundarstufe 1</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=haus-der-bayerischen-geschichte-mitarbeiter'>Haus Der Bayerischen Geschichte Mitarbeiter</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=millennium-dance-complex-new-york'>Millennium Dance Complex New York</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-maximilian-serfaus-aldi-reisen'>Hotel Maximilian Serfaus Aldi Reisen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=alleinstehendes-ferienhaus-am-see-%C3%B6sterreich'>Alleinstehendes Ferienhaus Am See österreich</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-caf%C3%A9-zur-letzten-hoffnung'>Das Café Zur Letzten Hoffnung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-k%C3%B6nigstein-kiel-by-tulip-inn-kronshagen'>Hotel Königstein Kiel By Tulip Inn Kronshagen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=schlosshotel-park-consul-heidenheim-restaurant'>Schlosshotel Park Consul Heidenheim Restaurant</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=max-und-moritz-standort-leipzig'>Max Und Moritz Standort Leipzig</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=song-gloria-in-excelsis-deo'>Song Gloria In Excelsis Deo</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sendung-mit-der-maus-hase-pl%C3%BCschtier'>Sendung Mit Der Maus Hase Plüschtier</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=tr%C3%B6delmarkt-krefeld-metro-parkstra%C3%9Fe-%C3%BCberdacht-metro-23-juni'>Trödelmarkt Krefeld Metro Parkstraße überdacht Metro 23 Juni</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=gerry-weber-stadion-veranstaltungen-2019'>Gerry Weber Stadion Veranstaltungen 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=beste-ingenieur-uni-der-welt'>Beste Ingenieur Uni Der Welt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=neustadt-an-der-weinstra%C3%9Fe-altstadt'>Neustadt An Der Weinstraße Altstadt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=new-nails-wandsbek-quarree-preise'>New Nails Wandsbek Quarree Preise</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=big-bus-london-2-for-1'>Big Bus London 2 For 1</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ferienwohnung-s%C3%A4chsische-schweiz-mit-hund'>Ferienwohnung Sächsische Schweiz Mit Hund</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=tanz-in-den-mai-brauhaus-wuppertal'>Tanz In Den Mai Brauhaus Wuppertal</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=van-gogh-museum-amsterdam-sonderausstellung'>Van Gogh Museum Amsterdam Sonderausstellung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kunstmarkt-st-georgen-kirche-in-wismar-st-georgen-kirche-14-dezember'>Kunstmarkt St Georgen Kirche In Wismar St Georgen Kirche 14 Dezember</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=st-martinszug-d%C3%BCsseldorf-altstadt-2019'>St Martinszug Düsseldorf Altstadt 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-12-heldentaten-des-herkules-l%C3%B6sung'>Die 12 Heldentaten Des Herkules Lösung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=outrigger-mauritius-beach-resort-email-address'>Outrigger Mauritius Beach Resort Email Address</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=landpartie-schloss-b%C3%BCckeburg-20-juni'>Landpartie Schloss Bückeburg 20 Juni</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=was-unternehmen-bei-schlechtem-wetter'>Was Unternehmen Bei Schlechtem Wetter</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=phanteks-enthoo-719-high-performance-full-tower'>Phanteks Enthoo 719 High Performance Full Tower</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flossbach-von-storch-afd-spende'>Flossbach Von Storch Afd Spende</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=silvester-2020-in-der-fr%C3%A4nkischen-schweiz'>Silvester 2020 In Der Fränkischen Schweiz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-dorsch-bad-saarow-speisekarte'>Das Dorsch Bad Saarow Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=st-josef-krankenhaus-essen-parken'>St Josef Krankenhaus Essen Parken</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=5-vor-flug-payment-bankverbindung'>5 Vor Flug Payment Bankverbindung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=udo-lindenberg-film-kino-bonn'>Udo Lindenberg Film Kino Bonn</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=100-km-wanderung-jena-2020'>100 Km Wanderung Jena 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-quelle-nature-spa-resort-sankt-magdalena-bozen-italien'>Hotel Quelle Nature Spa Resort Sankt Magdalena Bozen Italien</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=miles-and-more-meilen-werden-nicht-gutgeschrieben'>Miles And More Meilen Werden Nicht Gutgeschrieben</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=insider-things-to-do-in-berlin'>Insider Things To Do In Berlin</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-sand-timmendorfer-strand-parken'>Hotel Sand Timmendorfer Strand Parken</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=feiern-auf-der-ega-erfurt'>Feiern Auf Der Ega Erfurt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sturm-der-liebe-neue-staffel'>Sturm Der Liebe Neue Staffel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=creed-2-ufa-palast-stuttgart'>Creed 2 Ufa Palast Stuttgart</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=suche-eine-2-zimmer-wohnung-in-linkenheim'>Suche Eine 2 Zimmer Wohnung In Linkenheim</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=holiday-on-ice-showtime-bewertung'>Holiday On Ice Showtime Bewertung</a>,
+";s:7:"expired";i:-1;}

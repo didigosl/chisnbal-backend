@@ -1,0 +1,256 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IOrder;
+use Common\Models\IOrderSku as OrderSku;
+use Common\Models\IGoodsSpu as Spu;
+$conf = conf();
+ ?>
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+            订单编号：
+            <input type="text" name="sn" class="input-middle" placeholder="输入订单号" value="<?=$vars['sn']?>" />
+            收货人：
+            <input type="text" name="receive_man" class="input-middle" placeholder="输入收货人姓名/电话" value="<?=$vars['receive_man']?>" /> 
+            时间：
+            <input type="text" name="start_day" class="input-small date-picker" placeholder="开始日期" value="<?=$vars['start_day']?>" /> -
+            <input type="text" name="end_day" class="input-small date-picker" placeholder="结束日期" value="<?=$vars['end_day']?>" />
+
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+        </form>
+    </div>
+</div>
+<div class="row tabs-wrapper">
+    <div class="col-xs-12">
+        
+        <div class="col-xs-10">
+            <a href="<?=$this->url->get($base_url.'/index',['range'=>'new'])?>" class="btn btn-sm <?php if($vars['range']=='new'):?>btn-primary<?php else:?>btn-grey<?php endif;?>">新订单(<?=$total_of_new?>)</a>
+            <!-- <a href="<?=$this->url->get($base_url.'/index',['flag'=>2])?>" class="btn btn-sm <?php if($vars['flag']==2):?>btn-primary<?php else:?>btn-grey<?php endif;?>">等待发货(<?=$total_of_waiting_send?>)</a> -->
+            <a href="<?=$this->url->get($base_url.'/index',['flag'=>3])?>" class="btn btn-sm <?php if($vars['flag']==3):?>btn-primary<?php else:?>btn-grey<?php endif;?>">已发货(<?=$total_of_sent?>)</a>
+            <a href="<?=$this->url->get($base_url.'/index',['refound_flag'=>'refound'])?>" class="btn btn-sm <?php if($vars['refound_flag']=='refound'):?>btn-primary<?php else:?>btn-grey<?php endif;?>">退款中(<?=$total_of_refound?>)</a>
+            <a href="<?=$this->url->get($base_url.'/index',['success_flag'=>'success'])?>" class="btn btn-sm <?php if($vars['success_flag']=='success'):?>btn-primary<?php else:?>btn-grey<?php endif;?>">成功的订单(<?=$total_of_success?>)</a>
+            <a href="<?=$this->url->get($base_url.'/index',['close_flag'=>'close'])?>" class="btn btn-sm <?php if($vars['close_flag']=='close'):?>btn-primary<?php else:?>btn-grey<?php endif;?>">关闭的订单(<?=$total_of_close?>)</a>
+            <a href="<?=$this->url->get($base_url.'/index',['range'=>'in3months'])?>" class="btn btn-sm <?php if($vars['range']=='in3months'):?>btn-primary<?php else:?>btn-grey<?php endif;?>">近三月的订单(<?=$total_of_3months?>)</a>
+            <a href="<?=$this->url->get($base_url.'/index',['range'=>'all'])?>" class="btn btn-sm <?php if($vars['range']=='all'):?>btn-primary<?php else:?>btn-grey<?php endif;?>">全部订单(<?=$total_of_all?>)</a>
+        </div>
+        <div class="col-xs-2" style="text-align:right">
+        <?php if($conf['enable_order_print']):?>
+            <a href="<?=$this->url->get($base_url.'/batPrint',['range'=>'new'])?>" class="btn btn-sm btn-inverse">批量打印</a>
+        <?php endif;?>
+        </div>
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <table class="table table-striped table-bordered table-hover dataTable">
+        <thead>
+            <tr>
+                <th><?=IOrder::getAttr('sn')?></th>
+                <th><?=IOrder::getAttr('create_time')?></th>
+                <th><?=IOrder::getAttr('receive_man')?></th>
+                <th><?=IOrder::getAttr('total_amount')?></th>
+                <th><?=IOrder::getAttr('total_rebate')?></th>
+                <th><?=IOrder::getAttr('flag')?></th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($page->items as $Order):?>
+            <tr>
+                <td width="20%"><?=$Order->sn?></td>
+                <td width="15%"><?=$Order->create_time?></td>
+                <td width="20%"><?=$Order->receive_man.'（'.$Order->receive_phone.'）'?></td>
+                <td width="10%"><?=fmtMoney($Order->total_amount)?></td>
+                <td width="10%"><?=fmtMoney($Order->total_rebate)?></td>
+                <td width="10%" style="text-align:center">
+                    <?=$Order->getFlagContext($Order->flag)?>
+                    
+                    <?php if($Order->pay_flag):?>
+                        <?php if($Order->payment_method=='offline'):?>(线下支付)<?php endif;?>
+                        <?php if($Order->payment_method=='money'):?>(余额支付)<?php endif;?>
+                    <?php endif;?>
+                    <?php if($Order->close_flag==1):?>
+                    <span class="label label-inverse">订单已关闭</span>
+                    <?php elseif($Order->close_flag==2):?>
+                    <span class="label label-purple "><?=$Order->getRefoundFlagContext($Order->refound_flag)?></span>
+                    <?php endif;?>
+                </td>
+                <td>
+                    <a class="btn btn-xs btn-info formBtn" href="<?=$this->url->get($base_url.'/setting',['id'=>$Order->order_id])?>">详情</a>
+                    <?php 
+                    //是否启用未付款订单直接发货
+                    $enable_unpaid_order_delivery = (int)conf('enable_unpaid_order_delivery');
+                    if($Order->close_flag==0 and ($Order->flag==2 || ($enable_unpaid_order_delivery && $Order->flag==1) ) ):
+                    ?>
+                    <button ajax="<?=$this->url->get($base_url.'/delivery',['id'=>$Order->order_id])?>" class="btn btn-xs btn-success order-delivery-btn">发货</button>
+                    <?php 
+                    endif;
+                    ?>
+                    <?php if($Order->close_flag==0 and $Order->flag<4):?><button ajax="<?=$this->url->get($base_url.'/close',['id'=>$Order->order_id])?>" class="btn btn-xs btn-warning close-btn">关闭</button><?php endif;?>
+                    <?php if($conf['enable_order_print']):?>
+                    <a href="<?=$this->url->get($base_url.'/print',['id'=>$Order->order_id])?>" class="btn btn-xs btn-inverse">打印</a>
+                    <?php endif;?>
+                    <?php if($conf['customer_service']):?>
+                    <a href="<?=$this->url->get($module.'/i_cs_msg/index',['user_id'=>$Order->user_id])?>" class="btn btn-xs btn-info">对话</a>
+                    <?php endif;?>
+                </td>
+            </tr>
+            <?php /* ?>
+            <tr>
+                <td colspan="7" style="padding:10px;">
+                    <table class="table table-striped table-bordered dataTable">                 
+                        <tbody>
+                        <?php foreach($Order->skus as $OrderSku): ?>
+                            <tr>
+                                <td width="15%"><img class="thumb" src="<?=$OrderSku->Spu->getFmtCover()?>"></td>
+                                <td><a href="<?=$this->url->get($module.'/i_goods_spu/index',['id'=>$OrderSku->spu_id])?>"><?=$OrderSku->Spu->spu_name?></a> <br> <?=$OrderSku->Sku->spec_info=='default'?'':$OrderSku->Sku->spec_info?></td>
+                                <td><?=OrderSku::getAttr('price')?>：<?=fmtMoney($OrderSku->price)?></td>
+                                <td><?=OrderSku::getAttr('num')?>：<?=$OrderSku->num?></td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <?php */ ?>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+
+    </div>
+</div>
+<div class="row pager">
+    <div class="col-xs-12">
+        <div class="dataTables_paginate paging_bootstrap">
+            <ul class="pagination">
+               
+                <?php $vars['p'] = 1;?>
+                <li class="prev <?php if($page->current<=1):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/index',$vars)?>"><i class="fa fa-angle-double-left"></i></a></li>
+                <?php $vars['p'] = $page->current-1 ?>
+                <li class="prev <?php if($page->current<=1):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/index',$vars)?>"><i class="fa fa-angle-left"></i></a></li>
+                <?php
+                $num = 3;
+                if($page->current-$num<=1){
+                    $start = 1 ;
+                }
+                else{
+                    $start = $page->current - $num;
+                }
+
+                if($page->current+$num>=$page->total_pages){
+                    $end = $page->total_pages;
+                }
+                else{
+                    $end = $page->current + $num;
+                }
+
+                $p = $start;
+                $vars = $this->view->vars;
+                //var_dump($vars);exit;
+                $vars['menu'] = $this->request->getQuery('menu');
+                while($p<=$end){
+                    $vars['p'] = $p;
+                ?>
+                <li class="<?php if($page->current==$p):?>active<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/index',$vars)?>"><?=$p?></a></li>
+                <?php
+                    $p++;
+                }
+                ?>
+                <?php $vars['p'] = $page->total_pages;?>
+                <li class="next <?php if($page->current>=$page->total_pages):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/index',$vars)?>"><i class="fa fa-angle-double-right"></i></a></li>
+                <?php $vars['p'] = $page->current+1;?>
+                <li class="next <?php if($page->current>=$page->total_pages):?>disabled<?php endif;?>"><a href="<?php echo $this->url->get($module.'/'.$this->dispatcher->getControllerName().'/index',$vars)?>"><i class="fa fa-angle-right"></i></a></li>
+                
+            </ul>
+            <div class="page_info"><?php if(!$hidePageStat):?><span>共有<?=$page->total_pages?>页，总计<?=$page->total_items?>条</span><?php endif;?>
+             </div>
+        </div>
+    </div>
+</div>
+<?php
+$freeze_url = $this->url->get($base_url.'/freeze');
+$resetpsw_url = $this->url->get($base_url.'/resetpsw');
+$this->assets->js['foot'][] = 'inc::back/js/my.grid.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.date-picker').datepicker({
+        dateFormat:'yy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+    });
+
+    $('.close-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要关闭此订单吗？', function(index){
+            $.get($(env).attr('ajax'),function(result){
+                if(result.status>0){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            
+        });
+    });
+
+    $('.order-delivery-btn').click(function(e){1
+        
+        e.preventDefault(); 
+        $.get($(this).attr('ajax'),function(result){
+            if(result.status=='1'){
+                $('#container').html(result.data);
+                var dialog = $('#container').dialog({
+                    modal: true,
+                    title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 表单</h4></div>",
+                    title_html: true,
+                    width:600,
+                    height:'auto',
+                    buttons: [ 
+                        {
+                            text: "取消",
+                            "class" : "btn btn-xs",
+                            click: function() {
+                                $( this ).dialog( "close" ); 
+                            } 
+                        },
+                        {
+                            text: "提交",
+                            "class" : "btn btn-primary btn-xs",
+                            "id":"editSubmit",
+                            click: function() {
+
+                                var _this = this;
+
+                                $.post($('#container form').attr('action'),$('#container form').serialize(),function(result){
+                                    if(result.status=='1'){
+                                        //successMsg(result.msg);
+                                        $(_this).dialog("close");
+
+                                        location.reload();
+                                    }
+                                    else{
+                                        errorMsg(result.msg);
+                                        
+                                    }
+                                });
+
+                            } 
+                        }
+                    ]
+                });
+            }
+        });
+    });
+    
+});
+EOT;
+ ?>

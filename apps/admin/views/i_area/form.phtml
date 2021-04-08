@@ -1,0 +1,46 @@
+<?php
+use Common\Models\IArea;
+use Phalcon\Tag;
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" method="post" action="<?=$this->url->get($base_url.'/'.($M->area_id?'update':'create'))?>">
+				<input type="hidden" id="" name="area_id" value="<?=$M->area_id?>">
+            <?php if($M->parent_id):?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('parent_id')?></label>
+
+					<div class="col-sm-9">
+						<p><?=$M->Parent->getFullName()?></p>
+						<input type="hidden" id="parent_id" name="parent_id" value="<?=$M->parent_id?>">
+					</div>
+				</div>
+            <?php endif;?>	
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->name?>" />
+					</div>
+				</div>
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('status')?></label>
+
+					<div class="col-sm-9">
+						<select name="status" id="">
+                            <option value="1">启用</option>
+                            <option value="0">停用</option>
+                        </select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		ajaxForm();
+	});
+</script>

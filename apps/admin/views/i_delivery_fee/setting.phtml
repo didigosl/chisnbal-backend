@@ -1,0 +1,214 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IDeliveryFee;
+use Common\Models\IDeliveryFeeMeasure;
+use Common\Models\IArea;
+ ?>
+
+<div class="widget-box">    
+
+    <div class="widget-body">
+        <div class="widget-main">
+        <?php /*
+            <form class="form-horizontal" role="form" id="settingForm" method="post" action="<?=$this->url->get($module.'/s_setting/setting',['group'=>'delivery_fee'])?>">
+                
+            <?php foreach($settings as $Setting):?>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> <?=$Setting->text?></label>
+
+                    <div class="col-sm-9">
+                    <?php if($Setting->type=='text'):?>
+                        <input type="text" name="<?=$Setting->name?>" placeholder="请输入<?=$Setting->text?>" value="<?=fmtMoney($Setting->value)?>" class="col-xs-10 col-sm-5" />
+                    <?php elseif($Setting->type=='textarea'):?>
+                        <textarea name="<?=$Setting->name?>" id="" rows="5" class="form-control"><?=$Setting->value?></textarea>
+                    <?php endif;?>
+                    </div>
+                </div>
+            <?php endforeach;?>
+                <div class="clearfix">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit">                     
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        提交
+                        </button>                       
+                    </div>
+                </div>
+            </form>
+        */?>
+            <form class="form-horizontal" role="form" id="settingForm" method="post" action="<?=$this->url->get($base_url.'/updateSetting')?>">
+            
+            <?php if($this->conf['delivery_fee_type']=='default'):?>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 全局运费</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" name="fee" placeholder="请输入运费金额" value="<?=fmtMoney($Default->fee)?>" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+            <?php elseif($this->conf['delivery_fee_type']=='measure'):?>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 全局运费</label>
+
+                    <div class="col-sm-9">
+                        <p>
+                        不足<b><?=$Default->basic_measure?></b>千克时运费： <input type="text" name="basic_fee" value="<?=$Default->basic_fee?fmtMoney($Default->basic_fee):""?>" class="input-sm input-small" /> 
+                        </p>
+                        <p>
+                        每增加<b><?=$Default->step_measure?></b>千克运费增加：<input type="text" name="step_fee" placeholder="" value="<?=$Default->step_fee?fmtMoney($Default->step_fee):""?>" class="input-sm input-small" />
+                        </p>
+                        
+                        <input type="hidden" name="basic_measure" value="<?=$Default->basic_measure?>">
+                        <input type="hidden" name="step_measure" value="<?=$Default->step_measure?>">
+                    </div>
+                </div>
+                <?php elseif($this->conf['delivery_fee_type']=='percent'):?>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 全局运费</label>
+
+                    <div class="col-sm-9">
+                        <p>
+                        订单金额不足<input type="text" name="basic_measure" value="<?=fmtMoney($Default->basic_measure)?>" class="input-sm input-small" /> 元时运费： <input type="text" name="basic_fee" value="<?=$Default->basic_fee?fmtMoney($Default->basic_fee):""?>" class="input-sm input-small" /> 
+                        </p>
+                        <p>
+                        订单金额每增加<input type="text" name="step_measure" value="<?=fmtMoney($Default->step_measure)?>" class="input-sm input-small" />元运费增加：<input type="text" name="step_fee" placeholder="" value="<?=$Default->step_fee?fmtMoney($Default->step_fee):""?>" class="input-sm input-small" />
+                        </p>
+
+                    </div>
+                </div>
+                <?php endif;?>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 免运费金额</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" name="delivery_free_limit" placeholder="请输入运费金额" value="<?=$delivery_free_limit ? fmtMoney($delivery_free_limit) : ""?>" class="col-xs-10 col-sm-5" />
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="col-md-offset-3 col-md-9">
+                        <input type="hidden" name="id" value="<?=$Default->id?>">
+                        <input type="hidden" name="area_id" value="0">
+                        <button class="btn btn-info" type="submit">                     
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        提交
+                        </button>                       
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12" style="text-align: right">
+    <?php
+    if($this->conf['delivery_fee_type']=='default'){
+        $url = $this->url->get($module.'/i_delivery_fee/create');
+        
+    }
+    else{
+        $url = $this->url->get($module.'/i_delivery_fee_measure/create');
+    }
+    
+    ?>
+        <button id="addBtn" type="button" class="btn btn-success btn-sm addBtn" ajax="<?=$url?>">
+            <i class="ace-icon fa fa-plus bigger-110"></i>新增
+        </button>
+    </div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    if($this->conf['delivery_fee_type']=='measure'){
+        $cols = [
+            ['ID','id'],
+            [IDeliveryFeeMeasure::getAttr('area_id'),'{$o}->area_id>0 ? {$o}->Area->getFullName() : "全局运费"','function'],
+            [IDeliveryFeeMeasure::getAttr('basic_fee'),'"不足".fmtMoney({$o}->basic_measure)."千克时运费".fmtMoney({$o}->basic_fee)','function'],
+            [IDeliveryFeeMeasure::getAttr('step_fee'),'"每增减".fmtMoney({$o}->step_measure)."千克增加运费".fmtMoney({$o}->step_fee)','function'],
+        ];
+    }
+    elseif($this->conf['delivery_fee_type']=='percent'){
+        $cols = [
+            ['ID','id'],
+            [IDeliveryFeeMeasure::getAttr('area_id'),'{$o}->area_id>0 ? {$o}->Area->getFullName() : "全局运费"','function'],
+            [IDeliveryFeeMeasure::getAttr('basic_fee'),'"订单金额不足".fmtMoney({$o}->basic_measure)."元时运费".fmtMoney({$o}->basic_fee)','function'],
+            [IDeliveryFeeMeasure::getAttr('step_fee'),'"订单金额每增加".fmtMoney({$o}->step_measure)."元增加运费".fmtMoney({$o}->step_fee)','function'],
+        ];
+    }
+    else{
+        $cols = [
+            ['ID','id'],
+            [IDeliveryFee::getAttr('area_id'),'{$o}->area_id>0 ? {$o}->Area->getFullName() : "全局运费"','function'],
+            [IDeliveryFee::getAttr('fee'),'fmtMoney({$o}->fee)','function'],
+        ];
+    }
+
+    if($this->conf['delivery_fee_type']=='default'){
+        $model_url = 'i_delivery_fee';
+    }
+    else{
+        $model_url = 'i_delivery_fee_measure';
+    }
+
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>$cols,
+        'buttons'=>['edit','delete'],
+        'action'=>'setting',
+        'buttonsCfg'=>[
+            'edit'=>[
+                'iconCss'=>'fa-pencil ',
+                'type'=>'ajax',
+                'url'=>$model_url.'/update',
+                'title'=>'修改',
+                'btnCss'=>'btn-success formBtn'
+            ],
+            'delete'=>[
+                'url'=>$model_url.'/delete',
+            ],
+        ],
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ]
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getAreas',null));
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('#settingForm').submit(function(){
+        var params = {};
+       /* $.each($('#settingForm input'),function(i,o){
+            if($(o).val().length==0 || isDigit($(o).val())){
+                errorMsg('费用金额必须填写数字');
+                return false;
+            }
+            params[$(o).attr('name')] = $(o).val()*100;
+        })
+        console.log($(this).attr('action'));
+        $.post($(this).attr('action'),params,function(result){
+            if(result.status=='1'){
+                location.reload();
+            }
+            else{
+                errorMsg(result.msg);
+            }
+        });*/
+        
+        var fee = $('#settingForm input[name="fee"]').val();
+        console.log(fee);
+        if(fee.length==0 || !isDigit(fee*100)){
+            errorMsg('费用金额必须填写数字');
+            return false;
+        }
+        return true;
+    });
+});
+EOT;
+ ?>

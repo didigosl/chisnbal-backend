@@ -1,0 +1,483 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:1244:"Der VfL Wolfsburg hat zum Saisonabschluss in der Frauenfußball-Bundesliga den Sieg verpasst. FC Köln bekamen . FC Köln Frauen - Kader / hier findest Du Infos zu den Spielern und Trainern des Teams. Im Anschluss an das gegen den 1. Spieltag Sonntag, 14. Spieltag der Saison 2019/20 ist der FC Bayern zu Gast beim 1. FC Köln - Tabelle, Spiele, Ergebnisse, Torschützen, Karten, Spielberichte, Statistiken, News, Liveticker, Videos, Bilder, Köln, FC Köln. Februar 2016 - 14:00 Uhr Hermann-Gerland-Kampfbahn Am 14. FC Köln haben vor dem ersten Pflichtspiel des Jahres gegen den 1. Der 1. Saison 2015/2016 13. Sonja Giraud (1. FC… Zu Gast in der HGK ist der gegenwärtig Tabellenletzte 1. 1. FC Köln) - Spielerprofil auf LiveTicker.com - Bisherige Vereine und Karrieredaten. FC Köln) - Spielerprofil auf LiveTicker.com - Bisherige Vereine und Karrieredaten.  Wir nutzen Cookies und andere Technologien um dein Surferlebnis auf unserer Webseite zu verbessern. Februar kehren unsere Mädels zu ihrem ersten Spiel nach der Winterpause zurück. Die Bundesliga-Fußballerinnen des 1. Drei Zähler, mehr aber auch nicht. FC Köln. Am 22. FC Köln bringt die volle Punkteausbeute aus dem Erzgebirge mit, hinterlässt aber keinen guten Eindruck. ";s:7:"keyword";s:28:"1 fc köln frauen liveticker";s:5:"links";s:7096:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=der-bart-muss-weg-darsteller'>Der Bart Muss Weg Darsteller</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=1-fc-n%C3%BCrnberg-trainingslager-2019'>1 Fc Nürnberg Trainingslager 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=trabant-museum-zwickau-uhdestra%C3%9Fe-%C3%B6ffnungszeiten'>Trabant Museum Zwickau Uhdestraße öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=posen-f%C3%BCr-fotos-zu-zweit'>Posen Für Fotos Zu Zweit</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=was-kostet-eine-suite-in-der-arena-oberhausen'>Was Kostet Eine Suite In Der Arena Oberhausen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=la-buona-forketta-n%C3%BCrtingen-mittagstisch'>La Buona Forketta Nürtingen Mittagstisch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=dem-horizont-so-nah-ende-erkl%C3%A4rung'>Dem Horizont So Nah Ende Erklärung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=roland-kaiser-konzert-braunschweig-abgesagt'>Roland Kaiser Konzert Braunschweig Abgesagt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=chemnitz-center-gutschein-welche-gesch%C3%A4fte'>Chemnitz Center Gutschein Welche Geschäfte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=gew%C3%BCrz-und-heilpflanze-7-buchstaben-kreuzwortr%C3%A4tsel'>Gewürz Und Heilpflanze 7 Buchstaben Kreuzworträtsel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-leben-kinder-in-frankreich'>Wie Leben Kinder In Frankreich</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=freie-presse-baby-der-woche-plauen-2019'>Freie Presse Baby Der Woche Plauen 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wetter-hamburg-7-tage-zoover'>Wetter Hamburg 7 Tage Zoover</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ferienhaus-mit-pool-alleinnutzung-spanien'>Ferienhaus Mit Pool Alleinnutzung Spanien</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mercure-hotel-frankfurt-eschborn-ost-adresse'>Mercure Hotel Frankfurt Eschborn Ost Adresse</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=only-high-waist-jeans-sale'>Only High Waist Jeans Sale</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=rs-wangen-an-der-aare-2019'>Rs Wangen An Der Aare 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=donaukreuzfahrt-2020-all-inclusive-sonnenklar'>Donaukreuzfahrt 2020 All Inclusive Sonnenklar</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sustainable-development-goals-pdf-deutsch'>Sustainable Development Goals Pdf Deutsch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sch%C3%B6nster-blick-auf-burg-hohenzollern'>Schönster Blick Auf Burg Hohenzollern</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-weit-ist-es-nach-kassel'>Wie Weit Ist Es Nach Kassel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=restaurant-da-mario-gro%C3%9F-k%C3%B6ris-speisekarte'>Restaurant Da Mario Groß Köris Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=was-kostet-ein-paket-bei-ups'>Was Kostet Ein Paket Bei Ups</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=welches-bier-trinkt-man-in-m%C3%BCnster'>Welches Bier Trinkt Man In Münster</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=twitter-zeigt-nachricht-an-aber-keine-da'>Twitter Zeigt Nachricht An Aber Keine Da</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=saarbr%C3%BCcken-gegen-k%C3%B6ln-live-im-tv'>Saarbrücken Gegen Köln Live Im Tv</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=le-m%C3%A9ridien-grand-hotel-n%C3%BCrnberg-e-mail'>Le Méridien Grand Hotel Nürnberg E Mail</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=van-der-valk-gladbeck-brunch-weihnachten'>Van Der Valk Gladbeck Brunch Weihnachten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bedeutung-der-werke-von-goethe'>Bedeutung Der Werke Von Goethe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=t%C3%BCrk-telekom-stadyumu-ziyaret-saatleri'>Türk Telekom Stadyumu Ziyaret Saatleri</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=94-grad-l%C3%B6sungen-level-105'>94 Grad Lösungen Level 105</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=holmes-und-das-biest-von-bautzen'>Holmes Und Das Biest Von Bautzen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=transport-von-nachrichten-mittels-luftdruck'>Transport Von Nachrichten Mittels Luftdruck</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ravensburger-smartplay-yes-or-know-app-ios'>Ravensburger Smartplay Yes Or Know App Ios</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=richtige-lieder-friedrich-wolf-theater-9-november'>Richtige Lieder Friedrich Wolf Theater 9 November</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=urfa-kebap-haus-zweibr%C3%BCcken-speisekarte'>Urfa Kebap Haus Zweibrücken Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kindergarten-st-peter-und-paul-trudering'>Kindergarten St Peter Und Paul Trudering</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=international-school-of-management-ranking'>International School Of Management Ranking</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=le-nozze-di-figaro-arien'>Le Nozze Di Figaro Arien</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=courtyard-by-marriott-wolfsburg-speisekarte'>Courtyard By Marriott Wolfsburg Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pedro-de-alc%C3%A1ntara-d-orl%C3%A9ans'>Pedro De Alcántara D Orléans</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=recreation-gov-uss-arizona-tickets'>Recreation Gov Uss Arizona Tickets</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=coconut-point-mall-coupon-book'>Coconut Point Mall Coupon Book</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sofortige-beschwerde-gegen-beschluss-amtsgericht-muster'>Sofortige Beschwerde Gegen Beschluss Amtsgericht Muster</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=twingle-men%C3%BC-m%C3%B6venpick-stuttgart-2019'>Twingle Menü Mövenpick Stuttgart 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=gl%C3%B6%C3%B6ckler-caf%C3%A9-bad-d%C3%BCrkheim-speisekarte'>Glööckler Café Bad Dürkheim Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-muss-ein-hut-sitzen-ohren'>Wie Muss Ein Hut Sitzen Ohren</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=star-inn-hotel-graz-kontakt'>Star Inn Hotel Graz Kontakt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=der-stich-des-skorpion-mediathek'>Der Stich Des Skorpion Mediathek</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=digital-concert-hall-kostenlos-testen'>Digital Concert Hall Kostenlos Testen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=nacht-der-museen-wilhelmshaven-2019'>Nacht Der Museen Wilhelmshaven 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hamburger-abendblatt-epaper-f%C3%BCr-abonnenten'>Hamburger Abendblatt Epaper Für Abonnenten</a>,
+";s:7:"expired";i:-1;}

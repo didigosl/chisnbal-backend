@@ -1,0 +1,15 @@
+<form id="form"  method="post" action="<?=$this->config->params->apiUrl?>/<?=$this->dispatcher->getControllerName()?>/<?=$this->dispatcher->getActionName()?>">
+	<table>
+		<tr>
+			<th>username</th>
+			<td><input type="text" name="username" value=""></input></td>
+			<td>帐号</td>
+		</tr>
+		<tr>
+			<th>password</th>	
+			<td><input type="text" name="password" value=""></input></td>
+			<td>密码</td>
+		</tr>
+	</table>
+	<div class="buttons"><input type="submit" value="查看接口返回"></input></div>
+</form>

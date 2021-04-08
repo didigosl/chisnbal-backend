@@ -1,0 +1,509 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:1923:"Immerhin hat der Arbeitgeber das Privatleben seiner Angestellten zu berücksichtigen und gerade die Arbeit nach Schichtplan erfordert eine langfristige Planung. Es geht dabei ja auch um ein Problem bei meiner Frau auf Station. Das verlangt eine Abwägung der wechselseitigen … Daher frage ich ja auch nach den gesetzlichen Bestimmungen, deren Einhaltung und Umsetzung in die Praxis. Ruhepausen sollten grundsätzlich im Voraus festgelegt werden oder zumindest vorhersehbar sein.  Was müssen Arbeitgeber bei dem Aufstellen von einem Dienstplan beachten? Ist der Dienstplan einmal veröffentlicht, kann er grundsätzlich nicht einfach so wieder abgeändert werden. Arbeitnehmer sind hier nicht rechtlos. Der Arbeitgeber ist verpflichtet, dem Arbeitnehmer Ruhepausen zu gewähren, damit dieser sich erholen und etwas essen kann. Hierzu zählen neben den Personendaten auch die Arbeits- und Urlaubszeiten. Es geht dabei ja auch nur um die Fragestellung "Was ist machbar und was nicht". Bei regelmäßiger Arbeit an einem Wochenende in 14 tägigem Rhythmus ergibt sich damit eine maximale Anzahl von 12 Diensttagen. ; Arbeitnehmer haben grundsätzlich keinen rechtlichen Anspruch darauf, den kompletten Dienstplan aller Mitarbeiter und Kollegen … Der Arbeitgeber übt durch die Dienstplanerstellung sein Weisungsrecht nach Satz 1 GewO bezüglich der Lage der Arbeitszeit aus, indem er konkretisiert, wann der Arbeitnehmer die von ihm geschuldete Arbeitsleistung zu erbringen hat. Juli gegeben werden. Der Dienstplan ist unter Beachtung zwingender normativer Bestimmungen nach billigem Ermessen zu erstellen. Das Wichtigste zum Datenschutz beim Dienstplan in Kürze. Der Ersatzruhetag muss spätestens am Samstag, den 4. Der Arbeitnehmer ist währenddessen zu keiner Arbeitsleistung verpflichtet. Auch ein Dienstplan fällt unter den Datenschutz, da hier regelmäßig personenbezogene Daten der Betroffenen abgebildet sind. ";s:7:"keyword";s:30:"24 stunden casino in der nähe";s:5:"links";s:10792:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ei-du-labbeduddel-hessische-schimpfw%C3%B6rter'>Ei Du Labbeduddel Hessische Schimpfwörter</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=irische-tage-jena-2019-programm'>Irische Tage Jena 2019 Programm</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=zoo-prag-mit-euro-bezahlen'>Zoo Prag Mit Euro Bezahlen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=lord-of-the-dance-m%C3%BCnchen-corona'>Lord Of The Dance München Corona</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=villeroy-und-boch-ostern-sale'>Villeroy Und Boch Ostern Sale</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=4-zimmer-wohnung-h%C3%B6chst-unterliederbach'>4 Zimmer Wohnung Höchst Unterliederbach</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=i-love-reggaeton-festival-2019'>I Love Reggaeton Festival 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=h%C3%B6rst-du-die-regenw%C3%BCrmer-husten-puppe'>Hörst Du Die Regenwürmer Husten Puppe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=platz-der-g%C3%B6ttinger-sieben-2'>Platz Der Göttinger Sieben 2</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=haus-am-see-k%C3%B6ln-kaufen'>Haus Am See Köln Kaufen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=zahnersatz-bei-hartz-4-2019'>Zahnersatz Bei Hartz 4 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=du-bist-die-kunst-termine'>Du Bist Die Kunst Termine</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=afrika-l%C3%A4nder-und-hauptst%C3%A4dte-karte'>Afrika Länder Und Hauptstädte Karte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=theater-am-alten-markt-bielefeld-kommende-veranstaltungen'>Theater Am Alten Markt Bielefeld Kommende Veranstaltungen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=finanzamt-f%C3%BCr-k%C3%B6rperschaften-berlin-friedrichshain'>Finanzamt Für Körperschaften Berlin Friedrichshain</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=freie-wohnungen-zum-mieten-mutlangen'>Freie Wohnungen Zum Mieten Mutlangen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bonn-wohnung-in-poppelsdorf-mieten'>Bonn Wohnung In Poppelsdorf Mieten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hard-rock-cafe-besuch-nachtragen'>Hard Rock Cafe Besuch Nachtragen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=land-und-forst-luftbildwettbewerb-2019'>Land Und Forst Luftbildwettbewerb 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=unfall-a1-heute-gro%C3%9F-ippener'>Unfall A1 Heute Groß Ippener</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=was-reimt-sich-auf-zeit'>Was Reimt Sich Auf Zeit</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=welcher-baum-inspirierte-goethe-zu-einem-gedicht'>Welcher Baum Inspirierte Goethe Zu Einem Gedicht</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wann-wurde-das-doberaner-m%C3%BCnster-gebaut'>Wann Wurde Das Doberaner Münster Gebaut</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mdr-studiotour-in-aller-freundschaft'>Mdr Studiotour In Aller Freundschaft</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ausflugsziele-mit-kindern-wangen-im-allg%C3%A4u'>Ausflugsziele Mit Kindern Wangen Im Allgäu</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kennel-und-schmenger-factory-outlet-pirmasens-%C3%B6ffnungszeiten'>Kennel Und Schmenger Factory Outlet Pirmasens öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wer-darf-im-studentenwohnheim-wohnen'>Wer Darf Im Studentenwohnheim Wohnen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=in-welchem-programm-kommt-heute-die-lindenstra%C3%9Fe'>In Welchem Programm Kommt Heute Die Lindenstraße</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ab-wann-gibt-es-stollen-zu-kaufen'>Ab Wann Gibt Es Stollen Zu Kaufen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-bauerncaf%C3%A9-morsbacher-hof-%C3%B6ffnungszeiten'>Das Bauerncafé Morsbacher Hof öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=jet-tankstelle-duisburg-homberg-preise'>Jet Tankstelle Duisburg Homberg Preise</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=schenefelder-einkaufszentrum-verkaufsoffener-sonntag-2020'>Schenefelder Einkaufszentrum Verkaufsoffener Sonntag 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bayerisches-restaurant-berlin-bayerischer-platz'>Bayerisches Restaurant Berlin Bayerischer Platz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sehensw%C3%BCrdigkeiten-zwischen-cochem-und-koblenz'>Sehenswürdigkeiten Zwischen Cochem Und Koblenz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=450-euro-job-dortmund-huckarde'>450 Euro Job Dortmund Huckarde</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=www-gfo-klinik-bergisch-gladbach-de'>Www Gfo Klinik Bergisch Gladbach De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=meine-stadt-bad-oeynhausen-immobilien'>Meine Stadt Bad Oeynhausen Immobilien</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ich-w%C3%BCnsche-dir-alles-gute-auf-plattdeutsch'>Ich Wünsche Dir Alles Gute Auf Plattdeutsch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-lustige-witwe-f%C3%BCrth-kritik'>Die Lustige Witwe Fürth Kritik</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=d%C3%B6ner-all-you-can-eat'>Döner All You Can Eat</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=adina-apartment-hotel-frankfurt-westend-email'>Adina Apartment Hotel Frankfurt Westend Email</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=dreiraumwohnung-bei-gwg-ost-dresden'>Dreiraumwohnung Bei Gwg Ost Dresden</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hotel-am-kloster-werne-brunch-termine'>Hotel Am Kloster Werne Brunch Termine</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=classic-cars-for-sale-classiccars-com'>Classic Cars For Sale Classiccars Com</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=family-hotel-amarin-g%C3%BCnstig-buchen'>Family Hotel Amarin Günstig Buchen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-besten-restaurants-in-der-prignitz'>Die Besten Restaurants In Der Prignitz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-viele-strafzettel-darf-man-in-der-probezeit-bekommen'>Wie Viele Strafzettel Darf Man In Der Probezeit Bekommen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=stadtpark-herford-hang%C3%BCl-gmbh-32049-herford'>Stadtpark Herford Hangül Gmbh 32049 Herford</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=jugend-ohne-gott-theater-wien'>Jugend Ohne Gott Theater Wien</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wer-hat-den-friedensnobelpreis-2019-bekommen'>Wer Hat Den Friedensnobelpreis 2019 Bekommen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=gr%C3%B6sste-gemeinde-der-schweiz-km2'>Grösste Gemeinde Der Schweiz Km2</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=daimler-who-is-who-portal'>Daimler Who Is Who Portal</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=uni-due-germanistik-lehramt-modulhandbuch-master'>Uni Due Germanistik Lehramt Modulhandbuch Master</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=haus-an-amerikaner-vermieten-b%C3%B6blingen'>Haus An Amerikaner Vermieten Böblingen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=arbeiten-im-kindergarten-als-ungelernte-kraft'>Arbeiten Im Kindergarten Als Ungelernte Kraft</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wohnung-mieten-am-wasserturm-flensburg'>Wohnung Mieten Am Wasserturm Flensburg</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=chaos-auf-schloss-haversham-kulturhaus-l%C3%BCdenscheid-27-oktober'>Chaos Auf Schloss Haversham Kulturhaus Lüdenscheid 27 Oktober</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=www-sparkasse-trier-dehttps-www-google-com-hl-de'>Www Sparkasse Trier Dehttps Www Google Com Hl De</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=jet-tankstelle-duisburg-homberg-preise'>Jet Tankstelle Duisburg Homberg Preise</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=fireproof-games-the-room-5'>Fireproof Games The Room 5</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=buten-und-binnen-unfall-a1'>Buten Und Binnen Unfall A1</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=monster-truck-show-termine-2019'>Monster Truck Show Termine 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=baugebiet-in-der-feldflur-sieglar'>Baugebiet In Der Feldflur Sieglar</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=aussichtspunkte-mit-auto-in-der-n%C3%A4he'>Aussichtspunkte Mit Auto In Der Nähe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=im-wei%C3%9Fen-r%C3%B6ssl-renaissance-theater'>Im Weißen Rössl Renaissance Theater</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=deutsche-stadt-mit-y-am-anfang'>Deutsche Stadt Mit Y Am Anfang</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=restaurant-st%C3%B6rtebeker-hamburg-leonardo-speisekarte'>Restaurant Störtebeker Hamburg Leonardo Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=rock-am-see-2020-tickets'>Rock Am See 2020 Tickets</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=schildergasse-k%C3%B6ln-gesch%C3%A4fte-%C3%B6ffnungszeiten-karneval'>Schildergasse Köln Geschäfte öffnungszeiten Karneval</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=regionalliga-nordost-2017-18-spielplan'>Regionalliga Nordost 2017 18 Spielplan</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=holiday-on-ice-hannover-m%C3%A4rz-2020'>Holiday On Ice Hannover März 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=touristik-und-caravaning-leipzig-2019-eintrittspreise'>Touristik Und Caravaning Leipzig 2019 Eintrittspreise</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hegel-ph%C3%A4nomenologie-des-geistes-einf%C3%BChrung'>Hegel Phänomenologie Des Geistes Einführung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=r%C3%B6mer-und-germanen-klasse-6'>Römer Und Germanen Klasse 6</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ndr-2-promi-3er-aktuell'>Ndr 2 Promi 3er Aktuell</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=sebastian-pufpaff-wir-nach-stadthalle-erkrath-13-m%C3%A4rz'>Sebastian Pufpaff Wir Nach Stadthalle Erkrath 13 März</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wunderland-kalkar-gutschein-2-f%C3%BCr-1-2019'>Wunderland Kalkar Gutschein 2 Für 1 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bungalow-kaufen-worms-ebay-kleinanzeigen'>Bungalow Kaufen Worms Ebay Kleinanzeigen</a>,
+";s:7:"expired";i:-1;}

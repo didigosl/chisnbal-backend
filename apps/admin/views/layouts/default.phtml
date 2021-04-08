@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title><?=$this->settings['app_name']?>管理系统</title>
+
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<?php echo $this->assets->get('css','head')?>
+		<?php echo $this->assets->get('js','head')?>
+		<style>
+		.sidebar .sidebar-shortcuts-mini{ display: block}
+		</style>
+	</head>
+
+	<body class="<?php if($shop_id):?>skin-1<?php else:?>no-skin<?php endif;?>">
+		<!-- #section:basics/navbar.layout -->
+		<div id="navbar" class="navbar navbar-default navbar-fixed-top">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<!-- #section:basics/sidebar.mobile.toggle -->
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">切换侧边栏</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
+				<div class="navbar-header pull-left">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="javascript:void(0)" class="navbar-brand">
+						<small>
+							<i class="fa fa-shopping-cart orange"></i>
+							<?=$this->settings['app_name']?>管理系统
+						</small>
+					</a>
+
+					<!-- /section:basics/navbar.layout.brand -->
+
+					<!-- #section:basics/navbar.toggle -->
+
+					<!-- /section:basics/navbar.toggle -->
+				</div>
+
+				<!-- #section:basics/navbar.dropdown -->
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						
+						<!-- #section:basics/navbar.user_menu -->
+						<li class="dark">
+							<a data-toggle="dropdown" href="javascript:void(0)" class="dropdown-toggle">
+								
+								<img class="nav-user-photo" src="<?=$config->params->staticsPath?>back/avatars/avatar2.png" alt="Jason's Photo" />
+								
+								<span class="user-info">
+									<small><?=$this->auth->getRoleName()?></small>
+									<?=$this->auth->getName()?>
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
+							</a>
+
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								
+
+								<li>
+									<a href="<?=$this->url->get($module.'/s_admin/changePassword')?>">
+										<i class="ace-icon fa fa-user"></i>
+										修改密码
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="<?=$this->url->get($module.'/index/logout')?>">
+										<i class="ace-icon fa fa-power-off"></i>
+										登出
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<!-- /section:basics/navbar.user_menu -->
+					</ul>
+				</div>
+
+				<!-- /section:basics/navbar.dropdown -->
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main-container">
+		
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar sidebar-fixed responsive ">
+				
+				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+						<span class="btn btn-success">
+							<!-- <i class="ace-icon fa fa-signal"></i> -->
+						</span>
+
+						<span class="btn btn-info">
+							<!-- <i class="ace-icon fa fa-pencil"></i> -->
+						</span>
+
+						<!-- #section:basics/sidebar.layout.shortcuts -->
+						<span class="btn btn-warning">
+							<!-- <i class="ace-icon fa fa-users"></i> -->
+						</span>
+
+						<span class="btn btn-danger">
+							<!-- <i class="ace-icon fa fa-cogs"></i> -->
+						</span>
+					</div>
+				</div><!-- /.sidebar-shortcuts -->
+
+				<ul class="nav nav-list">
+					<li class="<?php if('dashboard-index'==$this->cookies->get("menu_key2") or 'dashboard-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+						<a href="<?=$this->url->get($module.'/dashboard/index',['menu'=>'dashboard'])?>">
+							<i class="menu-icon fa fa-tachometer"></i>
+							<span class="menu-text"> 概览 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+					
+			<?php if($shop_id):?>
+				
+					<li class="<?php if('goods'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-gift"></i>
+							<span class="menu-text"> 商品管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_goods_spu-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_goods_spu/index',['menu'=>'goods'],true)?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									商品列表
+								</a>								
+								
+							</li>
+							<li class="<?php if('i_excel-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_excel/create',['menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									导入商品
+								</a>								
+								
+							</li>
+							<li class="<?php if('i_category-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_category/index',['menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									商品分类
+								</a>								
+								
+							</li>
+
+							<li class="<?php if('i_label-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_label/index',['menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									商品标签
+								</a>								
+								
+							</li>
+
+                            <li class="<?php if('i_distribution_type-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_distribution_type/index',['menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									配货类型
+								</a>								
+								
+							</li>
+				
+							<li class="<?php if('i_spec-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_spec/index',['menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+
+									商品规格
+								</a>								
+							</li>
+	
+							<li class="<?php if('i_flash_sale-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_flash_sale/index',['menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									限时抢购
+								</a>								
+							</li>
+
+							<li class="<?php if('i_coupon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_coupon/index',['status'=>1,'menu'=>'goods'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									代金券
+								</a>								
+							</li>
+							
+						</ul>
+					</li>
+					<li class="<?php if('order'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-ticket "></i>
+							<span class="menu-text"> 订单管理 </span>
+                            <span class="badge badge-primary" id="newOrder"></span>
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_order/index',['range'=>'new','menu'=>'order'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									订单列表
+								</a>								
+							</li>
+						</ul>
+					</li>
+
+					<li class="<?php if('stat'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-ticket "></i>
+							<span class="menu-text"> 报表管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('stat_day_sale-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/stat_day_sale/index',['menu'=>'stat'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									销售明细
+								</a>								
+							</li>
+
+							<li class="<?php if('stat_day_order-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/stat_day_order/index',['menu'=>'stat'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									销售报表
+								</a>								
+							</li>
+						</ul>
+					</li>
+				<?php if(!$conf['enable_multi_shop']):?>
+					<li class="<?php if('member'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-users "></i>
+							<span class="menu-text"> 会员管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_user/index',['menu'=>'member'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									会员列表
+								</a>								
+							</li>
+						
+						<?php if($conf['enable_vip_rebate']):?>
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_user_level/index',['menu'=>'member'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									VIP等级管理
+								</a>								
+							</li>
+
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_draw/index',['status'=>1,'menu'=>'member'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									提现管理
+								</a>								
+							</li>
+						<?php endif;?>
+
+						<?php if($conf['enable_push']):?>
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_push/index',['menu'=>'member'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									系统推送
+								</a>								
+							</li>
+
+						<?php endif;?>
+							
+						</ul>
+					</li>
+				<?php endif;?>
+					<li class="<?php if('sys'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-key "></i>
+							<span class="menu-text"> 系统设置 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+			
+						<ul class="submenu">
+							<li class="<?php if('s_admin-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/s_admin/index',['menu'=>'sys'])?>">
+									<i class="menu-icon glyphicon glyphicon-user"></i>
+									系统管理员
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<!-- <li class="<?php if('s_admin-school'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/s_admin/index',['school_flag'=>1,'menu'=>'sys'])?>">
+									<i class="menu-icon glyphicon glyphicon-user"></i>
+									商铺管理员
+								</a>
+
+								<b class="arrow"></b>
+							</li> -->
+							<li class="">
+								<a href="<?=$this->url->get($module.'/acl_role/index',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									角色管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_delivery_fee/setting',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									运费设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						<?php if(!$conf['enable_multi_shop']):?>
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_area/index',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									地区管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+                            <li class="">
+								<a href="<?=$this->url->get($module.'/i_express_corp/index',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									快递公司管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						<?php endif;?>
+
+							<li class="">
+								<a href="<?=$this->url->get($module.'/s_setting/bank',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									汇款设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_shop/update',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									店铺设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						<?php if($conf['enable_vip_rebate']):?>
+							<li class="">
+								<a href="<?=$this->url->get($module.'/s_setting/rebate',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									多级返利设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						<?php endif;?>
+
+                            <li class="">
+								<a href="<?=$this->url->get($module.'/s_setting/appShare',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									APP分享设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+                            <li class="">
+								<a href="<?=$this->url->get($module.'/s_setting/other',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									其他设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul>
+					</li>
+				
+				<?php if(!$conf['enable_multi_shop']):?>
+					<li class="<?php if('article'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-newspaper-o "></i>
+							<span class="menu-text"> 文章管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_article/index',['article_menu_id'=>1,'menu'=>'article'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									文章列表
+								</a>								
+							</li>
+						</ul>
+					</li>
+				<?php endif;?>
+					<li class="<?php if('ad'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-photo "></i>
+							<span class="menu-text"> 广告管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_ad/index',['menu'=>'ad'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									移动端广告
+								</a>								
+							</li>
+
+							<?php if($conf['enable_pc_web']):?>
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_ad/pc',['menu'=>'ad'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									PC端广告
+								</a>								
+							</li>
+							<?php endif;?>
+
+						</ul>
+					</li>
+
+					<li class="<?php if('admin_log'==$this->cookies->get('menu')):?>active<?php endif;?>">
+						<a href="<?=$this->url->get($module.'/s_admin_log/index',['menu'=>'admin_log'])?>">
+							<i class="menu-icon fa fa-list "></i>
+							<span class="menu-text"> 系统日志 </span>
+						</a>
+					</li>
+				<?php if(!$conf['enable_multi_shop']):?>
+                    <li class="<?php if('feedback'==$this->cookies->get('menu')):?>active<?php endif;?>">
+                        <a href="<?=$this->url->get($module.'/i_feedback/index',['menu'=>'feedback'])?>">
+                            <i class="menu-icon fa fa-list "></i>
+                            <span class="menu-text"> 用户反馈 </span>
+                        </a>
+                    </li>
+				<?php endif;?>
+				
+                <?php if($conf['customer_service']):?>
+				<li class="<?php if('cs'==$this->cookies->get('menu')):?>active<?php endif;?>">
+					<a href="<?=$this->url->get($module.'/i_cs_session/index',['menu'=>'cs'])?>">
+						<i class="menu-icon fa fa-comments "></i>
+						<span class="menu-text"> 在线客服 <span class="red-dot" id="hasUnread" style="display:none"></span></span>
+					</a>
+				</li>
+				<?php endif;?>
+
+                <li class="<?php if('share'==$this->cookies->get('menu')):?>active<?php endif;?>">
+					<a href="<?=$this->url->get($module.'/i_share_info/form',['menu'=>'share'])?>">
+						<i class="menu-icon fa fa-share "></i>
+						<span class="menu-text"> 分享设置 </span>
+					</a>
+				</li>
+			<?php else:?>
+				<li class="<?php if('member'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-users "></i>
+							<span class="menu-text"> 会员管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_user/index',['menu'=>'member'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									会员列表
+								</a>								
+							</li>
+							
+						</ul>
+					</li>
+					<li class="<?php if('article'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-newspaper-o "></i>
+							<span class="menu-text"> 文章管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_article/index',['article_menu_id'=>1,'menu'=>'article'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									文章列表
+								</a>								
+							</li>
+						</ul>
+					</li>
+
+					<li class="<?php if('ad'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-photo "></i>
+							<span class="menu-text"> 广告管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_ad/index',['menu'=>'ad'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									移动端广告
+								</a>								
+							</li>
+							<?php if($conf['enable_pc_web']):?>
+							<li class="<?php if('i_beacon-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/i_ad/pc',['menu'=>'ad'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									PC端广告
+								</a>								
+							</li>
+							<?php endif;?>
+						</ul>
+					</li>
+
+					<li class="<?php if('sys'==$this->cookies->get('menu')):?>active<?php endif;?> hsub">
+						<a href="javascript:void(0)" class="dropdown-toggle">
+							<i class="menu-icon fa fa-key "></i>
+							<span class="menu-text"> 系统设置 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+			
+						<ul class="submenu">
+							<li class="<?php if('s_admin-index'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/s_admin/index',['menu'=>'sys'])?>">
+									<i class="menu-icon glyphicon glyphicon-user"></i>
+									系统管理员
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<!-- <li class="<?php if('s_admin-school'==$this->cookies->get("menu_key1")):?>active<?php endif;?>">
+								<a href="<?=$this->url->get($module.'/s_admin/index',['school_flag'=>1,'menu'=>'sys'])?>">
+									<i class="menu-icon glyphicon glyphicon-user"></i>
+									商铺管理员
+								</a>
+
+								<b class="arrow"></b>
+							</li> -->
+							<li class="">
+								<a href="<?=$this->url->get($module.'/acl_role/index',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									角色管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_sort/index',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									平台分类
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_area/index',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									地区管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_shop/index',['status'=>2,'menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									商家管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="<?=$this->url->get($module.'/i_order/list',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									对账单
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+                            <li class="">
+								<a href="<?=$this->url->get($module.'/s_setting/other',['menu'=>'sys'])?>">
+									<i class="menu-icon fa fa-caret-right"></i>
+									其他设置
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+						</ul>
+					</li>
+			<?php endif;?>
+				
+				</ul><!-- /.nav-list -->
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+
+				<!-- /section:basics/sidebar.layout.minimize -->
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="javascript:void(0)">首页</a>
+						</li>
+						
+						<?php 
+						if(is_array($breadcrumbs)):
+							foreach($breadcrumbs as $k=>$v):?>
+						<li>
+						<?php if($v['url']):?>
+							<?=Phalcon\Tag::linkTo($v['url'],$v['text'])?>
+						<?php else:?>
+							<?=$v['text'] ?>
+						<?php endif;?>
+						</li>
+						<?php 
+							endforeach;
+						endif;
+						?>
+						
+					</ul><!-- /.breadcrumb -->
+					
+
+					<!-- /section:basics/content.searchbox -->
+				</div>
+
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-header">
+					    <h1>
+					        <?=$controller_name?>
+					        <small> <i class="ace-icon fa fa-angle-double-right"></i>
+					            <?=$action_name?> 
+					        </small>
+					    </h1>
+					</div>
+					<!-- /.page-header -->
+					<?php  $this->partial("pub/sub_menu") ?>
+
+					<?php $this->flashSession->output() ?>
+
+					<?php echo $this->getContent() ?>
+					
+					<div id="container" class="form" style="width: 80%; display: none"></div>
+					<!-- /.row -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+
+			<div class="footer">
+				<div class="footer-inner">
+					<!-- #section:basics/footer -->
+					<div class="footer-content">
+						
+						<span class="bigger-120">
+							<span class="blue bolder"><?=$this->settings['app_name']?></span>
+							管理系统 © <?=date('Y')?>
+						</span>
+					</div>
+
+					<!-- /section:basics/footer -->
+				</div>
+			</div>
+
+			<a href="javascript:void(0)" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+<div id="wait_mask" style="display: none">
+    <div class="wait_body">
+        <i class="ace-icon fa fa-spinner fa-spin orange bigger-275"></i>
+        <br>
+        数据传输中...
+    </div>
+</div>
+<audio src='<?=$config->params->staticsPath?>back/alert.wav' style='display:none' id='audio' loop="true"></audio>
+		<!-- basic scripts -->
+		<?php 
+		$this->assets->js['foot'][] = <<<EOT
+raw::
+var showAjaxLoading = true;
+$(function(){
+	$('.msg-box').append('<button class="close" type="button" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>');
+
+	$('.input-file').ace_file_input({
+		no_file:'未选择文件 ...',
+		btn_choose:'选择',
+		btn_change:'更改',
+		droppable:false,
+		onchange:null,
+		//thumbnail:false, //| true | large
+		whitelist:'gif|png|jpg|jpeg'
+		//blacklist:'exe|php'
+		//onchange:''
+		//
+	});
+
+	$('.pagination li.disabled a').click(function(){
+		return false;
+	});
+});
+EOT;
+		echo $this->assets->get('js','foot');
+		?>
+		<script type="text/javascript">
+        var newOrder_url = '<?=url()->get('/admin/i_order/newTotal')?>';
+        var session_url = '<?=url()->get('/admin/i_cs_session/index',['menu'=>'cs'])?>';
+        var newKfMsgFlag = 0;
+		$(function(){
+			$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+				_title: function(title) {
+					var $title = this.options.title || '&nbsp;'
+					if( ("title_html" in this.options) && this.options.title_html == true )
+						title.html($title);
+					else title.text($title);
+				}
+            }));
+            
+            $.ajax(newOrder_url+'?'+Math.random(),{
+				type:'GET',
+				global:false,
+				success:function(result){
+					if(result.data.total_of_new>0){
+						$('#newOrder').html(result.data.total_of_new).show();
+					}
+					else{
+						$('#newOrder').hide();
+					}
+				}
+			});
+		});   
+		<?php if($conf['customer_service']):?>
+		<?php
+		$unread_url = $this->url->get($module.'/i_cs_msg/hasUnread');
+		?>
+			var unread_url = '<?=$unread_url?>';
+			getUnread();
+			var hasUnread = setInterval(function(){
+				getUnread();
+               
+            },5000);
+		<?php endif;?>
+		function getUnread(){
+			$.ajax(unread_url+'?'+Math.random(),{
+				type:'GET',
+				global:false,
+				success:function(result){
+					if(result.data>0){
+						$('#hasUnread').show();
+                        newKfMsgNotify();
+					}
+					else{
+						$('#hasUnread').hide();
+					}
+				}
+			});
+		}
+
+        
+        function newKfMsgNotify(){
+            if(!newKfMsgFlag){
+                layer.open({
+                    skin:'layui-layer-molv',
+                    type: 1,
+                    anim: 2,
+                    area:['300px','120px'],
+                    offset:'rb',
+                    shade:0,
+                    title:'新消息提示',        
+                    content:'<div style="text-align:center;padding-top:20px;"><a id="goNewOrder" href="'+session_url+'" class="btn btn-success">查看新消息</a></div>',
+                    success:function(){
+                        newKfMsgFlag = 1;
+                        document.getElementById('audio').play();
+                        $('#goNewOrder').click(function(){
+                            if(hasUnread){
+                                clearInterval(hasUnread);
+                            }
+                            layer.closeAll()
+                        });
+                    },
+                    cancel:function(){
+                        if(hasUnread){
+                            clearInterval(hasUnread);
+                        }
+                        
+                        
+                    },
+                    end:function(){
+                        console.log(stop);
+                        document.getElementById('audio').pause ();
+                    }
+                })
+            }
+            
+        }
+
+        
+            
+		</script>
+	</body>
+</html>

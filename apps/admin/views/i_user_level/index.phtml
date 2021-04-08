@@ -1,0 +1,37 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IUserLevel;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+           
+            <button id="addBtn" type="button" class="btn btn-success btn-sm addBtn" ajax="<?=$this->url->get($base_url.'/create')?>">
+            <i class="ace-icon fa fa-plus bigger-110"></i>新增
+        </button>
+        </form>
+    </div>
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            [IUserLevel::getAttr('level_name'),'level_name'],
+            [IUserLevel::getAttr('price'),'fmtMoney({$o}->price)','function'],
+            [IUserLevel::getAttr('discount_type'),'{$o}->discount_type>0 ? {$o}->getDiscountTypeContext({$o}->discount_type):""','function'],
+            [IUserLevel::getAttr('discount'),'{$o}->discount_type ? ({$o}->discount_type==1?fmtMoney({$o}->discount):{$o}->discount."%") : ""','function'],
+            ['类型','{$o}->system_flag ? "系统等级":"自建等级"','function'],
+            ['人数','{$o}->getUserTotal()','function']
+        ],
+        'buttons'=>['update','delete'],
+        'buttonsCfg'=>[],
+        'page'=>$page,
+        ));
+    ?>
+
+    </div>
+</div>
+

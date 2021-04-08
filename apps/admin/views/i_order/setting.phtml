@@ -1,0 +1,518 @@
+<?php
+use Common\Models\IOrder;
+use Common\Models\IOrderSku as OrderSku;
+use Common\Models\IGoodsSpu as Spu;
+use Common\Models\IExpressCorp;
+use Phalcon\Tag;
+$conf = conf();
+
+//是否启用未付款订单直接发货
+$enable_unpaid_order_delivery = (int)conf('enable_unpaid_order_delivery');
+
+?>
+<?php if($conf['enable_order_print']):?>
+<div class="row">
+    <div class="col-xs-12" style="text-align:right">
+        <a class="btn btn-sm btn-inverse" href="<?=$this->url->get($base_url.'/print',['id'=>$M->order_id])?>">						
+        <i class="ace-icon fa fa-print bigger-110"></i>
+        打印配货单
+        </a>
+    </div>
+</div>
+<?php endif;?>
+<div class="profile-user-info profile-user-info-striped">
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('flag')?> </div>
+
+		<div class="profile-info-value">
+			<span class="label label-info arrowed-in-right arrowed"><?=$M->getFlagContext($M->flag)?></span>
+            <?php if($M->refound_flag): ?>
+            <span class="label <?php if($M->refound_flag==1):?>label-warning<?php else:?>label-purple<?php endif;?> arrowed-in-right arrowed"><?=$M->getRefoundFlagContext($M->refound_flag)?></span>
+            <?php endif;?>
+            <?php if($M->close_flag): ?>
+                <span class="label label-inverse arrowed-in-right  arrowed"><?=$M->getCloseFlagContext($M->close_flag)?></span>
+            <?php endif;?>
+            <?php
+            if(!$M->close_flag):
+                if($M->flag==1):
+            ?>
+            <button type="button" class="btn btn-xs btn-info order-paid-btn" ajax="<?=$this->url->get($base_url.'/paid',['id'=>$M->order_id])?>">手动确认已付款</button>
+            <?php
+                endif;
+                if($M->flag==2 || ($enable_unpaid_order_delivery && $M->flag=1)):
+            ?>
+            <button type="button" class="btn btn-xs btn-info order-delivery-btn" ajax="<?=$this->url->get($base_url.'/delivery',['id'=>$M->order_id])?>">设为已发货</button>
+            <?php
+                endif;
+
+                if($M->refound_flag==1):
+            ?>
+            <button type="button" class="btn btn-xs btn-warning order-refound-btn" ajax="<?=$this->url->get($base_url.'/refound',['id'=>$M->order_id])?>">设为退款成功</button>
+            <?php
+                endif;
+            endif;
+            ?>
+		</div>
+	</div>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('create_time')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->create_time?>
+		</div>
+	</div>
+<?php if($M->pay_flag): ?>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> 付款方式 </div>
+
+		<div class="profile-info-value">
+			<?php if($M->payment_method=='offline'):?>
+            线下支付
+            <?php elseif($M->payment_method=='money'):?>
+            余额支付
+            <?php else:?>
+            在线支付
+            <?php endif;?>
+		</div>
+	</div>
+<?php endif;?>
+<?php if($M->pay_time): ?>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('pay_time')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->pay_time?>
+		</div>
+	</div>
+<?php endif;?>
+<?php if($M->delivery_time): ?>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('delivery_time')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->delivery_time?>
+		</div>
+	</div>
+<?php endif;?>
+<?php if($M->finish_time): ?>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('finish_time')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->finish_time?>
+		</div>
+	</div>
+<?php endif;?>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('user_id')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->User->name?> <b><?=$M->User->phone?></b> <b><?=$M->User->email?></b>
+		</div>
+	</div>
+	<div class="profile-info-row">
+		<div class="profile-info-name"> <?=$M->getAttr('level_id')?> </div>
+
+		<div class="profile-info-value">
+			<?=$M->UserLevel->level_name?>
+		</div>
+	</div>
+
+</div>
+
+<div class="widget-box transparent">
+	<div class="widget-header">
+		<h4 class="widget-title lighter">商品</h4>
+	</div>
+	<div class="widget-body">
+		<div class="widget-main">
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th colspan="2"><?=Spu::getAttr('spu_name')?></th>
+						<th><?=OrderSku::getAttr('sn')?></th>
+						<th><?=OrderSku::getAttr('spec_info')?></th>
+						<th><?=OrderSku::getAttr('price')?></th>
+						<th><?=OrderSku::getAttr('num')?></th>
+					</tr>					
+				</thead>                 
+	            <tbody>
+	            <?php foreach($M->skus as $OrderSku): ?>
+	                <tr>
+	                    <td width="15%"><img class="thumb" src="<?=$OrderSku->Spu->cover?>"></td>
+	                    <td><a href="<?=$this->url->get($module.'/i_goods_spu/index',['id'=>$OrderSku->spu_id])?>"><?=$OrderSku->Spu->spu_name?></a></td>
+						<td><?=$OrderSku->sku_sn?></td>
+						<td><?=$OrderSku->spec_info?></td>
+	                    <td width="15%"><?=OrderSku::getAttr('price')?>：<?=fmtMoney($OrderSku->price)?></td>
+	                    <td width="10%"><?=OrderSku::getAttr('num')?>：<?=$OrderSku->num?></td>
+	                </tr>
+	            <?php endforeach;?>
+	            </tbody>
+	        </table>
+	        <table class="table table-striped table-bordered">
+	        	<tbody>
+	        		<tr>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('express_fee')?>：</td>
+	        			<td width="25%"><?=fmtMoney($M->express_fee)?></td>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('total_fee')?>：</td>
+	        			<td><?=fmtMoney($M->total_fee)?></td>
+	        		</tr>
+	        		<tr>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('total_discount')?>：</td>
+	        			<td width="25%"><?=fmtMoney($M->total_discount)?></td>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('total_coupon')?>：</td>
+	        			<td><?=fmtMoney($M->total_coupon)?></td>
+	        		</tr>
+	        		<tr>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('adjustment')?>：</td>
+	        			<td width="25%"><?=fmtMoney($M->adjustment)?></td>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('total_amount')?>：</td>
+	        			<td><?=fmtMoney($M->total_amount)?></td>
+                    </tr>	
+                    <tr>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('user_id')?>：</td>
+                        <td colspan="3">
+                            <?=$M->User->phone?><?php if($M->User->name):?>(<?=$M->User->name?>)<?php endif;?>
+                            <?php if($conf['customer_service']):?>
+                            <a href="<?=$this->url->get($module.'/i_cs_msg/index',['user_id'=>$M->user_id])?>" class="btn btn-xs btn-info">对话</a>
+                            <?php endif;?>
+                        </td>
+	        		</tr>        		
+	        		<tr>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('remark')?>：</td>
+	        			<td colspan="3"><?=$M->remark?></td>
+	        		</tr>	
+	        	</tbody>
+	        </table>
+	        <table class="table table-striped table-bordered">
+	        	<tbody>
+	        		<tr>
+	        			<td class="" width="50%">
+	        			<?php if($M->close_flag==0 && $M->flag==1):?>
+	        				<div class="row">
+	        					<div class="col-xs-4 text-right">调整价格：</div>
+	        					<div class="col-xs-8 text-left">
+	        						<input type="text" class="input-sm col-xs-4" name="new_total_amount">
+	        						<button type="button" class="btn btn-xs" id="adjustmentBtn" ajax="<?=$this->url->get($base_url.'/adjust',['id'=>$M->order_id])?>">执行调整</button>
+	        					</div>
+	        				</div>
+	        			<?php endif;?>
+	        			</td>
+	        			<td width="25%" class="text-right"><?=$M->getAttr('all_rebate')?>：</td>
+	        			<td><?=fmtMoney($M->all_rebate)?> （买家直接返利：<?=fmtMoney($M->total_rebate)?>）</td>
+	        		</tr>
+	        	</tbody>
+	        </table>
+		</div>
+	</div>
+</div>
+<?php if($conf['enable_vip_rebate']):?>
+<div class="widget-box transparent">
+	<div class="widget-header">
+		<h4 class="widget-title lighter">返利人</h4>
+	</div>
+	<div class="widget-body">
+		<div class="widget-main">
+			<table class="table table-striped table-bordered dataTable">
+				<thead>
+					<tr>
+						<th colspan="2">返利人</th>
+						<th>子属</th>
+						<th>金额</th>
+						<th></th>
+					</tr>
+					
+				</thead>                 
+	            <tbody>
+	           
+	            </tbody>
+	        </table>
+		</div>
+	</div>
+</div>		
+<?php endif;?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="col-md-6">
+			<div class="widget-box transparent">
+				<div class="widget-header">
+					<h4 class="widget-title lighter">收发货信息</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form class="form-horizontal" role="form" method="post" action="<?=$this->url->get($base_url.'/updateDelivery')?>">
+							<input type="hidden" name="order_id" value="<?=$M->order_id?>">
+							<input type="hidden" name="referer" value="<?=$this->request->getHTTPReferer()?>">
+							<div class="form-group">
+
+								<label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('receive_man')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" class="col-xs-10 col-sm-8" name="receive_man" placeholder="" value="<?=$M->receive_man?>" />						
+								</div>
+							</div>
+
+							<div class="form-group">
+
+                                <label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('receive_area')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" class="col-xs-10 col-sm-8" name="receive_area" placeholder="" value="<?=$M->receive_area?>" />						
+								</div>
+							</div>
+                            <div class="form-group">
+							    <label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('receive_city_name')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" class="col-xs-10 col-sm-8" name="receive_city_name" placeholder="" value="<?=$M->receive_city_name ? $M->receive_city_name : $M->Address->city_name?>" />						
+								</div>
+							</div>
+							<div class="form-group">
+
+								<label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('receive_address')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" class="col-xs-10 col-sm-8" name="receive_address" placeholder="" value="<?=$M->receive_address?>" />						
+								</div>
+							</div>
+                            <div class="form-group">
+
+								<label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('receive_postcode')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" class="col-xs-10 col-sm-8" name="receive_postcode" placeholder="" value="<?=$M->receive_postcode?>" />						
+								</div>
+							</div>
+							<div class="form-group">
+
+								<label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('receive_phone')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" name="receive_phone" placeholder="" value="<?=$M->receive_phone?>" />						
+								</div>
+							</div>
+							<div class="form-group">
+
+								<label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('express_corp_id')?></label>
+
+								<div class="col-sm-10">
+								<?php 
+								Tag::setDefault('express_corp_id',$M->express_corp_id);
+									echo Tag::select([
+										'express_corp_id',
+										IExpressCorp::find(),
+										'using'=>['express_corp_id','corp_name'],
+										'useEmpty'=>'true',
+										'emptyText'=>'选择快递公司',
+									]);
+								 ?>						
+								</div>
+							</div>
+							<div class="form-group">
+
+								<label class="col-sm-2 control-label no-padding-right" for=""> <?=IOrder::getAttr('express_no')?></label>
+
+								<div class="col-sm-10">
+									<input type="text" name="express_no" placeholder="" value="<?=$M->express_no?>" />						
+								</div>
+							</div>
+						<?php if($M->flag<4 and $M->close_flag==0 and $M->refound_flag==0):?>
+							<div class="clearfix">
+								<div class="col-md-offset-2 col-md-10">
+									<button class="btn btn-xs btn-info" type="submit">						
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									修改
+									</button>						
+								</div>
+							</div>
+						<?php endif;?>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="widget-box transparent">
+				<div class="widget-header">
+					<h4 class="widget-title lighter">备注</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form class="form-horizontal" id="orderRemarkForm" role="form" method="post" action="<?=$this->url->get($module.'/i_order_remark/create')?>">
+							<input type="hidden"  name="order_id" value="<?=$M->order_id?>">
+						
+							<div class="form-group">	
+								<div class="col-sm-10">
+									<textarea class="form-control" name="content" id="" rows="3" placeholder="填写备注内容"></textarea>				
+								</div>
+							</div>
+					
+							<div class="clearfix">
+								<div class="col-md-offset-2 col-md-10">
+									<button class="btn btn-xs btn-info" type="submit">						
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									提交
+									</button>						
+								</div>
+							</div>
+						</form>
+						<div id="remarksContainer">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="remarks" type="text/x-jsrender">
+{^{for list}}
+<div class="order-remark">	
+	<div class="content">{^{:content}}</div>
+	<div class="datetime"><b>{^{:admin_username}}</b> 备注于{^{:create_time}}</div>
+</div>
+{{/for}}
+</script>
+<?php 
+$get_remarks_url = $this->url->get($module.'/i_order_remark/list',['order_id'=>$M->order_id]);
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var get_remarks_url = '$get_remarks_url';
+var getRemarks = function(){
+	showAjaxLoading = false;
+	$.get(get_remarks_url,function(result){
+		if(result.status=='1'){
+			var tpl = $.templates("#remarks"); 
+    		tpl.link("#remarksContainer", result.data);
+		}
+		showAjaxLoading = true;
+	});
+}
+$(function(){
+	getRemarks();
+	$('#orderRemarkForm').submit(function(){
+		if(!$('#orderRemarkForm textarea').val()){
+			errorMsg("请填写备注内容！");
+			return false;
+		}
+
+		$.post($(this).attr('action'),$(this).serialize(),function(result){
+			if(result.status=='1'){
+				successMsg('备注提交成功');
+				getRemarks();
+			}
+			else{
+				errorMsg(result.msg);
+			}
+		});
+
+		return false;
+	});
+
+	$('.order-paid-btn').click(function(e){
+		var _this = this;
+		layer.confirm("确定要将订单修改为已付款状态吗？",function(index){
+
+			$.get($(_this).attr('ajax'),function(result){
+				if(result.status=='1'){
+					location.reload();
+				}
+				else{
+					errorMsg(result.msg);
+				}
+			})
+			layer.close(index);
+		});
+	});
+
+	$('.order-refound-btn').click(function(e){
+		var _this = this;
+		layer.confirm("确定进行此订单的退款操作吗？",function(index){
+
+			$.get($(_this).attr('ajax'),function(result){
+				if(result.status=='1'){
+					location.reload();
+				}
+				else{
+					errorMsg(result.msg);
+				}
+			})
+			layer.close(index);
+		});
+	});
+	
+	$('.order-delivery-btn').click(function(e){1
+	    
+	    e.preventDefault(); 
+        $.get($(this).attr('ajax'),function(result){
+            if(result.status=='1'){
+                $('#container').html(result.data);
+                var dialog = $('#container').dialog({
+                    modal: true,
+                    title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 表单</h4></div>",
+                    title_html: true,
+                    width:600,
+                    height:'auto',
+                    buttons: [ 
+                        {
+                            text: "取消",
+                            "class" : "btn btn-xs",
+                            click: function() {
+                                $( this ).dialog( "close" ); 
+                            } 
+                        },
+                        {
+                            text: "提交",
+                            "class" : "btn btn-primary btn-xs",
+                            "id":"editSubmit",
+                            click: function() {
+
+                                var _this = this;
+
+                                $.post($('#container form').attr('action'),$('#container form').serialize(),function(result){
+                                    if(result.status=='1'){
+                                        //successMsg(result.msg);
+                                        $(_this).dialog("close");
+
+                                        location.reload();
+                                    }
+                                    else{
+                                        errorMsg(result.msg);
+                                        
+                                    }
+                                });
+
+                            } 
+                        }
+                    ]
+                });
+            }
+        });
+	});
+	
+	$('#adjustmentBtn').click(function(){
+		var new_total_amount = $('input[name="new_total_amount"]').val();
+		if(!new_total_amount.length || isNaN(new_total_amount)){
+			errorMsg('请输入调整金额');
+		}
+		else{
+			var _this = this;
+			layer.confirm("确定调整订单的总价吗？",function(index){
+
+				$.post($(_this).attr('ajax'),{'new_total_amount':new_total_amount},function(result){
+
+					if(result.status=='1'){
+						location.reload();
+					}
+					else{
+						errorMsg(result.msg);
+					}
+				})
+				layer.close(index);
+			});
+		}
+		
+	});;
+});
+EOT;
+?>

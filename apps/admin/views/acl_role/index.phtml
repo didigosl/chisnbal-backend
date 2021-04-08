@@ -1,0 +1,51 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\SAclRole;
+?>
+
+
+<div class="row">
+    <div class="col-xs-12 searchBar">
+        <a id="addBtn" type="button" class="btn btn-success btn-sm addBtn" container="update" ajax="<?=$this->url->get($base_url.'/create')?>">
+            <i class="ace-icon fa fa-plus bigger-110"></i>新增
+        </a>
+    </div>    
+    <div class="col-xs-12">
+
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'model'=>'Common\Models\User',
+        'cols'=>[
+            // ['ID','id'],
+            // [SAclRole::getAttr('name'),'name'],    
+            [SAclRole::getAttr('intro'),'intro'],
+            // [SAclRole::getAttr('school_flag'),'{$o}->school_flag?"是":""','function'],
+        ],
+        'buttons'=>['update','setting','delete'],
+        'buttonsCfg'=>[
+            'setting'=>[
+                'title'=>'设置权限',
+                'url'=>'setting',
+                'type'=>'href',
+                'iconCss'=>'fa-key',
+                'btnCss'=>'btn-info formBtn',
+            ]
+        ],
+        'page'=>$page,
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+
+$this->assets->js['foot'][] = <<<EOT
+raw::$(function(){
+    
+});
+EOT;
+
+?>

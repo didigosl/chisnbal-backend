@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Api demo</title>
+        <style type="text/css">
+        body{font-size: 12px}
+        .container{ width: 800px; margin: 30px auto 0 auto}
+      
+        </style>
+        
+        <?php echo $this->assets->get('css','head')?>
+        <?php echo $this->assets->get('js','head')?>
+    </head>
+    <body>
+    	<div class="container">
+            
+            <?php echo $this->getContent(); ?>
+            
+    	</div>
+
+        <?php echo $this->assets->get('js','foot')?>
+    </body>
+
+</html>

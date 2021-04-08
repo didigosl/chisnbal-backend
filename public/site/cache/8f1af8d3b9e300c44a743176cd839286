@@ -1,0 +1,483 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:5082:"Master of Education Wählen Sie Ihren gesuchten Studiengang aus, so erhalten Sie die dazu gehörenden Prüfungsordnungen, Unterlagen, Formulare und Hinweise zu Prüfungsangelegenheiten. 26129 Oldenburg Last name, first name Student ID number Degree programme First subject Second subject Application for early enrolment in modules in the Master of Education/Master of Arts/Science - degree programmes during the bachelor’s phase 1 Notes Early enrolment in Master's programmes modules is only possible under certain conditions. Stud.IP Uni Oldenburg Support; English; Universität Oldenburg . Education is defined as the process of acquiring knowledge in any form, whether that be beliefs, habits, skills or values. Master of Education. Vivien SINAPIUS of Carl von Ossietzky Universität Oldenburg, Oldenburg | Contact Vivien SINAPIUS . The University of Oldenburg is preparing over 13,700 students for professional life. Suche. Beachten Sie die Übersicht über die möglichen Unterrichtsfächer in den jeweiligen Master of Education-Studiengängen. Die Master of Education-Studiengänge bauen konsekutiv auf den Zwei-Fächer-Bachelor auf. You are interested in the study programme Master of Distance Education (MDE) at Uni Oldenburg? Master of Education (Grund- und Hauptschule) - AUSLAUFEND Talks. Son objectif est de trouver des réponses aux défis majeurs auxquels la société est confrontée au 21ème siècle - à travers une recherche interdisciplinaire et … Start. Some methods might involve teaching, storytelling, open discussions, training and research. You are interested in the study programme Master of Distance Education (MDE) at Uni Oldenburg? The Master's and certificate degree programs The Master of Distance Education program was launched in January 2000 by the degree granting University of Maryland University College (UMUC) in partnership with Carl von Ossietzky University of Oldenburg, which contributes two of the six integrated certificates in the distance education program. Prüfungstermine. The following bachelor's programmes are recognised as "subject-relevant": undergraduate programmes in every subject in the desired master's degree programme Mehr… Stud.IP Homepage . DESDe was founded by the Institute for Public Policy and Planning (IöP) , the Postgraduate Program Renewable Energy (PPRE), and the Center for Distance Education (ZEF) at Carl von Ossietzky University of Oldenburg. It offers a broad range of disciplines, from language studies, cultural studies and the humanities to educational sciences, art and musicology, the economic and social sciences, mathematics, computer science, the natural sciences and the new medicine and health science programmes established in 2012. The Master's and certificate degree programs from previous work in Oldenburg (1992-1998) Mauermann M, S Uppenkamp, PWJ van Hengel, and B Kollmeier ( 1999 ) DOI "Evidence for the distortion product frequency place as a source of distortion product otoacoustic emission (DPOAE) fine structure in humans. The Master of Distance Education program was launched in January 2000 by the degree granting University of Maryland University College (UMUC) in partnership with Carl von Ossietzky University of Oldenburg, which contributes two of the six integrated certificates in the distance education program. close. Shimura's reciprocity law and class invariants [] Research stay within the PROCOPE research project, Institut de Mathématiques de Luminy, Université de la Méditerranée, 10th December 2009, Marseille, France Theta functions, class units and class polynomials [] Research stay within a DFG research project, University of Debrecen, 30th September 2009, Debrecen, Hungary studieren.de. Find out useful details concerning this study course. The Carl von Ossietzky University of Oldenburg (German: Carl von Ossietzky Universität Oldenburg) is a university located in Oldenburg, Germany.It is one of the most important and highly regarded educational facilities in northwestern Germany and specialises in interdisciplinary & sustainable development studies and renewable energy studies with focus on solar and wind energy. There are many ways for individuals to pursue and receive education. About us Areas of responsibilities - staff - addresses - publications - the ASF series on distance education - the learning centre of the future Online programmes (in English) Master of Distance Education (MDE) - Foundations of Distance Education - Distance Education in Developing Countries - Distance Education for Development (DED) - Professional training in online distance education Master's programmes. L' University of Oldenburg Carl von Ossietzky University of Oldenburg été fondée en 1973, ce qui en fait l'une des jeunes universités allemandes. The Center for Distance Education offers on-line: 1. a graduate certificate program Distance Education in Developing Countries as an integral part of the Master of Distance Education jointly offered by the University of Maryland University College and Carl von Ossietzky University of Oldenburg. ";s:7:"keyword";s:33:"uni oldenburg master of education";s:5:"links";s:7230:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=restaurant-zur-post-m%C3%BClheim-speisekarte'>Restaurant Zur Post Mülheim Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=messe-frankfurt-plan-halle-3'>Messe Frankfurt Plan Halle 3</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=neustadt-am-r%C3%BCbenberge-rethem-fluss'>Neustadt Am Rübenberge Rethem Fluss</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=https-owa2013-fb1-frankfurt-university-de-owa'>Https Owa2013 Fb1 Frankfurt University De Owa</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=welchen-dialekt-spricht-man-in-frankfurt'>Welchen Dialekt Spricht Man In Frankfurt</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ali-baba-und-die-40-r%C3%A4uber-englisch'>Ali Baba Und Die 40 Räuber Englisch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ristorante-l%C3%B6hlinbad-untere-laube-konstanz'>Ristorante Löhlinbad Untere Laube Konstanz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=street-food-festival-bad-salzuflen-2019'>Street Food Festival Bad Salzuflen 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ewe-arena-feuerwerk-der-turnkunst'>Ewe Arena Feuerwerk Der Turnkunst</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=europ%C3%A4ische-l%C3%A4nder-und-hauptst%C3%A4dte-lernen'>Europäische Länder Und Hauptstädte Lernen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kachelmann-wetter-playa-de-palma'>Kachelmann Wetter Playa De Palma</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pension-an-der-harwand-m%C3%BChlhausen-th%C3%BCringen'>Pension An Der Harwand Mühlhausen Thüringen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=matlab-winkel-zwischen-zwei-vektoren'>Matlab Winkel Zwischen Zwei Vektoren</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=all-you-can-eat-ludwigsburg'>All You Can Eat Ludwigsburg</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=streik-flughafen-d%C3%BCsseldorf-november-2019'>Streik Flughafen Düsseldorf November 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=admiral-hipper-class-heavy-cruiser'>Admiral Hipper Class Heavy Cruiser</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=fupa-rhein-berg-a-jugend'>Fupa Rhein Berg A Jugend</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=halloween-party-berlin-ab-14'>Halloween Party Berlin Ab 14</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=suche-3-zimmer-wohnung-in-erkelenz'>Suche 3 Zimmer Wohnung In Erkelenz</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mietspiegel-kaarst-haus-und-grund'>Mietspiegel Kaarst Haus Und Grund</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=altenberger-dom-gottesdienste-weihnachten-evangelisch'>Altenberger Dom Gottesdienste Weihnachten Evangelisch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=silvester-2019-wyk-auf-f%C3%B6hr'>Silvester 2019 Wyk Auf Föhr</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-wird-das-wetter-morgen-in-wuppertal-vohwinkel'>Wie Wird Das Wetter Morgen In Wuppertal Vohwinkel</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=drk-hagen-essen-auf-r%C3%A4dern-speiseplan'>Drk Hagen Essen Auf Rädern Speiseplan</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=haus-der-kunst-kommende-veranstaltungen'>Haus Der Kunst Kommende Veranstaltungen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=k%C3%B6ln-nach-berlin-zug-ice'>Köln Nach Berlin Zug Ice</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=auto-privat-verkaufen-gew%C3%A4hrleistung-ausschlie%C3%9Fen-formulierung'>Auto Privat Verkaufen Gewährleistung Ausschließen Formulierung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=la-strada-regent-s-4x4-occasion'>La Strada Regent S 4x4 Occasion</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=welcher-fluss-flie%C3%9Ft-durch-straubing'>Welcher Fluss Fließt Durch Straubing</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=was-ziehe-ich-in-die-elbphilharmonie-an'>Was Ziehe Ich In Die Elbphilharmonie An</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=never-gonna-give-you-up-release-date'>Never Gonna Give You Up Release Date</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=kreisliga-d-k%C3%B6ln-staffel-4'>Kreisliga D Köln Staffel 4</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=b%C3%BCcherstube-sankt-augustin-alte-heerstra%C3%9Fe'>Bücherstube Sankt Augustin Alte Heerstraße</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flohmarkt-t%C3%BCbingen-uhlandstra%C3%9Fe-2020-anmeldung'>Flohmarkt Tübingen Uhlandstraße 2020 Anmeldung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=red-river-film-in-farbe'>Red River Film In Farbe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=neue-westf%C3%A4lische-bad-oeynhausen-einschulung'>Neue Westfälische Bad Oeynhausen Einschulung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wir-kaufen-dein-auto-erfahrungen'>Wir Kaufen Dein Auto Erfahrungen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=daniel-schuhmacher-dsds-anything-but-love'>Daniel Schuhmacher Dsds Anything But Love</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flug-memmingen-london-stansted-ryanair'>Flug Memmingen London Stansted Ryanair</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=aldi-nord-filialen-deutschland-anzahl'>Aldi Nord Filialen Deutschland Anzahl</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=hilton-garden-inn-frankfurt-fr%C3%BChst%C3%BCck-preis'>Hilton Garden Inn Frankfurt Frühstück Preis</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=la-donna-e-mobile-werbung'>La Donna E Mobile Werbung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=christkindlmarkt-wiedenbr%C3%BCck-gewerbeverein-wiedenbr%C3%BCck-ev-25-november'>Christkindlmarkt Wiedenbrück Gewerbeverein Wiedenbrück Ev 25 November</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wurzelpass-zur%C3%BCck-zu-den-wurzeln'>Wurzelpass Zurück Zu Den Wurzeln</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=auto-zu-verkaufen-schild-drucken'>Auto Zu Verkaufen Schild Drucken</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bad-kissingen-stadtplan-mit-sehensw%C3%BCrdigkeiten'>Bad Kissingen Stadtplan Mit Sehenswürdigkeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=rudolf-virchow-ferdinande-rosalie-mayer'>Rudolf Virchow Ferdinande Rosalie Mayer</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wie-viele-gipfel-haben-die-alpen'>Wie Viele Gipfel Haben Die Alpen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=weste-ohne-%C3%A4rmel-kreuzwortr%C3%A4tsel-5-buchstaben'>Weste Ohne ärmel Kreuzworträtsel 5 Buchstaben</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=the-room-5-fireproof-games-release-date'>The Room 5 Fireproof Games Release Date</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=amt-f%C3%BCr-ausbildungsf%C3%B6rderung-stuttgart-stuttgart'>Amt Für Ausbildungsförderung Stuttgart Stuttgart</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=der-kleine-grieche-bamberg-speisekarte'>Der Kleine Grieche Bamberg Speisekarte</a>,
+";s:7:"expired";i:-1;}

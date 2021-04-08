@@ -1,0 +1,483 @@
+a:5:{s:8:"template";s:9619:"<!DOCTYPE html>
+<html>
+<head>
+<title>{{ keyword }}</title>
+<meta content="{{ keyword }}" name="description"/>
+<link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet" type="text/css"/>
+<link href="//fonts.googleapis.com" rel="dns-prefetch"/>
+<link href="//s.w.org" rel="dns-prefetch"/>
+
+<style id="menu-css" media="all" rel="stylesheet" type="text/css">
+@charset "utf-8";
+
+/* Menu */
+#menu {
+	clear:both;
+	margin:0px auto 10px;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	/*background-color: #303030; */
+	background-color: #C80409; 
+	
+	
+	width: 900px;
+	height: 40px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0 20px;
+	display: block;
+	line-height: 1;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menu ul {
+	list-style: none;
+}
+#menu a {
+	text-decoration: none;
+	color: #fafafa;
+}
+#menu .menu-label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+	/* Top buttons */
+	#menu .menu-top > li {
+		float: left;
+		position: relative;
+		text-align: center;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top > li:hover {
+		background-color: #320002;
+		-webkit-transition: background-color 0.2s;
+		-moz-transition: background-color 0.2s;
+		-ms-transition: background-color 0.2s;
+		-o-transition: background-color 0.2s;
+		transition: background-color 0.2s;
+	}
+	#menu .menu-top .menu-right {
+		float: right;
+	}
+	#menu .menu-button {
+		display: block;
+		line-height: 40px;
+		padding: 0 20px;
+		color: white;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu li:hover .menu-button {
+		color: #fafafa;
+		-webkit-transition: color 0.2s;
+		-moz-transition: color 0.2s;
+		-ms-transition: color 0.2s;
+		-o-transition: color 0.2s;
+		transition: color 0.2s;
+	}
+	#menu .menu-drop {
+		padding-right: 15px;
+	}
+	#menu .menu-drop .menu-label {
+		padding-right: 20px;
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	#menu li:hover .menu-drop .menu-label {
+		background: url() no-repeat right;
+		-webkit-transition: background 0.2s;
+		-moz-transition: background 0.2s;
+		-ms-transition: background 0.2s;
+		-o-transition: background 0.2s;
+		transition: background 0.2s;
+	}
+	
+	/* Dropdown */
+	#menu .menu-dropdown {
+		text-align: left;
+		background-color: rgba(200, 4, 9,0.8);
+		-webkit-border-radius: 0 0 5px 5px;
+		-moz-border-radius: 0 0 5px 5px;
+		-ms-border-radius: 0 0 5px 5px;
+		-o-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		position: absolute;
+		left: -5000px;
+		opacity: 0;
+		z-index: 100;
+	}
+	#menu li:hover .menu-dropdown {
+		left: 0;
+		opacity: 1;
+		-webkit-transition: opacity 0.2s;
+		-moz-transition: opacity 0.2s;
+		-ms-transition: opacity 0.2s;
+		-o-transition: opacity 0.2s;
+		transition: opacity 0.2s;
+	}
+	#menu .menu-sub {
+		margin: 5px 0;
+	}
+	
+		/* Dropdown content */
+		#menu .menu-sub li {
+			white-space: nowrap;
+			-webkit-transition: background-color 0.1s;
+			-moz-transition: background-color 0.1s;
+			-ms-transition: background-color 0.1s;
+			-o-transition: background-color 0.1s;
+			transition: background-color 0.1s;
+		}
+		#menu .menu-sub li:hover {
+			background: #320002 url() no-repeat 10px;
+			-webkit-transition: background-color 0.2s;
+			-moz-transition: background-color 0.2s;
+			-ms-transition: background-color 0.2s;
+			-o-transition: background-color 0.2s;
+			transition: background-color 0.2s;
+		}
+		#menu .menu-subbutton {
+			display: block;
+			padding: 7px 20px;
+			line-height: 1.3;
+			color: #fafafa;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-subbutton {
+			color: #e0e0e0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-desc {
+			font-style: italic;
+			color: #eaeaea;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		#menu .menu-sub li:hover .menu-desc {
+			color: #d0d0d0;
+			-webkit-transition: color 0.2s;
+			-moz-transition: color 0.2s;
+			-ms-transition: color 0.2s;
+			-o-transition: color 0.2s;
+			transition: color 0.2s;
+		}
+		
+</style>
+<style id="main-css" media="all" rel="stylesheet" type="text/css">﻿
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    margin-top: 3px;
+    color: #fff;
+    content: attr(tip);
+    right: 42px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 120px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid  #333;
+    top: 10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    z-index: 99;
+}
+
+#social-icons {
+float:right;
+margin-right:15px;
+}
+
+#social-icons ul li{
+	margin-right:5px;
+	float:left;
+	width:32px;
+	height:32px;
+	margin-top: 2px;
+	position: relative;
+}
+
+#social-icons ul li a {
+	float: left;
+    width: inherit;
+	height: inherit;
+    
+}
+
+#social-icons ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+
+.social-roll {
+	opacity: .7;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-roll:hover {
+	opacity: 1;
+	left: 4px;
+}
+
+
+* {
+	margin:0px;
+	outline-style:none;
+	padding:0px;
+}
+
+
+body {
+	color:#777;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+}
+
+a {
+	color:#E5511C;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+
+h1 {
+	color:#444;
+}
+h1 {
+	font-size:2.5em;
+	line-height:2;
+}
+
+p {
+	line-height:1.8;
+	margin-bottom:10px;
+}
+
+#container {
+	background:#FFF url() repeat-y scroll center top;
+	margin:0 auto;
+	padding:10px 20px 0px;
+	width:960px;
+}
+
+#header {
+	margin:0px 10px 10px;
+}
+
+#footer {
+	background-image:url();
+	clear:both;
+	font-size:0.9em;
+	font-weight:bold;
+	margin:0 auto 20px;
+	padding:20px;
+	width:960px;
+}
+#footer p {
+	margin:0px;
+}
+
+</style>
+<style id="contact-form-css" media="all" rel="stylesheet" type="text/css">
+
+::-webkit-input-placeholder 
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+:-moz-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+::-moz-placeholder	
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+
+:-ms-input-placeholder
+	{
+	font-size:100%;
+	font-family: 'Lato', sans-serif;
+	}
+	
+
+@media (max-width: 767px)
+{
+
+
+}
+
+</style>
+<style id="font-awesome-css" media="all" rel="stylesheet" type="text/css">
+@font-face{font-family:'FontAwesome';src:url() format('embedded-opentype'),url(),url(),url();font-weight:normal;font-style:normal;}[class^="icon-"]{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;}
+[class^="icon-"]:before{text-decoration:inherit;display:inline-block;speak:none;}
+[class^="icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0% 0%;background-repeat:repeat;margin-top:0;}
+.icon-phone:before{content:"\f095";}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;ver=4.9.13" id="font-lato-css" media="all" rel="stylesheet" type="text/css"/>
+
+</head>
+<body id="index">
+
+<div id="container">
+
+<div id="header">
+<a href="#">
+<h1 style="float: left;margin-top: 10px;margin-left: 15px;color:#C80409;font-size:3.3em;">{{ keyword }}</h1>
+</a>
+<div style="height:100px;width:185px;float:right;padding-right:20px;">
+<div style="float:right;height:60px;font-size:1.9em">
+<p><i class="icon-phone"></i>123 456</p>
+<p>
+</p>
+
+</div></div>
+
+</div>
+<div id="menu" style="margin:auto;border-bottom-left-radius:0px;border-bottom-right-radius:0px;">
+<ul class="menu-top">
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Home</span></a>
+</li>
+<li>
+<a class="menu-button menu-drop" href="#"><span class="menu-label">Services</span></a>
+<div class="menu-dropdown menu-dropdown2">
+<ul class="menu-sub">
+<li>
+<a class="menu-subbutton" href="#">
+<span class="menu-label">Carpet Cleaning</span>
+<div class="menu-desc">Hot Water Extraction</div>
+</a>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Blog</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Testimonials</span></a>
+</li>
+<li>
+<a class="menu-button" href="#"><span class="menu-label">Contact</span></a>
+</li>
+<li class="menu-right">
+<a class="menu-button" href="#"><span class="menu-label">Request a Quote</span></a>
+</li>
+</ul>
+</div>
+{{ text }}
+<br>
+<p>{{ links }}</p>
+<div id="footer">
+<p style="text-align:center;">2020 {{ keyword }}</p>
+</div>
+<noscript><a href="#" target="_blank" title="Contact us">Questions? Feedback?</a> powered by <a href="#" title="Olark live chat software">Olark live chat software</a></noscript>
+</div></body>
+</html>";s:4:"text";s:1:" ";s:7:"keyword";s:25:"hotels com kontakt e mail";s:5:"links";s:7298:"<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=primark-steglitz-verkaufsoffener-sonntag-2019'>Primark Steglitz Verkaufsoffener Sonntag 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=lauf-an-der-pegnitz-veranstaltungen-2019'>Lauf An Der Pegnitz Veranstaltungen 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=karlsruher-institut-f%C3%BCr-technologie-dresden'>Karlsruher Institut Für Technologie Dresden</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=4-zimmer-wohnung-witten-heven'>4 Zimmer Wohnung Witten Heven</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=studienverlaufsplan-tu-dortmund-grundschullehramt-mathe'>Studienverlaufsplan Tu Dortmund Grundschullehramt Mathe</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ausstellung-in-karlsruhe-hans-baldung-grien'>Ausstellung In Karlsruhe Hans Baldung Grien</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=parkhaus-rathausmarkt-apcoa-m%C3%BClheim-an-der-ruhr'>Parkhaus Rathausmarkt Apcoa Mülheim An Der Ruhr</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=assistent-f%C3%BCr-innenarchitektur-ausbildung-2020'>Assistent Für Innenarchitektur Ausbildung 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=deckblatt-hausarbeit-uni-w%C3%BCrzburg-p%C3%A4dagogik'>Deckblatt Hausarbeit Uni Würzburg Pädagogik</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flic-flac-bielefeld-dauer-der-show'>Flic Flac Bielefeld Dauer Der Show</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=anmeldung-lehrveranstaltungen-uni-kiel-p%C3%A4dagogik'>Anmeldung Lehrveranstaltungen Uni Kiel Pädagogik</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=museum-f%C3%BCr-geschichte-graz-%C3%B6ffnungszeiten'>Museum Für Geschichte Graz öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=spiel-mir-das-lied-vom-tod-mundharmonika'>Spiel Mir Das Lied Vom Tod Mundharmonika</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=baden-tv-karlsruher-umzug-2020'>Baden Tv Karlsruher Umzug 2020</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=spiel-mir-das-lied-vom-tod-mundharmonika'>Spiel Mir Das Lied Vom Tod Mundharmonika</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=stiftung-f%C3%BCr-konstruktive-und-konkrete-kunst-z%C3%BCrich'>Stiftung Für Konstruktive Und Konkrete Kunst Zürich</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=r%C3%BC-fest-essen-2020-termin'>Rü Fest Essen 2020 Termin</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=johannes-oerding-konzert-berlin-2019'>Johannes Oerding Konzert Berlin 2019</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=best-pizza-kebap-enns-enns'>Best Pizza Kebap Enns Enns</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=ferienhaus-mit-hund-eingez%C3%A4untes-grundst%C3%BCck-m%C3%BCnsterland'>Ferienhaus Mit Hund Eingezäuntes Grundstück Münsterland</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wetter-hamburg-7-tage-zoover'>Wetter Hamburg 7 Tage Zoover</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pizzeria-bad-oeynhausen-herforder-str'>Pizzeria Bad Oeynhausen Herforder Str</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bedeutung-goethes-f%C3%BCr-die-deutsche-literatur'>Bedeutung Goethes Für Die Deutsche Literatur</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=veranstaltungen-greifswald-und-umgebung-heute'>Veranstaltungen Greifswald Und Umgebung Heute</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flixbus-haltestelle-berlin-tegel-flughafen'>Flixbus Haltestelle Berlin Tegel Flughafen</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=wann-wurde-das-doberaner-m%C3%BCnster-gebaut'>Wann Wurde Das Doberaner Münster Gebaut</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-sch%C3%B6nste-m%C3%A4dchen-der-welt-stream-movie2k'>Das Schönste Mädchen Der Welt Stream Movie2k</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=frau-mutter-tier-amazon-prime'>Frau Mutter Tier Amazon Prime</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=bonner-stra%C3%9Fe-81-sankt-augustin'>Bonner Straße 81 Sankt Augustin</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=durften-westberliner-in-die-brd'>Durften Westberliner In Die Brd</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=die-reichsten-menschen-der-welt-top-100'>Die Reichsten Menschen Der Welt Top 100</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=mapa-de-europa-con-ciudades'>Mapa De Europa Con Ciudades</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=schwerbehindertenausweis-gr%C3%BCn-gdb-50-ohne-merkzeichen-vorteile'>Schwerbehindertenausweis Grün Gdb 50 Ohne Merkzeichen Vorteile</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=111-west-57th-street-apartments'>111 West 57th Street Apartments</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=g%C3%A4stehaus-gasthaus-goldene-traube-kempten'>Gästehaus Gasthaus Goldene Traube Kempten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=flucht-aus-ostpreu%C3%9Fen-per-schiff'>Flucht Aus Ostpreußen Per Schiff</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=da-persio-weil-am-rhein-telefonnummer'>Da Persio Weil Am Rhein Telefonnummer</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=speed-dating-l%C3%BCbeck-bar-celona'>Speed Dating Lübeck Bar Celona</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=anstehende-ereignisse-in-bad-hersfeld'>Anstehende Ereignisse In Bad Hersfeld</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=max-horkheimer-begriff-der-bildung'>Max Horkheimer Begriff Der Bildung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=landshut-heilig-geist-kirche-%C3%B6ffnungszeiten'>Landshut Heilig Geist Kirche öffnungszeiten</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=nur-eine-frau-wahre-begebenheit'>Nur Eine Frau Wahre Begebenheit</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=nachholspiel-bremen-gegen-frankfurt-termin'>Nachholspiel Bremen Gegen Frankfurt Termin</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-weinen-schauspielhaus-z%C3%BCrich-pfauen-14-m%C3%A4rz'>Das Weinen Schauspielhaus Zürich Pfauen 14 März</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=statistik-sachsen-anhalt-idev-online-meldung'>Statistik Sachsen Anhalt Idev Online Meldung</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=privat-2-zimmerwohnung-in-m%C3%BChlburg'>Privat 2 Zimmerwohnung In Mühlburg</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=fluss-durch-karlsbad-vier-buchstaben'>Fluss Durch Karlsbad Vier Buchstaben</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=pizzeria-da-luigi-lippstadt-speisekarte'>Pizzeria Da Luigi Lippstadt Speisekarte</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=fr%C3%BChst%C3%BCcken-in-der-wambacher-m%C3%BChle'>Frühstücken In Der Wambacher Mühle</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=das-leben-der-anderen-englisch'>Das Leben Der Anderen Englisch</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=weisser-stadtvogel-walk-and-dinner'>Weisser Stadtvogel Walk And Dinner</a>,
+<a href='http://xgj.didigo.es/site/f9bjx.php?c655e8=harry-potter-escape-room-nrw'>Harry Potter Escape Room Nrw</a>,
+";s:7:"expired";i:-1;}

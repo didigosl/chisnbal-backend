@@ -1,0 +1,7 @@
+<?php if(is_array($sub_menus) and !empty($sub_menus)):?>
+<div class="sub_menus">
+<?php foreach($sub_menus as $v):?>
+	<a href="<?=$this->url->get($this->dispatcher->getControllerName()."/index",['menu_id'=>$v['menu_id'],'sub_menu_id'=>$v['sub_menu_id'],'menu'=>'menu'])?>" class="btn btn-sm btn-<?php if($_GET['sub_menu_id']==$v['sub_menu_id']):?>yellow<?php else:?>light<?php endif;?>"><?=$v['sub_name']?></a>
+<?php endforeach;?>
+</div>
+<?php endif;?>

@@ -1,0 +1,94 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\ICategory;
+use Common\Models\IUserLevel;
+?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+           
+            <a class="btn btn-success btn-sm" href="<?=$this->url->get($base_url.'/create')?>">
+                <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </a>
+        </form>
+    </div>
+    <div class="col-xs-12">
+        <div>
+            <table class="table table-striped table-bordered table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th><?=ICategory::getAttr('category_name')?></th>
+                        <th><?=ICategory::getAttr('category_cover')?></th>
+                        <th><?=ICategory::getAttr('recommend_flag')?></th>
+                    <?php if($conf['enable_vip_rebate']):?>
+                        <?php foreach($levels as $Level): ?>
+                        <td><?=$Level->level_name?>返利</td>
+                        <?php endforeach; ?>
+                        <?php foreach($levels as $Level): ?>
+                        <td><?=$Level->level_name?>优惠</td>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach($categories as $Category): ?>
+                    <tr>
+                        <td><?=$Category->getTreeStyleName()?></td>
+                        <td><?php if($Category->category_cover):?><img class="thumb" src="<?=str_replace("_m", "_s",$Category->getFmtCategoryCover())?>"><?php endif;?></td>
+                        <td><?=$Category->recommend_flag?"是":"-"?></td>
+                    <?php if($conf['enable_vip_rebate']):?>
+                        <?php foreach($levels as $Level): ?>
+                        <td>
+                        <?php 
+                        if($rebates[$Category->category_id][$Level->level_id]['rebate_type']==1):
+                            echo fmtMoney($rebates[$Category->category_id][$Level->level_id]['rebate']);
+                        elseif($rebates[$Category->category_id][$Level->level_id]['rebate_type']==2):
+                            echo $rebates[$Category->category_id][$Level->level_id]['rebate'].'%';
+                        endif;
+                        ?></td>
+                        <?php endforeach; ?>
+                        <?php foreach($levels as $Level): ?>
+                        <td>
+                        <?php 
+                        if($discounts[$Category->category_id][$Level->level_id]['discount_type']==1):
+                            echo fmtMoney($discounts[$Category->category_id][$Level->level_id]['discount']);
+                        elseif($discounts[$Category->category_id][$Level->level_id]['discount_type']==2):
+                            echo $discounts[$Category->category_id][$Level->level_id]['discount'].'%';
+                        endif;
+                        ?></td>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                        <td>
+                            <a title="更新" class="btn btn btn-minier btn-yellow" container="update" href="/admin/i_category/update?id=<?=$Category->category_id?>">
+                                <i class="ace-icon fa fa-pencil-square-o bigger-130"></i> 更新
+                            </a>
+                            <a title="同级分类排序" class="btn btn btn-minier btn-purple formBtn" container="update" ajax="/admin/i_category/order?parent_id=<?=$Category->parent_id?>">
+                                <i class="ace-icon fa fa-sort-amount-asc bigger-130"></i> 同级分类排序
+                            </a>
+                            <a title="删除" class="btn btn btn-minier btn-danger deleteBtn" container="delete" ajax="/admin/i_category/delete?id=<?=$Category->category_id?>">
+                                <i class="ace-icon fa fa-trash-o bigger-130"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+
+    </div>
+</div>
+
+<?php 
+$this->assets->js['foot'][] = 'inc::back/js/jquery.nestable.min.js';
+$this->assets->js['foot'][] = 'inc::back/js/my.grid.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.grid-wrapper').hide();
+})
+EOT;
+
+ ?>

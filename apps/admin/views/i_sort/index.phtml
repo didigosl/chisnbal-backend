@@ -1,0 +1,61 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\ISort;
+?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+           
+            <a class="btn btn-success btn-sm" href="<?=$this->url->get($base_url.'/create')?>">
+                <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </a>
+        </form>
+    </div>
+    <div class="col-xs-12">
+        <div>
+            <table class="table table-striped table-bordered table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th><?=ISort::getAttr('sort_name')?></th>
+                        <th><?=ISort::getAttr('sort_cover')?></th>
+                        <th><?=ISort::getAttr('recommend_flag')?></th>
+                        
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach($sorts as $Sort): ?>
+                    <tr>
+                        <td><?=$Sort->getTreeStyleName()?></td>
+                        <td><?php if($Sort->sort_cover):?><img class="thumb" src="<?=str_replace("_m", "_s",$Sort->sort_cover)?>"><?php endif;?></td>
+                        <td><?=$Sort->recommend_flag?"是":"-"?></td>
+                        
+                        <td>
+                            <a title="更新" class="btn btn btn-minier btn-yellow" container="update" href="/admin/i_sort/update?id=<?=$Sort->sort_id?>">
+                                <i class="ace-icon fa fa-pencil-square-o bigger-130"></i> 更新
+                            </a>
+                            <a title="删除" class="btn btn btn-minier btn-danger deleteBtn" container="delete" ajax="/admin/i_sort/delete?id=<?=$Sort->sort_id?>">
+                                <i class="ace-icon fa fa-trash-o bigger-130"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+
+    </div>
+</div>
+
+<?php 
+$this->assets->js['foot'][] = 'inc::back/js/my.grid.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.grid-wrapper').hide();
+})
+EOT;
+
+ ?>

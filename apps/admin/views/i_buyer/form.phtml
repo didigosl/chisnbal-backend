@@ -1,0 +1,75 @@
+<?php
+use Common\Models\IBuyer;
+use Common\Models\SAdmin;
+use Phalcon\Tag;
+$conf = conf();
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/'.($M->user_id?'update':'create'))?>">
+				<input type="hidden" id="" name="buyer_id" value="<?=$M->buyer_id?>">				
+                
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('username')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="username" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->username?>" />
+					</div>
+				</div>	
+
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('password')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="password" placeholder="" class="col-xs-10 col-sm-5" value="" />
+					</div>
+				</div>	
+            
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->name?>" />
+					</div>
+				</div>				
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"> <?=$M->getAttr('phone')?></label>
+
+					<div class="col-sm-9">
+						
+						<input type="text" id="" name="phone" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->phone?>" />
+					</div>
+                </div>
+                
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"> <?=$M->getAttr('gender')?></label>
+
+					<div class="col-sm-9">
+						<?php 
+						foreach(IBuyer::getGenderContext() as $k=>$v):
+							if($k):
+						?>
+						<label>
+							<input type="radio" name="gender" value="<?=$k?>" <?php if($M->gender==$k):?>checked<?php endif;?>> <?=$v?>
+						</label>
+						<?php
+							endif;
+						endforeach; ?>
+					</div>
+				</div>
+            
+				
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		ajaxForm();
+	});
+</script>

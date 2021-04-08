@@ -1,0 +1,209 @@
+<?php
+use Common\Libs\Func;
+?>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title><?=$ShareInfo->title?>应用下载</title>
+    <link rel="shortcut icon" href="/logo.png">
+    <link href="<?=$this->config->params->staticsPath?>/css/bootstrap.min.css?v=123" rel="stylesheet">
+    <link href="<?=$this->config->params->staticsPath?>/font-awesome-4.7.0/css/font-awesome.css?v=4.7.0" rel="stylesheet">
+    <style>
+        .titile {
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #485465;
+        }
+        .titile span {
+            font-family: PingFangSC-Medium;
+            font-size: 16px;
+            color: #585858;
+            letter-spacing: 0.44px;
+        }
+        .titile-desc {
+            font-family: PingFangSC-Regular;
+            font-size: 12px;
+            color: #86939E;
+            letter-spacing: 0.7px;
+            line-height: 18px;
+            margin-top: 10px;
+        }
+        .title-next {
+            margin-top: 15px;
+            font-family: PingFangSC-Regular;
+            font-size: 10px;
+            color: #BFC7D8;
+            letter-spacing: 0.27px;
+            text-align: center;
+        }
+        .title-next i {
+            margin-left: 3px;
+        }
+        .logo-title {
+            font-family: PingFangSC-Medium;
+            font-size: 20px;
+            color: #54657E;
+            letter-spacing: 0.55px;
+        }
+        .logo-word {
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #7E8DA9;
+            letter-spacing: 0.38px;
+        }
+        .logo-desc {
+            font-family: PingFangSC-Light;
+            font-size: 12px;
+            color: #1990EA;
+            letter-spacing: 1.03px;
+            margin-top: 2px;
+        }
+        .download {
+            text-align: center;
+            line-height: 2;
+        }
+        .download-type {
+            font-family: PingFangSC-Medium;
+            font-size: 16px;
+            color: #4E5969;
+            letter-spacing: 0;
+        }
+        .download-word {
+            font-family: PingFangSC-Light;
+            font-size: 12px;
+            color: #4E5969;
+            letter-spacing: 0;
+            line-height: 31px;
+        }
+        .download-area {
+            border: 1px solid #858585;
+            border-radius: 4px;
+            width: 61%;
+            height: 100%;
+        }
+        .app-show-title {
+            font-family: PingFangSC-Regular;
+            font-size: 12px;
+            color: #BFC7D8;
+            letter-spacing: 0.33px;
+        }
+        .show-img {
+            width: 93.5%;
+            padding: 0px 2px;
+        }
+        .app-desc {
+            font-family: PingFangSC-Light;
+            font-size: 14px;
+            color: #7E8DA9;
+            letter-spacing: 0.38px;
+            line-height: 23px;
+        }
+        .app-content {
+            font-family: PingFangSC-Medium;
+            font-size: 14px;
+            color: #7E8DA9;
+            letter-spacing: 0.38px;
+            line-height: 23px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="background: #FFFFFF;box-shadow: 0 0 12px 0 rgba(217,226,233,0.50);padding: 22px 22px 16px 22px;">
+        <div class="col-xs-12">
+            <div class="titile"><span><?=$ShareInfo->title?></span></div>
+            <div class="titile-desc"><?=$ShareInfo->sub_title?></div>
+            <!-- <div class="title-next"><i class="fa fa-angle-double-down"></i></div> -->
+        </div>
+    </div>
+    <div class="row" style="padding: 20px 8px 0px 22px">
+        <div class="container" style="padding-bottom: 20px;border-bottom: 1px solid #ECEFF4;">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="<?=Func::staticPath($ShareInfo->logo)?>" style="width: 84.5%;">
+                    <!--<img src="/logo.png" style="width: 70px;height: 70px">-->
+                </div>
+                <div class="col-xs-9">
+                    <div class="logo-title"><?=$ShareInfo->app_name?></div>
+                    <div class="logo-word"><?=$ShareInfo->app_sub_name?></div>
+                    <!-- <div class="logo-desc"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding: 22px 22px 0px 22px">
+        <div class="container" style="padding-bottom: 22px;border-bottom: 1px solid #ECEFF4;">
+            <div class="row">
+                <a class="col-xs-6 download" href="<?=$ShareInfo->ios_url?>" style="border-right: 1px solid #DFDFDF;">
+                    <div class="container download-area">
+                        <div class="row" style="padding: 2px;">
+                            <div class="col-xs-4">
+                                <img src="<?=$this->config->params->staticsPath?>/w/imgs/share_wdyydownload_btn_ios.png">
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="download-type">IOS</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="download-word">下载</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="col-xs-6 download" href="<?=$ShareInfo->android_url?>">
+                    <div class="container download-area">
+                        <div class="row" style="padding: 2px;">
+                            <div class="col-xs-4">
+                                <img src="<?=$this->config->params->staticsPath?>/w/imgs/share_wdyydownload_btn_android.png">
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="download-type" style="font-size: 15px;">安卓</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="download-word">下载</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <?php if(is_array($ShareInfo->pics)):?>
+    <div class="row" style="padding: 12px 22px 0px 22px">
+        <div class="container">
+            <div class="row" style="margin-bottom: 8px">
+                <div class="col-xs-12 app-show-title">应用预览</div>
+            </div>
+            <div class="row" style="text-align: center">
+            <?php  foreach($ShareInfo->pics as $pic):?>
+                <div class="col-xs-6">
+                    <img src="<?=$pic?>" class="show-img">
+                </div>
+            <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php  endif;?>
+    <div class="row" style="padding: 12px 22px 30px 22px">
+        <div class="container">
+            <div class="row" style="margin-bottom: 8px">
+                <div class="col-xs-12 app-show-title">应用介绍</div>
+            </div>
+            <div class="row" style="padding-left:3px;padding-right:3px">
+                <div class="col-xs-12 app-desc">
+                <?=nl2br($ShareInfo->intro)?>
+                </div>
+      
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<!--<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>-->
+
+</body>
+</html>

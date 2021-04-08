@@ -1,0 +1,231 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IUser;
+use Common\Models\IUserLevel;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+            <input type="text" name="name" class="input-middle" placeholder="姓名" value="<?=$vars['name']?>" />
+            <input type="text" name="phone" class="input-middle" placeholder="电话" value="<?=$vars['phone']?>" />
+            <?php
+            Tag::setDefault('level_id',$vars['level_id']);
+            echo Tag::select([
+                'level_id',
+                IUserLevel::find(),
+                'using'=>['level_id','level_name'],
+                'useEmpty'=>'true',
+                'emptyText'=>'选择用户等级',
+                'data-placeholder'=>'用户等级'
+            ]);
+            ?>
+            <select name="status">
+                <option value>状态</option>
+                <option value="1" <?php if($vars['status']==1):?>selected<?php endif;?>>正常</option>
+                <option value="-1" <?php if($vars['status']==-1):?>selected<?php endif;?>>冻结</option>
+            </select>
+                        
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+            <?php /*
+            <button id="addBtn" type="button" class="btn btn-success btn-sm addBtn" ajax="<?=$this->url->get($base_url.'/create',['user_type'=>1])?>">
+                <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </button>
+            */?>
+        </form>
+    </div>
+    <div class="col-xs-12">
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>0])?>" class="btn btn-sm <?php if($vars['status']==0):?>btn-primary<?php else:?>btn-info<?php endif;?>">待审用户</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>1])?>" class="btn btn-sm <?php if($vars['status']==1):?>btn-primary<?php else:?>btn-info<?php endif;?>">正式用户</a>
+        <a href="<?=$this->url->get($base_url.'/index',['status'=>-1])?>" class="btn btn-sm <?php if($vars['status']==-1):?>btn-primary<?php else:?>btn-info<?php endif;?>">冻结用户</a>
+    </div>
+    <div class="col-xs-12">
+    <?php
+    $buttons = ['update','resetpsw','delete'];
+    if($conf['enable_vip_rebate']){
+        $buttons[] = 'sons';
+    }
+    if($conf['enable_recharge']){
+        $buttons[] = 'recharge';
+    }
+  
+    if($conf['customer_service']){
+        $buttons[] = 'session';
+    }
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            ['ID','user_id'],
+            [IUser::getAttr('name'),'name'],
+            [IUser::getAttr('phone'),'phone'],
+            [IUser::getAttr('email'),'email'],
+            // ['微信帐号','""','function'],
+            [IUser::getAttr('level_id'),'{$o}->userLevel->level_name','function'],
+            [IUser::getAttr('total_rebate'),'fmtMoney({$o}->total_rebate)','function'],
+            [IUser::getAttr('money'),'fmtMoney({$o}->money)','function'],
+            [IUser::getAttr('buy_total'),'"<a href=\"/admin/i_order/index?&menu=order&success_flag=success&user_id=".{$o}->user_id."\">".{$o}->buy_total."</a>"','function'],
+            [IUser::getAttr('create_time'),'date("Y-m-d",strtotime({$o}->create_time))','function'],
+            [IUser::getAttr('status'),'{$o}->getStatusContext({$o}->status).({$o}->status==0 ? " <a class=\"btn btn-minier btn-info audit-btn\"  data-id=\"".{$o}->user_id."\" href=\"javascript:void(0)\">审核</a>" : ({$o}->status>0 ? " <a class=\"btn btn-minier btn-warning freeze-btn\"  data-id=\"".{$o}->user_id."\" href=\"javascript:void(0)\">冻结</a>" : " <a class=\"btn btn-minier btn-info unfreeze-btn\" data-id=\"".{$o}->user_id."\" href=\"javascript:void(0)\">解冻</a>"))','function']
+        ],
+        'buttons'=>$buttons,
+        'buttonsCfg'=>[
+            'resetpsw'=>[
+                'iconCss'=>'fa-key ',
+                'type'=>'ajax',
+                'url'=>'i_user/resetpsw',
+                'title'=>'重置密码',
+                'btnCss'=>'btn-purple resetpsw-btn'
+            ],
+            'sons'=>[
+                'iconCss'=>'fa-child ',
+                'type'=>'href',
+                'url'=>'i_user/index',
+                'url_param'=>'parent_id',
+                'title'=>'子属'
+            ],
+            'recharge'=>[
+                'iconCss'=>'fa-money ',
+                'type'=>'ajax',
+                'url'=>'i_recharge/create',
+                'title'=>'充值',
+                'btnCss'=>'btn-pink recharge-btn'
+            ],
+            'session'=>[
+                'iconCss'=>'fa-chats ',
+                'type'=>'href',
+                'url'=>'i_cs_msg/index',
+                'title'=>'对话',
+                'btnCss'=>'btn-info',
+                'url_param'=>'user_id'
+            ],
+        ],
+        'page'=>$page,
+        // 'primeData'=>'u',
+        'vars'=>[
+            'module'=>$module
+        ]
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$audit_url = $this->url->get($base_url.'/audit');
+$refuse_url = $this->url->get($base_url.'/delete');
+$freeze_url = $this->url->get($base_url.'/freeze');
+$resetpsw_url = $this->url->get($base_url.'/resetpsw');
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+
+    $('.audit-btn').click(function(){
+        var env = this;
+
+        layer.confirm('是否要通过此用户的审核？',{
+            btn: ['审核通过', '不通过'],
+            yes:function(index, layero){
+                $.get('$audit_url',{id:$(env).attr('data-id')},function(result){
+                    if(result.status){
+                        successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+
+                        layer.close(index);
+                        location.reload();
+                    }
+                    else{
+                        errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                    }
+                });
+            },
+            btn2: function(index, layero){
+                $.get('$refuse_url',{id:$(env).attr('data-id')},function(result){
+                    if(result.status){
+                        successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+
+                        layer.close(index);
+                        location.reload();
+                    }
+                    else{
+                        errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                    }
+                });
+            }
+        });
+
+     
+    });
+
+    $('.freeze-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要冻结此用户吗？', function(index){
+            $.get('$freeze_url',{id:$(env).attr('data-id')},function(result){
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            location.reload();
+        });
+    });
+
+    $('.unfreeze-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要恢复此冻结用户吗？',function(index){
+            $.get('$freeze_url',{id:$(env).attr('data-id')},function(result){
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            location.reload();
+        });
+    });
+
+    $('.resetpsw-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要重置此用户的密码吗？',function(index){
+            $.get($(env).attr('ajax'),function(result){
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            // location.reload();
+        });
+    });
+
+    $('.recharge-btn').click(function(){
+        var env = this;
+
+        layer.prompt({title: '输入充值金额', formType: 3}, function(amount, index){
+            layer.close(index);
+            $.get($(env).attr('ajax'),{amount:amount},function(result){
+                if(result.status==1){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    // location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            
+            
+        });
+
+    });
+});
+EOT;
+ ?>

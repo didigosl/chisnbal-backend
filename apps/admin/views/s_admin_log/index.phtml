@@ -1,0 +1,90 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\SAdminLog;
+ ?>
+
+
+<div class="row tabs-wrapper">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+         
+            <input type="text" name="start_day" class="input-small date-picker" placeholder="开始日期" value="<?=$vars['start_day']?>" /> -
+            <input type="text" name="end_day" class="input-small date-picker" placeholder="结束日期" value="<?=$vars['end_day']?>" />
+            帐号：
+            <input type="text" name="username" class="input-middle" placeholder="输入管理员帐号" value="<?=$vars['username']?>" /> 
+            
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            // ['ID','id'],
+            [SAdminLog::getAttr('admin_id'),'{$o}->Admin->username','function'],
+            [SAdminLog::getAttr('action'),'implode({$o}->getTableActionName({$o}->table,{$o}->action),"")','function'],
+            [SAdminLog::getAttr('remark'),'remark'],
+            [SAdminLog::getAttr('create_time'),'date("Y-m-d H:i:s",strtotime({$o}->create_time))','function'],
+            [SAdminLog::getAttr('ip'),'ip'],
+        ],
+        'buttons'=>[],       
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ]
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.date-picker').datepicker({
+        dateFormat:'yy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+        maxDate:'+0 day'
+    });
+
+    $('#search').submit(function(){
+        var start = $('input[name="start_day"]').val();
+        var end = $('input[name="end_day"]').val();
+
+        if(start){
+            var start_day = start.split('-');
+            var start_date = new Date(start_day[0],start_day[1],start_day[2]);
+        }
+        if(end){
+            var end_day = end.split('-');
+            var end_date = new Date(end_day[0],end_day[1],end_day[2]);
+        }
+        console.log(start_date);
+        console.log(end_date);
+        
+        if(start_date && end_date){
+            if(start_date>end_date){
+                errorMsg("搜索的开始日期不能大于结束日期");
+                return false;
+            }
+            
+            if(end_date.getTime() - start_date.getTime() > 30*86400*1000){
+                errorMsg("搜索的日期跨度不能超过30天");
+                return false;
+            }
+        }
+        
+        
+        
+    });
+});
+EOT;
+ ?>

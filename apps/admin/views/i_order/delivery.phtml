@@ -1,0 +1,46 @@
+<?php
+use Common\Models\IOrder;
+use Common\Models\IExpressCorp;
+use Phalcon\Tag;
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" method="post" action="<?=$this->url->get($base_url.'/delivery')?>">
+				<input type="hidden" name="id" value="<?=$M->order_id?>">
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('express_corp_id')?></label>
+
+					<div class="col-sm-9">
+						<?php 
+						Tag::setDefault('express_corp_id',$M->express_corp_id);
+							echo Tag::select([
+								'express_corp_id',
+								IExpressCorp::find(),
+								'using'=>['express_corp_id','corp_name'],
+								'useEmpty'=>'true',
+								'emptyText'=>'选择快递公司',
+							]);
+						 ?>	
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('express_no')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" name="express_no" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->express_no?>" />
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		ajaxForm();
+	});
+</script>

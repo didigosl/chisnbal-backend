@@ -1,0 +1,231 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IGoodsSpu as Spu;
+use Common\Models\ILabel;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="col-xs-4">
+    <?php if(conf('enable_low_stock_warning')):?>
+        <a href="<?=$this->url->get($base_url.'/index')?>" class="btn btn-sm <?php if(!$low_stock):?>btn-primary<?php else:?>btn-grey<?php endif;?>">全部商品</a>
+        <a href="<?=$this->url->get($base_url.'/index',['low_stock'=>1])?>" class="btn btn-sm <?php if($low_stock==1):?>btn-primary<?php else:?>btn-grey<?php endif;?>">低库存商品(<?=$total_of_low_stock?>)</a>
+    <?php endif;?>
+        </div>
+        <div class="col-xs-8"  style="text-align: right">
+            <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+                
+                <?php
+                Tag::setDefault('keyword_type',$vars['keyword_type']);
+                echo Tag::selectStatic([
+                    'keyword_type',
+                    [
+                        'spu_name'=>'搜索名称',
+                        'sn'=>'搜索货号'
+                    ],
+                ]);
+                ?>  
+                <input type="text" name="keyword" class="input-middle" placeholder="输入关键词" value="<?=$vars['keyword']?>" />
+    
+                <?php
+                Tag::setDefault('status',$vars['status']);
+                echo Tag::selectStatic([
+                    'status',
+                    Spu::getStatusContext(),
+                    'useEmpty'=>true,
+                    'emptyText'=>'选择状态'
+                ]);
+                ?>           
+                    
+                <?php
+                Tag::setDefault('label_id',$vars['label_id']);
+                echo Tag::select([
+                    'label_id',
+                    ILabel::find(),
+                    'using'=>['label_id','label_name'],
+                    'useEmpty'=>true,
+                    'emptyText'=>'选择标签'
+                ]);
+                ?>
+                <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                    <i class="ace-icon fa fa-key bigger-110"></i>搜索
+                </button>
+                <a class="btn btn-success btn-sm" href="<?=$this->url->get($base_url.'/create')?>">
+                    <i class="ace-icon fa fa-plus bigger-110"></i>新增商品
+                </a>
+            </form>
+        </div>
+        
+    </div>
+    <div class="col-xs-12">
+    <?php if(!conf('enable_low_stock_warning') || !$low_stock):?>
+        <div class="col-sm-2">
+            <div class="widget-box widget-color-green">
+                <div class="widget-header">
+                    <h4 class="widget-title lighter smaller">商品分类</h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main padding-8">
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    <?php endif;?>
+                <div class="<?php if(conf('enable_low_stock_warning') && $low_stock):?>col-sm-12<?php else:?>col-sm-10<?php endif;?>">
+            <?php
+                $grid = new Grid;
+                if($vars['category_id']){
+                    $cols = [
+                        ['id','spu.spu_id'],
+                        [Spu::getAttr('sn'),'spu.sn'],
+                        // [Spu::getAttr('spu_name'),'{$o}["spu"]->spu_name."<br>".implode("<br>",{$o}->getCategories())','function'],
+                        [Spu::getAttr('cover'),'"<img class=\"thumb\" src=\"".str_replace("_m", "_s", {$o}["spu"]->getFmtCover())."\">"','function'],
+                        [Spu::getAttr('spu_name'),'"<b>".{$o}["spu"]->spu_name."</b><br><div class=\"full-category\">".implode("<br>",{$o}["spu"]->getCategories())."</div>"','function'],
+                        [Spu::getAttr('price'),'"<input class=\"inline-input\" name=\"price\" style=\"width:60px\" data-id=\"".{$o}->spu_id."\" value=\"".fmtMoney({$o}["spu"]->price)."\">"','function'],
+                        [Spu::getAttr('stock'),'spu.stock'],
+                        ["排序",'"<input class=\"inline-input\" name=\"seq\" style=\"width:40px\" data-val=\"".{$o}["spu"]->seq."\" data-id=\"".{$o}["spu"]->spu_id."\" value=\"".{$o}["spu"]->seq."\">"','function'],
+                        [Spu::getAttr('status'),'{$o}["spu"]->getStatusContext({$o}["spu"]->status).({$o}["spu"]->status>0 ? " <a class=\"btn btn-minier btn-warning off-sale-btn\"  data-id=\"".{$o}["spu"]->spu_id."\" href=\"javascript:void(0)\">下架</a>" : " <a class=\"btn btn-minier btn-info on-sale-btn\" data-id=\"".{$o}["spu"]->spu_id."\" href=\"javascript:void(0)\">上架</a>")','function']
+                    ];
+                    $primeData = 'spu';
+                    // var_dump($cols);exit;
+                }
+                else{
+                    $cols = [
+                        ['id','spu_id'],
+                        [Spu::getAttr('sn'),'sn'],
+                        [Spu::getAttr('cover'),'"<img class=\"thumb\" src=\"".str_replace("_m", "_s", {$o}->getFmtCover())."\">"','function'],
+                        [Spu::getAttr('spu_name'),'"<b>".{$o}->spu_name."</b><br><div class=\"full-category\">".implode("<br>",{$o}->getCategories())."</div>"','function'],
+                        [Spu::getAttr('price'),'"<input class=\"inline-input\" name=\"price\" style=\"width:60px\" data-id=\"".{$o}->spu_id."\" value=\"".fmtMoney({$o}->price)."\">"','function'],
+                        [Spu::getAttr('stock'),'stock'],
+                        ["排序",'"<input class=\"inline-input\" name=\"seq\" style=\"width:40px\" data-val=\"".{$o}->seq."\" data-id=\"".{$o}->spu_id."\" value=\"".{$o}->seq."\">"','function'],
+                        [Spu::getAttr('status'),'{$o}->getStatusContext({$o}->status).({$o}->status>0 ? " <a class=\"btn btn-minier btn-warning off-sale-btn\"  data-id=\"".{$o}->spu_id."\" href=\"javascript:void(0)\">下架</a>" : " <a class=\"btn btn-minier btn-info on-sale-btn\" data-id=\"".{$o}->spu_id."\" href=\"javascript:void(0)\">上架</a>")','function']
+                    ];
+                    $primeData = null;
+                }
+                $grid->run(array(
+                    'rowCheckbox'=>true,
+                    'cols'=>$cols,
+                    'buttons'=>['update','delete'],
+                    'buttonsCfg'=>[
+                        'update'=>[
+                            'type'=>'href'
+                        ]
+                    ],
+                    'bottomButtons'=>[
+                        'allOnSale'=>[
+                            'cssClass'=>'btn-info',
+                            'text'=>'批量上架',
+                            'ajax'=>'allOnSale'
+                        ],
+                        'allOffSale'=>[
+                            'text'=>'批量下架',
+                            'ajax'=>'allOffSale'
+                        ],
+                        'allDelete'=>[
+                            'cssClass'=>'btn-danger',
+                            'text'=>'批量删除',
+                            'ajax'=>'allDelete'
+                        ]
+                    ],
+                    'page'=>$page,
+                    'primeData'=>$primeData,
+
+                    ));
+                ?>
+        </div>
+    
+
+    </div>
+</div>
+
+<?php 
+$this->url->setBaseUri($this->request->getScheme().'://'.$this->request->getHttpHost().'/');
+$this->assets->css['head'][] = 'inc::js/zTree/css/zTreeStyle/zTreeStyle.css';
+$this->assets->js['foot'][] = 'inc::js/zTree/js/jquery.ztree.core.js';
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getCategoriesForZtree',['category_id'=>$vars['category_id'],'shop_id'=>$shop_id,'related_model'=>'spu']));
+
+// var_dump($this->url->get($module.'/data/getCategoriesForZtree',['category_id'=>$vars['category_id'],'shop_id'=>$shop_id,'related_model'=>'spu']),false);exit;
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var setting = {
+    data: {
+        simpleData: {
+            enable: true
+        }
+    }
+};
+$(document).ready(function(){
+    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+});
+EOT;
+ ?>
+
+<?php
+$sale_url = $this->url->get($base_url.'/sale');
+$update_url = $this->url->get($base_url.'/quickUpdate');
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.on-sale-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要上架此商品吗？', function(index){
+            $.get('$sale_url',{id:$(env).attr('data-id')},function(result){
+                console.log(result);
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+
+            });
+            layer.close(index);
+            
+        });
+    });
+
+    $('.off-sale-btn').click(function(){
+        var env = this;
+        layer.confirm('确定要下架此商品吗？',function(index){
+            $.get('$sale_url',{id:$(env).attr('data-id')},function(result){
+                if(result.status){
+                    successMsg('操作成功'+(result.msg ? '，'+result.msg : ''));
+                    location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+            layer.close(index);
+            
+        });
+    });
+
+    $('.inline-input').keyup(function(event){
+        console.log(event.keyCode);
+        var id = $(this).attr('data-id');
+        var col = $(this).attr('name');
+        var val = $(this).val();
+
+        if(event.keyCode==13){
+            $.post('$update_url',{id:id,col:col,val:val},function(result){
+                if(result.status>0){
+                    successMsg('更新成功'+(result.msg ? '，'+result.msg : ''));
+                    // location.reload();
+                }
+                else{
+                    errorMsg('操作失败'+(result.msg ? '，'+result.msg : ''));
+                }
+            });
+        }
+    });
+
+});
+EOT;
+ ?>

@@ -1,0 +1,109 @@
+<?php
+use Common\Models\ICoupon;
+use Phalcon\Tag;
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<div class="profile-user-info profile-user-info-striped">
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('coupon_name')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->coupon_name?></p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('sn')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->sn?> </p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('amount')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=fmtMoney($M->amount)?></p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> 有效时间 </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->start_time?>至<?=$M->end_time?></p>
+					</div>
+				</div>
+
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('min_limit')?> </div>
+
+					<div class="profile-info-value">
+						<p><?php if($M->min_limit):?><?=fmtMoney($M->min_limit)?><?php else:?>无<?php endif;?></p>
+					</div>
+				</div>
+			<?php if($conf['enable_vip_rebate']):?>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('with_rebate')?> </div>
+
+					<div class="profile-info-value">
+						<p><?php if($M->with_rebate):?>是<?php else:?>否<?php endif;?></p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('with_discount')?> </div>
+
+					<div class="profile-info-value">
+						<p><?php if($M->with_discount):?>是<?php else:?>否<?php endif;?></p>
+					</div>
+				</div>
+			<?php endif;?>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('send_total')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->send_total?></p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('used_total')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->used_total?></p>
+					</div>
+				</div>
+				<!-- <div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('user_total')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->user_total?></p>
+					</div>
+				</div> -->
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('order_total_amount')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->order_total_amount?></p>
+					</div>
+				</div>
+
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('target')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->getFmtTarget()?></p>
+					</div>
+				</div>
+				<div class="profile-info-row">
+					<div class="profile-info-name"> <?=$M->getAttr('status')?> </div>
+
+					<div class="profile-info-value">
+						<p><?=$M->getStatusContext($M->status)?></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,251 @@
+<?php
+use Common\Models\IOrder;
+use Common\Models\IOrderSku as OrderSku;
+use Common\Models\IGoodsSpu as Spu;
+use Common\Libs\Func;
+use Phalcon\Tag;
+?>
+<div class="row">
+    <div class="col-xs-12" style="text-align:right">
+        <button class="btn btn-sm btn-inverse" id="printBtn">						
+        <i class="ace-icon fa fa-print bigger-110"></i>
+        打印
+        </button>
+    </div>
+    <div class="col-xs-12">
+        <div id="printContainer">
+        <?php 
+        $seq = 0;
+        foreach($skus as $index=>$data): 
+        $seq++;
+        ?>
+        
+        <table class="table">
+            <tr>
+                <td>
+                    <div class="col-xs-12">
+                        <div class="col-xs-3" style="">
+                        <?php if($Shop->logo):?>
+                            <img src="<?=Func::staticPath($Shop->logo)?>" alt="" style="max-height:50px">
+                        <?php endif;?>
+                        </div>
+                        <div class="col-xs-5">
+                            <div>配货单类型：<b class="print-strong"><?php if($data['distribution_type']): echo $data['distribution_type']['name'];else: echo '-'; endif;?></b></div>
+                            <div>Codigo:<?=$Order->sn?></div>
+                            <div>Fecha de pedido:<?=$Order->create_time?></div>
+                            <div>Pagina:<?=$seq?>/<?=count($skus)?></div>
+                        </div>
+                        <div class="col-xs-4">
+                            <p><?=$Order->User->name?></p>
+                            <p><?=$Order->User->country_code?> <?=$Order->User->phone?></p>
+                        </b>
+                    </div>
+                </td>
+            </tr>
+
+            <?php /* ?>
+            <tr><td style="text-align:center">称重商品</td></tr>
+            <tr>
+                <td>
+                    <table class="table print-table" border="1">
+                        <tr>
+                            <!-- <th>foto</th> -->
+                            <th>Referencia</th>
+                            <th>producto</th>                            
+                            <th>precio</th>
+                            <th>stock</th>
+                            <th>Cantidad/Uds</th>
+                            <th style="border-left:2px solid #000">Referencia</th>
+                            <th>producto</th>                            
+                            <th>precio</th>
+                            <th>stock</th>
+                            <th>Cantidad/Uds</th>
+                        </tr>
+                        <?php 
+                            $listTotal = count($data['list']['weigh']);
+                            foreach($data['list']['weigh'] as $k=>$OrderSku):
+                        ?>
+                        <?php if($k%2==0):?><tr><?php endif;?>
+                            <!-- <td><img class="mini-thumb" style="max-width:50px;max-height:50px;" src="<?=$OrderSku->Spu->cover?>"></td> -->
+                            <td <?php if($k%2>0):?>style="border-left:2px solid #000"<?php endif;?> ><?=$OrderSku->Sku->sku_sn?></td>
+                            <td><b class="print-strong"><?=$OrderSku->Spu->spu_name?></b></td>                            
+                            <td><?=fmtMoney($OrderSku->price)?></td>
+                            <td><?=$OrderSku->Sku->stock?></td>
+                            <td><b class="print-strong"><?=$OrderSku->num?></b>/
+                                <?php 
+                                $spec_info = $OrderSku->getFmtSpecInfo(); 
+                                if($spec_info){
+                                    echo $spec_info[0]['val'];
+                                }
+                                else{
+                                    echo $OrderSku->Spu->unit;
+                                }
+                                
+                                ?>
+                            </td>
+                        <?php if($k%2>0):?>
+                        </tr>
+                        <?php elseif($k>=$listTotal-1):?>
+                        <td colspan="5" style="border-left:2px solid #000"></td>
+                        </tr>
+                        <?php endif;?>
+                        <?php endforeach;?>
+                    </table>
+                </td>
+            </tr>
+            <tr><td style="text-align:center">非称重商品</td></tr>
+            <tr>
+                <td>
+                    <table class="table print-table" border="1">
+                        <tr>
+                            <!-- <th>foto</th> -->
+                            <th>Referencia</th>
+                            <th>producto</th>                            
+                            <th>precio</th>
+                            <th>stock</th>
+                            <th>Cantidad/Uds</th>
+                            <th style="border-left:2px solid #000">Referencia</th>
+                            <th>producto</th>                            
+                            <th>precio</th>
+                            <th>stock</th>
+                            <th>Cantidad/Uds</th>
+                        </tr>
+                        <?php 
+                            $listTotal = count($data['list']['no_weigh']);
+                            foreach($data['list']['no_weigh'] as $k=>$OrderSku):
+                        ?>
+                        <?php if($k%2==0):?><tr><?php endif;?>
+                            <!-- <td><img class="mini-thumb" style="max-width:50px;max-height:50px;" src="<?=$OrderSku->Spu->cover?>"></td> -->
+                            <td <?php if($k%2>0):?>style="border-left:2px solid #000"<?php endif;?> ><?=$OrderSku->Sku->sku_sn?></td>
+                            <td><b class="print-strong"><?=$OrderSku->Spu->spu_name?></b></td>                            
+                            <td><?=fmtMoney($OrderSku->price)?></td>
+                            <td><?=$OrderSku->Sku->stock?></td>
+                            <td><b class="print-strong"><?=$OrderSku->num?></b>/
+                                <?php 
+                                $spec_info = $OrderSku->getFmtSpecInfo(); 
+                                if($spec_info){
+                                    echo $spec_info[0]['val'];
+                                }
+                                else{
+                                    echo $OrderSku->Spu->unit;
+                                }
+                                
+                                ?>
+                            </td>
+                        <?php if($k%2>0):?>
+                        </tr>
+                        <?php elseif($k>=$listTotal-1):?>
+                        <td colspan="5" style="border-left:2px solid #000"></td>
+                        </tr>
+                        <?php endif;?>
+                        <?php endforeach;?>
+                    </table>
+                </td>
+            </tr>
+            <?php */ ?>
+            <tr>
+                <td>
+                    <table class="print-table" border="1" cellspacing="0" cellpadding="1" >
+                        <tr>
+                            <td colspan="5" style="width:50%;text-align:center">PROTUCTOS POR PESO</td>
+                            <td colspan="5" style="width:50%;text-align:center">PROTUCTOS SIN PESO </td>
+                        </tr>
+                        <tr>
+                            <th>Referencia</th>
+                            <th>producto</th>                            
+                            <th>precio</th>
+                            <th>stock</th>
+                            <th>Cantidad/Uds</th>
+                            <th style="border-left:2px solid #000">Referencia</th>
+                            <th>producto</th>                            
+                            <th>precio</th>
+                            <th>stock</th>
+                            <th>Cantidad/Uds</th>
+                        </tr>
+                        <?php 
+                        $weighTotal = count($data['list']['weigh']);
+                        $noWeighTotal = count($data['list']['no_weigh']);
+                        $max = $weighTotal>$noWeighTotal ? $weighTotal : $noWeighTotal;
+                        // $max = 10;
+                        for($i=0; $i<$max; $i++):?>
+                        <tr>
+                            <?php 
+                            if($data['list']['weigh'][$i]):
+                                $OrderSku = $data['list']['weigh'][$i];
+                            ?>
+                            <td><?=$OrderSku->Sku->sku_sn?></td>
+                            <td><b class="print-strong"><?=$OrderSku->Spu->spu_name?></b></td>                            
+                            <td><?=fmtMoney($OrderSku->price)?></td>
+                            <td><?=$OrderSku->Sku->stock?></td>
+                            <td><b class="print-strong"><?=$OrderSku->num?></b>/
+                                <?php 
+                                $spec_info = $OrderSku->getFmtSpecInfo(); 
+                                if($spec_info){
+                                    echo $spec_info[0]['val'];
+                                }
+                                else{
+                                    echo $OrderSku->Spu->unit;
+                                }
+                                
+                                ?>
+                            </td>
+                            <?php else:?>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php endif;?>
+                            <?php 
+                            if($data['list']['no_weigh'][$i]):
+                                $OrderSku = $data['list']['no_weigh'][$i];
+                            ?>
+                            <td style="border-left:2px solid #000"><?=$OrderSku->Sku->sku_sn?></td>
+                            <td><b class="print-strong"><?=$OrderSku->Spu->spu_name?></b></td>                            
+                            <td><?=fmtMoney($OrderSku->price)?></td>
+                            <td><?=$OrderSku->Sku->stock?></td>
+                            <td><b class="print-strong"><?=$OrderSku->num?></b>/
+                                <?php 
+                                $spec_info = $OrderSku->getFmtSpecInfo(); 
+                                if($spec_info){
+                                    echo $spec_info[0]['val'];
+                                }
+                                else{
+                                    echo $OrderSku->Spu->unit;
+                                }
+                                
+                                ?>
+                            </td>
+                            <?php else:?>
+                            <td style="border-left:2px solid #000"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php endif;?>
+                        </tr>
+                        <?php 
+                        endfor;?>
+                    </table>
+                </td>
+            </tr>
+                 
+        </table>
+        
+        <div style="page-break-after:always;"></div>
+        <?php endforeach;?>
+        </div>
+    </div>
+    
+</div>
+<?php 
+$this->assets->js['foot'][] = 'inc::back/js/jquery.print.min.js';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('#printBtn').click(function(){
+        $("#printContainer").print();
+    });
+});
+EOT;
+?>

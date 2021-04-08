@@ -1,0 +1,91 @@
+<?php
+use Common\Models\IDeliveryFee;
+use Common\Models\IArea;
+use Phalcon\Tag;
+$delivery_fee_type = $this->conf['delivery_fee_type'];
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" method="post" action="<?=$this->url->get($base_url.'/'.($M->id?'update':'create'))?>"  >
+				<input type="hidden" id="" name="id" value="<?=$M->id?>">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('area_id')?></label>
+
+					<div class="col-sm-9">
+						<select name="" id="selectParent"></select>
+						<input type="hidden" id="area_id" name="area_id" value="<?=$M->area_id?>">
+					</div>
+				</div>
+				
+			<?php if($delivery_fee_type=='measure'):?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('basic_fee')?></label>
+
+					<div class="col-sm-9">
+                        不足<b>1</b>千克时运费<input type="text" id="" name="basic_fee" placeholder="" class="input-sm  input-small" value="<?=$M->basic_fee?fmtMoney($M->basic_fee):""?>" />
+                        <input type="hidden" name="basic_measure" value="<?=fmtMoney($M->basic_measure)?>">
+                    </div>
+				</div>
+
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('step_fee')?></label>
+
+					<div class="col-sm-9">
+                    每增加<b>1</b>千克运费增加<input type="text" id="" name="step_fee" placeholder="" class="input-sm  input-small" value="<?=$M->step_fee?fmtMoney($M->step_fee):""?>" />
+                    <input type="hidden" name="step_measure" value="<?=fmtMoney($M->step_measure)?>">
+					</div>
+				</div>
+			<?php elseif($delivery_fee_type=='percent'):?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('basic_fee')?></label>
+
+					<div class="col-sm-9">
+                        订单金额不足<input type="text" id="" name="basic_measure" placeholder="" class="input-sm  input-small" value="<?=fmtMoney($M->basic_measure)?>" />元时运费<input type="text" id="" name="basic_fee" placeholder="" class="input-sm input-small" value="<?=$M->basic_fee?fmtMoney($M->basic_fee):""?>" />
+                    </div>
+				</div>
+
+                <div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('step_fee')?></label>
+
+					<div class="col-sm-9">
+                    订单金额每增加<input type="text" name="step_measure" class="input-sm  input-small" value="<?=fmtMoney($M->step_measure)?>">元运费增加<input type="text" id="" name="step_fee" placeholder="" class="input-sm  input-small" value="<?=$M->step_fee?fmtMoney($M->step_fee):""?>" />
+                    
+					</div>
+				</div>
+			<?php endif;?>
+			</form>
+		</div>
+	</div>
+</div>
+<?php
+$merger = '';
+if($M->area_id){
+	$merger = array_reverse( $M->Area->getParents());
+	$merger = implode(',',$merger);
+}
+
+$defVal = $merger;
+?>
+<script>
+	$(function(){
+		ajaxForm();
+		var linkSelect = new LinkageSel({
+			data:areas,
+			select: '#selectParent',
+			head:'选择地区',
+			minWidth:80,
+			autoLink:false,
+			loaderImg:'$loaderImg',
+			defVal:[<?=$defVal?>]
+		});
+
+		linkSelect.onChange(function(){
+			$('#area_id').val(linkSelect.getSelectedValue());
+			console.log($('#area_id').val());
+		});
+
+	});
+</script>

@@ -1,0 +1,44 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\ICsSession;
+ ?>
+
+
+<div class="row tabs-wrapper">
+    <div class="col-xs-12" style="text-align: right">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            // ['ID','feedback_id'],            
+            [ICsSession::getAttr('user_id'),'"<a href=\"".url()->get("/admin/i_user/index",["id"=>{$o}->user_id])."\">".{$o}->User->phone."(".{$o}->User->name.")</a>"','function'],
+            [ICsSession::getAttr('admin_id'),'{$o}->admin_id ? ({$o}->Admin->username."(".{$o}->Admin->name.")") : ""','function'],
+            [ICsSession::getAttr('lastest_msg'),'htmlspecialchars({$o}->lastest_msg)','function'],
+            [ICsSession::getAttr('update_time'),'{$o}->update_time','function'],
+            ['未读消息','{$o}->admin_unread_total?"<span class=\"badge badge-danger\">".{$o}->admin_unread_total."</span>":""','function'],
+        ],
+        'buttons'=>['session'],
+        'buttonsCfg'=>[
+            'session'=>[
+                'iconCss'=>'fa-circle-o ',
+                'type'=>'href',
+                'url'=>'i_cs_msg/index',
+                'title'=>'打开会话',
+                'btnCss'=>'btn-success'
+            ],
+
+        ],       
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ]
+    ));
+    ?>
+    </div>
+</div>

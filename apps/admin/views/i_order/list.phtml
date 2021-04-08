@@ -1,0 +1,88 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IShop;
+use Common\Models\IOrder;
+ ?>
+
+
+<div class="row tabs-wrapper">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/list')?>" class="form-inline">
+            店铺:
+            <?php
+            Tag::setDefault('shop_id',$vars['shop_id']);
+            echo Tag::select([
+                'shop_id',
+                IShop::find('status=2'),
+                'using'=>['shop_id','shop_name'],
+                'useEmpty'=>'true',
+                'emptyText'=>'选择店铺',
+            ]);
+            ?>    
+            订单编号：
+            <input type="text" name="sn" class="input-middle" placeholder="输入订单号" value="<?=$vars['sn']?>" />
+            时间：
+            <input type="text" name="start_day" class="input-small date-picker" placeholder="开始日期" value="<?=$vars['start_day']?>" /> -
+            <input type="text" name="end_day" class="input-small date-picker" placeholder="结束日期" value="<?=$vars['end_day']?>" />
+            <?php
+
+            Tag::setDefault('flag',$vars['flag']);
+            echo Tag::selectStatic([
+                'flag',
+                array_slice(IOrder::getFlagContext(),2,3),
+                'useEmpty'=>'true',
+                'emptyText'=>'选择状态',
+            ]);
+            ?> 
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+            
+        </form>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+    $buttons = [];
+    $grid = new Grid;
+    $grid->run(array(
+        'cols'=>[
+            ['ID','order_id'],
+            [IOrder::getAttr('sn'),'sn'],
+            [IShop::getAttr('shop_name'),'{$o}->Shop->shop_name','function'],
+            [IOrder::getAttr('create_time'),'create_time'],
+            [IOrder::getAttr('receive_man'),'{$o}->receive_man."(".{$o}->receive_phone.")"','function'],
+            [IOrder::getAttr('total_amount'),'fmtMoney({$o}->total_amount)','function'],
+            ['数量','{$o}->getGoodsTotal()','function'],
+            [IOrder::getAttr('flag'),'{$o}->getFlagContext({$o}->flag)','function']
+        ],
+        'buttons'=>$buttons,
+        'page'=>$page,
+        'vars'=>[
+            'module'=>$module
+        ],
+        'action'=>'list'
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+    $('.date-picker').datepicker({
+        dateFormat:'yy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+    });
+
+});
+EOT;
+ ?>

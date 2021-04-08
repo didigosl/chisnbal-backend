@@ -1,0 +1,107 @@
+<div class="widget-box">
+	
+
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/setting')?>">
+				
+			<?php foreach($list as $Setting):?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for="update_value"> <?=$Setting->text?></label>
+
+					<div class="col-sm-9">
+					<?php if($Setting->type=='text'):?>
+						<input role="value" type="text" name="<?=$Setting->name?>" placeholder="请输入<?=$Setting->text?>" value="<?=$Setting->value?>" class="col-xs-10 col-sm-5" />
+					<?php elseif($Setting->type=='textarea'):?>
+						<textarea role="value" name="<?=$Setting->name?>" id="" rows="5" class="form-control"><?=$Setting->value?></textarea>
+					<?php endif;?>
+						<p class="help-inline"> <?=$Setting->intro?></p>
+					</div>
+				</div>
+			<?php endforeach;?>
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<input type="hidden" name="group" value="<?=$group?>">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php
+if($group=='bank' or $group=='rebate'){
+	$this->assets->js['foot'][] = <<<EOT
+raw::
+var group = '$group';
+$(function(){
+	var has_error = 0;
+	$('form').submit(function(){
+		has_error = 0;
+		$.each($('[role="value"]'),function(i,o){
+			console.log($(o).val());
+			if($(o).val().length==0){
+				
+				has_error = 1;
+				return false;
+			}
+		})
+
+		if(has_error>0){
+			errorMsg('请完整填写所有数据');
+			return false;
+		}
+
+		if(group=='bank'){
+			var bank = $('input[name="bank"]').val();
+			var bank_account = $('input[name="bank_account"]').val();
+			var bank_intro = $('textarea[name="bank_intro"]').val();
+
+			if(bank.length>100){
+				errorMsg('开户行不能超过100个字符');
+				return false;
+			}
+			if(bank_account.length>100){
+				errorMsg('汇款账号不能超过100个字符');
+				return false;
+			}
+			if(bank_intro.length>500){
+				errorMsg('汇款说明不能超过500个字符');
+				return false;
+			}
+		}
+		
+	});
+});
+EOT;
+}
+
+if($this->dispatcher->getActionName()=='bank'){
+	$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+	var has_error = 0;
+	$('form').submit(function(){
+		has_error = 0;
+		$.each($('[role="value"]'),function(i,o){
+			console.log($(o).val());
+			if($(o).val().length==0){
+				
+				has_error = 1;
+				return false;
+			}
+		})
+
+		if(has_error>0){
+			errorMsg('请完整填写所有数据');
+			return false;
+		}
+		
+	});
+});
+EOT;
+}
+?>

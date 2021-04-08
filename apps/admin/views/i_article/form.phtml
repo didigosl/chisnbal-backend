@@ -1,0 +1,164 @@
+<?php 
+use Phalcon\Tag;
+use Common\Models\IArticleMenu;
+ ?>
+<div class="widget-box">
+	
+
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/update')?>" enctype="multipart/form-data">
+				<input type="hidden" id="i_id" name="id" value="<?=$M->article_id?>">
+			
+				<input type="hidden" name="referer" value="<?=$this->request->getHTTPReferer()?>"></input>
+			<?php if($M->article_menu_id!=2):?>
+				<div class="form-group">
+
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('article_menu_id')?></label>
+
+					<div class="col-sm-10">
+						<?php
+						Tag::setDefault('article_menu_id',$M->article_menu_id);
+						echo Tag::select([
+							'article_menu_id',
+							IArticleMenu::find(),
+							'using'=>['article_menu_id','name']
+						]);
+						?>
+					</div>
+				</div>
+			<?php else:?>
+				<input type="hidden" name="article_menu_id" value="2">
+			<?php endif;?>
+
+				<div class="form-group">
+
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('title')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="form_title" name="title" placeholder="" class="col-xs-10 col-sm-5" value="<?=htmlspecialchars($M->title)?>" />
+						<!-- <label style="padding-left: 20px;">							
+							<input class="ace ace-switch ace-switch-2" type="checkbox" name="is_hot" value="1" <?php if($M->is_hot):?>checked="checked"<?php endif?>>
+							<span class="lbl"></span>
+							<span class="checkbox_text"><?=$M->getAttr('is_hot')?>：</span>
+						</label> -->
+					</div>
+				</div>
+<?php /*
+				<div class="form-group">
+
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('author')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="form_author" name="author" placeholder="" class="col-xs-10 col-sm-4" value="<?=htmlspecialchars($M->author)?>" />
+						
+					</div>
+				</div>
+
+
+				<div class="form-group">
+
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('publish_datetime')?></label>
+
+					<div class="col-sm-10">
+						<div style="width: 200px">
+							<div class="input-group">
+								<input id="form_publish_datetime" name="publish_datetime" value="<?=$M->publish_datetime?$M->publish_datetime:''?>" type="text" class="form-control" />
+								<span class="input-group-addon">
+									<i class="fa fa-clock-o bigger-110"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+*/?>				
+			
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('cover_path')?></label>
+
+					<div class="col-sm-10">
+						
+						<div>
+							<?php if($M->cover_path):?>
+								<img  class="thumb" src="<?=str_replace('_m','_s',$M->cover_path)?>" /><br><br>
+							<?php endif;?>	
+						</div>
+						
+						<input type="file" name="cover_path" placeholder="" class="col-xs-10 col-sm-5" />
+					</div>
+				</div>
+ <?php /*	
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> <?=$M->getAttr('intro')?></label>
+
+					<div class="col-sm-10">
+						<textarea name="intro" cols="80" rows="3"><?=$M->intro?></textarea>
+					</div>
+				</div>
+*/?>
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> 
+						<?=$M->getAttr('content')?>
+			
+					</label>
+
+					<div class="col-sm-10">
+						<div>
+							<script id="form_content" name="content" type="text/plain"><?=$M->content?></script>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<?php
+$this->assets->js['foot'][] = 'inc::ueditor/ueditor.config.js';
+$this->assets->js['foot'][] = 'inc::ueditor/ueditor.all.min.js';
+
+$editor_img_upload_url = $this->url->get($module."/upload/image",["field_name"=>'upfile',"editorid"=>time()]);
+$preview_url = $this->url->get('template/domind-article.php',['titleId'=>'form_title','cover'=>$M->cover_path]);
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var content_editor;
+$(function(){
+	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	UE.Editor.prototype.getActionUrl = function(action) {
+	    if (action == 'uploadimage' ) {
+	        return '$editor_img_upload_url';
+	    } else {
+	        return this._bkGetActionUrl.call(this, action);
+	    }
+	}
+
+	content_editor = UE.getEditor('form_content');
+});
+EOT;
+
+$this->assets->css['head'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.css";
+$this->assets->js['foot'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.js";
+$this->assets->js['foot'][] = "inc::js/timepicker/jquery-ui-sliderAccess.js";
+$this->assets->js['foot'][] = "inc::js/timepicker/i18n/jquery-ui-timepicker-zh-CN.js";
+$this->assets->js['foot'][] = <<<EOT
+raw::
+\$(function(){
+
+	\$('#form_publish_datetime').datetimepicker({
+        dateFormat: 'yy-mm-dd', 
+        timeFormat: 'HH:mm:ss',
+    });
+
+});
+EOT;
+?>

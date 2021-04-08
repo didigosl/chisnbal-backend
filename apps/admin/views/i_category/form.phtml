@@ -1,0 +1,166 @@
+<?php
+use Common\Models\ICategory;
+use Phalcon\Tag;
+
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal" role="form" method="post" action="<?=$this->url->get($base_url.'/'.($M->category_id?'update':'create'))?>"  enctype="multipart/form-data">
+				<input type="hidden" id="" name="category_id" value="<?=$M->category_id?>">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('parent_id')?></label>
+
+					<div class="col-sm-9">
+						<select name="" id="selectParent"></select>
+						<input type="hidden" id="parent_id" name="parent_id" value="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('category_cover')?></label>
+
+					<div class="col-sm-9">
+						<?php if($M->category_cover):?>
+						<div class="thumb-list">
+							<img class="thumb" src="<?=$M->getFmtCategoryCover()?>" alt="">
+						</div>
+						
+						<?php endif;?>
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="categoryCover" name="category_cover" class="input-file" value="<?=$M->category_cover?>" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('category_name')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" id="" name="category_name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->category_name?>" />
+					</div>
+				</div>
+			<?php if($M->category_id):?>	
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('seq')?></label>
+
+					<div class="col-sm-9">
+						<input type="text" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->seq?>" disabled=disabled />						
+					</div>
+				</div>
+			<?php endif;?>
+				<input type="hidden" id="" name="seq" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->seq?>" />
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('recommend_flag')?></label>
+
+					<div class="col-sm-9">
+						<input type="checkbox" class="ace" name="recommend_flag" value="1" id="recommend_flag" <?php if($M->recommend_flag): ?>checked="checked"<?php endif; ?> />
+						<label class="lbl" for="recommend_flag"></label>
+					</div>
+				</div>
+
+				<div class="form-group" id="recommendPicRow" style="<?php if(!$M->recommend_flag):?>display:none<?php endif;?>">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('recommend_pic')?></label>
+
+					<div class="col-sm-9">
+						<?php if($M->recommend_pic):?>
+						<div class="thumb-list">
+							<img class="thumb" src="<?=$M->getFmtRecommendPic()?>" alt="">
+						</div>
+						<?php endif;?>
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="recommendPic" name="recommend_pic" class="input-file" value="<?=$M->recommend_pic?>" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			
+			<?php if($conf['enable_vip_rebate']):?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> 返利设置</label>
+
+					<div class="col-sm-9">
+						<?php foreach($levels as $Level):?>
+						<div class="form-row">
+							<?=$Level->level_name?>：<input type="text" class="input-small" name="rebates[<?=$Level->level_id?>]" value="<?=$rebates[$Level->level_id]['rebate']?>" >
+							<select name="rebate_types[<?=$Level->level_id?>]">
+								<option value="1" <?php if($rebates[$Level->level_id]['rebate_type']==1):?>selected<?php endif;?>>金额</option>
+								<option value="2" <?php if($rebates[$Level->level_id]['rebate_type']==2):?>selected<?php endif;?>>百分比</option>
+							</select>
+						</div>
+						<?php endforeach; ?>
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> 优惠设置</label>
+
+					<div class="col-sm-9">
+						<?php foreach($levels as $Level):?>
+						<div class="form-row">
+							<?=$Level->level_name?>：<input type="text" class="input-small" name="discounts[<?=$Level->level_id?>]" value="<?=$discounts[$Level->level_id]['discount']?>">
+							<select name="discount_types[<?=$Level->level_id?>]">
+								<option value="1" <?php if($discounts[$Level->level_id]['discount_type']==1):?>selected<?php endif;?>>金额</option>
+								<option value="2" <?php if($discounts[$Level->level_id]['discount_type']==2):?>selected<?php endif;?>>百分比</option>
+							</select>
+						</div>
+						<?php endforeach; ?>
+						
+					</div>
+				</div>
+			<?php endif;?>
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-4 col-md-8">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php 
+$loaderImg = $this->url->get('js/linkagesel/images/ui-anim_basic_16x16.gif');
+$defVal = trim($M->merger,',');
+
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getCategories',['shop_id'=>$shop_id]));
+$this->assets->js['foot'][] = <<<EOT
+raw::
+$(function(){
+	var linkSelect = new LinkageSel({
+		data:categories,
+		select: '#selectParent',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:'',
+		defVal:[$defVal]
+	});
+
+	linkSelect.onChange(function(){
+		$('#parent_id').val(linkSelect.getSelectedValue());
+		console.log($('#parent_id').val());
+	});
+
+	$('#recommend_flag').change(function(){
+		if(this.checked){
+			$('#recommendPicRow').show();
+		}
+		else{
+			$('#recommendPicRow').hide();
+		}
+	});
+
+	
+
+});
+EOT;
+ ?>

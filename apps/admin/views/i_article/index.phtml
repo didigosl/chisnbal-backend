@@ -1,0 +1,113 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\IArticle as Article;
+use Common\Models\IArticleMenu;
+?>
+
+<!-- /.page-header -->
+
+<div class="row">
+    <div class="col-xs-12" style="text-align: right">
+        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+            <select name="search">
+                <option value="title" <?php if($vars['search']=='title'):?>selected<?php endif;?>>搜索标题</option>
+                <option value="id" <?php if($vars['search']=='id'):?>selected<?php endif;?>>搜索ID</option>
+                
+            </select>
+            
+            <input type="text" name="search_word" class="input-middle" placeholder="关键字" value="<?=$vars['search_word']?>" />
+    
+            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+            </button>
+        <?php if($vars['article_menu_id']==1):?>
+            <a href="<?=$this->url->get($base_url.'/form',['article_menu_id'=>$vars['article_menu_id']])?>" class="btn btn-success btn-sm" container="update">
+             <i class="ace-icon fa fa-plus bigger-110"></i>新增
+            </a>
+        <?php endif;?>
+        </button>
+        </form>
+    </div>
+</div>
+<div class="row tabs-wrapper">
+    <div class="col-xs-12">
+    <?php foreach(IArticleMenu::find() as $Menu):?>
+        <a href="<?=$this->url->get($base_url.'/index',['article_menu_id'=>$Menu->article_menu_id])?>" class="btn btn-sm <?php if($vars['article_menu_id']==$Menu->article_menu_id):?>btn-primary<?php else:?>btn-grey<?php endif;?>"><?=$Menu->name?></a>
+    <?php endforeach;?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+    <?php
+
+    if($vars['article_menu_id']==1){
+        $buttons = ['update','delete'];
+    }
+    else{
+        $buttons = ['update'];
+    }
+
+    $grid = new Grid;
+    $cols = [
+        ['ID','article_id'],
+        [Article::getAttr('article_menu_id'),'{$o}->Menu->name','function'],
+        [Article::getAttr('title'),'title'],
+        // [Article::getAttr('publish_datetime'),'publish_datetime'],
+   
+        ['是否发布','"<label><input class=\"ace ace-switch ace-switch-2\" type=\"checkbox\" name=\"status\" data-id=\"".{$o}->article_id."\" value=\"10\" ".({$o}->status==10?"checked":"")."><span class=\"lbl\"></span></label>"','function'],        
+
+    ];
+
+    $grid->run(array(
+        'cols'=>$cols,
+        'buttons'=>$buttons,
+        'buttonsCfg'=>[
+            'update'=>[
+                'type'=>'href',
+                //'url'=>'update',
+            ],     
+        ],
+        'page'=>$page,
+        'basicUrl'=>$basicUrl,
+        ));
+    ?>
+
+    </div>
+</div>
+
+<?php
+$status_url = $this->url->get($this->dispatcher->getControllerName()).'/status';
+$this->assets->js['foot'][] = <<<EOT
+raw::
+\$(function(){
+    \$('input[name="status"]').click(function(){
+        if(confirm("确定要改变此文章的发布状态吗？")){
+            \$.post('$status_url',{id:\$(this).attr("data-id"),'status':$(this).attr('checked')?1:10},function(data){
+                if(data.status==1){
+                    successMsg("发布状态修改成功");
+                    return true;
+                }
+                else{
+                    errorMsg("发生错误，操作失败");
+                    return false;
+                }
+            });
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    });
+
+    \$('.packageBtn').click(function(){
+        $.get($(this).attr("ajax"),function(data){
+            alert(data);
+        });
+    });
+
+   
+});
+EOT;
+?>

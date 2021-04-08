@@ -1,0 +1,236 @@
+<?php
+use Common\Models\IExcel;
+use Phalcon\Tag;
+
+?>
+
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<div class="col-xs-12" style="text-align: right">
+		        <form id="search" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline">
+		            <a class="btn btn-yellow btn-sm" href="<?=$this->config->params->staticsPath?>demo.xlsx" target="_blank">
+		                <i class="ace-icon fa fa-upload bigger-110"></i>示例文档
+		            </a>
+		            <a class="btn btn-info btn-sm" href="<?=$this->url->get($base_url.'/index')?>">
+		                <i class="ace-icon fa fa-list bigger-110"></i>导入记录
+		            </a>
+		        </form>
+		    </div>
+			<form class="form-horizontal" role="form" id="update" method="post" action="<?=$this->url->get($base_url.'/create')?>"  enctype="multipart/form-data">
+				<input type="hidden" id="" name="excel_id" value="">	
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('zip')?></label>
+
+					<div class="col-sm-9">
+
+						<div id="zipUploader" class="wu-example">
+						    <!--用来存放文件信息-->
+						    <div id="zipList" class="uploader-list"></div>
+						    <div class="clear"></div>
+						    <div class="btns">
+						    	<div class="col-sm-2"><div id="zipPicker" type="button">选择文件</div></div>
+						    	<div class="col-sm-2"><button id="uploadZipBtn" type="button" class="btn btn-default">开始上传</button></div>
+						        
+						        
+						    </div>
+						</div>
+						<input type="hidden" id="zip" name="zip" value="">
+					</div>
+					<div class=" col-sm-offset-3 help-inline" style="margin-top: 10px;">
+
+						<b>图片压缩包说明：</b>
+						<ul>
+							<li>压缩包必须为ZIP格式</li>
+							<li>压缩包下不可含有子目录</li>
+							<li>图片支持JPG、PNG两种格式</li>
+							<li>产品封面图命名格式为：产品货号-cover.jpg，比如货号为U1234的产品封面图命名为：U1234-cover.jpg</li>
+							<li>产品相册命名格式为：产品货号-pic数字.jpg，比如货号为U1234的产品相册图命名为：U1234-pic1.jpg、U1234-pic2.jpg、U1234-pic3.jpg，数字依次递增。</li>
+						</ul>
+						
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right" for=""> <?=$M->getAttr('path')?></label>
+
+					<div class="col-sm-9">
+
+						<div class="row">
+							<div class="col-sm-5">
+								<input type="file" id="path" name="path" class="input-file" value="" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+					
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-4 col-md-8">
+						<button class="btn btn-info" type="submit">						
+						<i class="ace-icon fa fa-check bigger-110"></i>
+						提交
+						</button>						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<?php
+$swf_url = $this->url->get('/webuploader/Uploader.swf');
+$zip_url = $this->url->get($module.'/upload/zip',["field_name"=>'file']);
+$this->assets->css['head'][] = 'inc::webuploader/webuploader.css';
+$this->assets->js['foot'][] = 'inc::webuploader/webuploader.min.js';
+
+$this->assets->js['foot'][] = <<<EOT
+raw::
+\$(function(){
+
+	var \$ = jQuery,
+    \$ziplist = \$('#zipList'),
+
+    // Web Uploader实例
+    zipUploader;
+	
+	// 初始化Web Uploader
+	zipUploader = WebUploader.create({
+
+	    // 自动上传。
+	    auto: false,
+
+	    runtimeOrder:'html5',
+
+	    chunked:false,
+
+	    // swf文件路径
+	    swf: '$swf_url',
+
+	    // 文件接收服务端。
+	    server: '$zip_url',
+
+	    // 选择文件的按钮。可选。
+	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+	    pick: {
+	    	id:"#zipPicker",
+	    	multiple:false
+	    },
+
+	    fileNumLimit:1,
+
+	    // 只允许选择文件，可选。
+	    accept: {
+	    	extensions: 'zip',
+	    }
+  	});
+
+  	$('#uploadZipBtn').click(function(){
+  		console.log('start uploading...');
+  		zipUploader.upload();
+  	});
+
+	// 当有文件添加进来的时候
+	zipUploader.on( 'fileQueued', function( file ) {
+		console.log(file.ext);
+		var \$li = \$(
+        '<div id="' + file.id + '" class="zip-item thumbnail">' +
+          '<a href="javascript:void(0)" class="btn btn-white btn-lg"><i class="ace-icon fa fa-file fa-2x icon-only"></i></a>' +
+          //'<div class="info">' + file.name + '</div>' +
+        '</div>'
+        ),
+		\$img = \$li.find('img');
+		console.log(\$li);
+    	\$ziplist.html( \$li );
+    
+  	});
+
+	// 文件上传过程中创建进度条实时显示。
+	zipUploader.on( 'uploadProgress', function( file, percentage ) {
+		var \$li = \$( '#'+file.id ),
+		  	\$percent = \$li.find('.progress span');
+
+		// 避免重复创建
+		if ( !\$percent.length ) {
+		  \$percent = \$('<p class="progress"><span></span></p>')
+		      .appendTo( \$li )
+		      .find('span');
+		}
+		console.log(percentage);
+		\$percent.css( 'width', percentage * 100 + '%' );
+	});
+
+	zipUploader.on( 'uploadAccept', function( file, response ) {
+	    if ( response.status=='fail' ) {
+	        layer.alert(response.msg);
+	        return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	});
+
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	zipUploader.on( 'uploadSuccess', function( file , data ) {
+		console.log('upload success');
+		//console.log(data);
+		\$( '#'+file.id ).addClass('upload-state-done');
+		
+		if(data.status=='success'){
+			var result = data.url;
+			$('#zip').val(result);
+		}
+		else{
+			errorMsg('上传发生错误');
+			zipUploader.removeFile(file);
+		}
+
+		
+	});
+
+	// 文件上传失败，现实上传出错。
+	zipUploader.on( 'uploadError', function( file ) {
+		console.log('upload error');
+		var \$li = \$( '#'+file.id ),
+		  	\$error = \$li.find('div.error');
+
+		// 避免重复创建
+		if ( !\$error.length ) {
+		  	\$error = \$('<div class="error"></div>').appendTo( \$li );
+		}
+
+		\$error.text('上传失败');
+	});
+
+	// 完成上传完了，成功或者失败，先删除进度条。
+	zipUploader.on( 'uploadComplete', function( file ) {
+		console.log('upload complete');
+		\$( '#'+file.id ).find('.progress').remove();
+
+	});
+
+	zipUploader.onError = function( code ) {
+        if(code == 'Q_TYPE_DENIED'){
+        	errorMsg('只能上传zip格式的压缩文件');
+        }
+    };
+
+	// 先从文件队列中移除之前上传的图片，第一次上传则跳过
+	$("#zipPicker").on('click', function () {
+		if (!WebUploader.Uploader.support()) {
+            var error = "上传控件不支持您的浏览器！请尝试升级flash版本或者使用Chrome引擎的浏览器。<a target='_blank' href='http://se.360.cn'>下载页面</a>";
+            console.log(error);
+            return;
+        }
+		var id = \$ziplist.find("div").attr("id");
+		//alert(id);
+		if (undefined != id) {
+			zipUploader.removeFile(zipUploader.getFile(id));
+		}
+    });
+});
+EOT;
+?>

@@ -1,0 +1,396 @@
+<?php
+use Common\Models\IFlashSale;
+use Common\Models\IFlashSaleSpu as SaleSpu;
+use Common\Models\IGoodsSpu as Spu;
+use Phalcon\Tag;
+?>
+<div class="widget-box">
+	
+	<div class="widget-body">
+		<div class="widget-main">
+			<form class="form-horizontal ajax-form" role="form" id="flashSaleForm" method="post" action="<?=$this->url->get($base_url.'/'.($M->sale_id?'update':'create'))?>">
+				<input type="hidden" id="" name="sale_id" value="<?=$M->sale_id?>">
+
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> <?=$M->getAttr('sale_name')?></label>
+
+					<div class="col-sm-10">
+						<input type="text" id="" name="sale_name" placeholder="" class="col-xs-10 col-sm-5" value="<?=$M->sale_name?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> 时间安排</label>
+
+					<div class="col-sm-10">
+						<input type="text" name="start_time" placeholder="" class="datetime-picker" value="<?=$M->start_time?>" />
+						~
+						<input type="text" name="end_time" placeholder="" class="datetime-picker" value="<?=$M->end_time?>" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label no-padding-right" for=""> 商品选择</label>
+
+					<div class="col-sm-10">
+						<button type="button" class="btn btn-sm btn-purple" id="chooseSpuBtn">选择商品</button>
+						<div id="chosenSpuListContainer" style="margin-top:10px"></div>
+					</div>
+				</div>
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-8">
+						<input type="hidden" name="form_token" value="<?=$this->security->getToken()?>">
+						<button class="btn btn-info" type="submit">						
+							<i class="ace-icon fa fa-check bigger-110"></i>
+							提交
+						</button>						
+					</div>
+				</div>		
+				
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="searchFormContainer" style="display:none">
+	<div class="widget-box">
+    
+	    <div class="widget-body">
+	        <div class="widget-main">
+	            <form id="searchForm" action="<?=$this->url->get($base_url.'/index')?>" class="form-inline"> 
+		            <select name="" id="selectCategory"></select>
+		            <input type="hidden" id="category_id" name="category_id" value="">
+		            <input type="text" name="keyword" class="input-middle" placeholder="商品名称/货号" value="" />
+		            <button id="searchBtn" type="submit" class="btn btn-info btn-sm">
+		                <i class="ace-icon fa fa-key bigger-110"></i>搜索
+		            </button>
+		        </form>
+	            <input type="hidden" id="chosenUserId" value="">
+	            <input type="hidden" id="chosenName" value="">
+	            <input type="hidden" id="chosenIdNum" value="">
+	        </div>
+	    </div>
+	</div>
+	<div class="row" >
+	    <div class="col-xs-12" id="spuListContainer"></div>
+	    <div class="paginationContainer">
+	    	<ul class="pagination" id="pageContainer"></ul>
+	    </div>
+	</div>
+</div>
+
+<script id="chosenSpuList" type="text/x-jsrender">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th colspan="2" width="25%"><?=Spu::getAttr('spu_name')?></th>
+				<th><?=Spu::getAttr('price')?></th>
+				<th><?=SaleSpu::getAttr('sale_price')?></th>
+				<th><?=Spu::getAttr('stock')?></th>
+				<th><?=SaleSpu::getAttr('sale_stock')?></th>
+				<th><?=SaleSpu::getAttr('per_limit')?></th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		{^{for list}}
+			<tr>
+				<td><img class="thumb" data-link="src{:cover}" alt=""></td>
+				<td>{^{:spu_name}} <input type="hidden" name="spu_id[]" data-link="value{:spu_id}"></td>
+				<td>{^{:price}}</td>
+				<td><input type="text" class="col-xs-5" name="sale_price[]" data-link="value{:sale_price}"></td>
+				<td>{^{:stock}}</td>
+				<td><input type="text" class="col-xs-5" name="sale_stock[]" data-link="value{:sale_stock}"></td>
+				<td><input type="text" class="col-xs-5" name="per_limit[]" data-link="value{:per_limit}"></td>
+				<td>
+					<button type="button" title="删除" class="btn btn btn-minier btn-danger del-btn">
+                        <i class="ace-icon fa fa-trash-o bigger-130"></i> 删除
+                    </button>
+				</td>
+			</tr>
+		{{/for}}
+		</tbody>
+		
+	</table>
+</script>
+
+<script id="spuList" type="text/x-jsrender">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th></th>
+				<th colspan="2"><?=Spu::getAttr('spu_name')?></th>
+				<th><?=Spu::getAttr('price')?></th>
+				<th><?=Spu::getAttr('stock')?></th>
+			</tr>
+		</thead>
+		<tbody>
+		{^{for list}}
+			<tr>
+				<td>
+					<label>
+						<input name="spu" type="radio" class="ace" data-link="value{:spu_id}">
+						<span class="lbl"></span>
+					</label>					
+				</td>
+				<td><img class="thumb" data-link="src{:cover}" alt=""></td>
+				<td>{^{:spu_name}}</td>
+				<td>{^{:price}}</td>
+				<td>{^{:stock}}</td>
+			</tr>
+		{{/for}}
+		</tbody>
+		
+	</table>
+	<ul class="pagination" id="pageContainer">										
+	</ul>
+</script>
+<?php 
+$search_url = $this->url->get($module.'/i_goods_spu/search');
+$this->assets->js['foot'][] = 'inc::'.$this->url->getStatic($this->url->get('admin/data/getCategories',['shop_id'=>$shop_id]));
+$this->assets->css['head'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.css";
+$this->assets->js['foot'][] = "inc::js/timepicker/jquery-ui-timepicker-addon.js";
+// $this->assets->js['foot'][] = "inc::js/timepicker/jquery-ui-sliderAccess.js";
+$this->assets->js['foot'][] = "inc::js/timepicker/i18n/jquery-ui-timepicker-zh-CN.js";
+$this->assets->js['foot'][] = "inc::js/jquery.twbsPagination.min.js";
+$this->assets->js['foot'][] = <<<EOT
+raw::
+var search_url = '$search_url';
+var spu = {
+	spu_id:null,
+	cover:null,
+	spu_name:null,
+	price:null,
+	stock:null
+};
+
+var chosenData = {
+	list:[],
+};
+chosenData.list = JSON.parse('$spus');
+
+var displayChosenData = function(){
+	
+	var tpl = $.templates("#chosenSpuList"); 
+    tpl.link("#chosenSpuListContainer", chosenData);
+    
+    bindRemoveSpu();
+}
+
+//选中一条spu
+var bindSpuRadio = function(){
+	$('input[name="spu"]').change(function(){
+		if(this.checked){
+			spu.spu_id = $(this).val();
+			spu.cover = $(this).parentsUntil('tbody').find('td:eq(1) img').attr('src');
+			spu.spu_name = $(this).parentsUntil('tbody').find('td:eq(2)').text();
+			spu.price = $(this).parentsUntil('tbody').find('td:eq(3)').text();
+			spu.stock = $(this).parentsUntil('tbody').find('td:eq(4)').text();
+		}
+		else{
+			spu.spu_id = null;
+			spu.spu_name = null;
+			spu.price = null,
+			spu.stock = null;
+		}
+	});
+}
+
+var bindRemoveSpu = function(){
+	$('.del-btn').click(function(){
+		console.log('remove spu');
+		var _this = this;
+		layer.confirm("确定要将此商品从抢购列表中删除吗？",function(index){
+
+			$.observable(chosenData.list).remove($(_this).parent().parent().index());
+			layer.close(index);
+		});
+	});
+}
+
+var getSearchParams = function(){
+	var params = {
+		category_id:$('#searchForm input[name="category_id"]').val(),
+		keyword:$('#searchForm input[name="keyword"]').val(),
+	}
+	return params;
+}
+
+var page = function(totalPages,page){
+	totalPages = totalPages ? totalPages :1;
+	page = page ? parseInt(page) :1;
+	$('#pageContainer').twbsPagination('destroy');
+	$('#pageContainer').twbsPagination({
+		totalPages: totalPages,
+		first:'首页',
+		prev:'上一页',
+		next:'下一页',
+		last:'尾页',
+		// totalPages:1,
+		startPage:page,
+		visiblePages: 7,
+		initiateStartPageClick:false,
+		onPageClick: function (event, page) {
+			// location.hash = page;
+			getList(search_url,page,getSearchParams());
+		}
+	});
+}
+
+var getList = function (url,p,params){
+    console.log(params);
+    var searchParams = {};
+    for(var k in params){
+        searchParams[k] = params[k] ? params[k] : '';
+    }
+
+    p = p ? p : 1;
+    searchParams['p'] = p;
+    // console.log(searchParams);
+    $.get(url+'?'+Math.random(),searchParams,function(result){
+        console.log('listing');
+        var tpl = $.templates("#spuList"); 
+        tpl.link("#spuListContainer", result.data);
+        
+        bindSpuRadio();
+        page(result.data.total_pages,p);
+
+    });    
+}
+$(function(){
+	displayChosenData();	
+
+	$('#chooseSpuBtn').click(function(){
+		var dialog = \$('#searchFormContainer').dialog({
+            modal:true,
+            title:"<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i> 选择商品</h4></div>",
+            title_html:true,
+            width:700,
+            height:'auto',
+            position:{ my: "center top+10%", at: "center top+10%", of:window },
+            buttons:[
+            	{
+                    text: "选择完成",
+                    "class" : "btn btn-xs btn-success",
+                    click: function() {
+                    	$('input[name="spu"]:checked').parentsUntil('tr').hide();
+                    	$.observable(chosenData.list).insert(spu);  
+                    	bindRemoveSpu();             
+                        $( this ).dialog( "close" ); 
+                    } 
+                },
+                {
+                    text: "关闭",
+                    "class" : "btn btn-xs",
+                    click: function() {
+                        $( this ).dialog( "close" ); 
+                    } 
+                },
+                
+            ]
+
+        });
+        getList(search_url, 1, getSearchParams());
+	});
+
+	$('#searchForm').submit(function(){
+		console.log(search_url);
+		getList(search_url, 1, getSearchParams());
+		return false;
+	});
+
+	\$('.datetime-picker').datetimepicker({
+        dateFormat: 'yy-mm-dd', 
+        timeFormat: 'HH:mm:00',
+    });
+
+    var linkSelect = new LinkageSel({
+		data:categories,
+		select: '#selectCategory',
+		head:'选择分类',
+		minWidth:80,
+		autoLink:false,
+		loaderImg:'',
+		defVal:[]
+	});
+
+	linkSelect.onChange(function(){
+		$('#category_id').val(linkSelect.getSelectedValue());
+	});
+
+	$('#flashSaleForm').submit(function(){
+		var fail = 0;
+		var errors = [];
+
+		if(!$('input[name="sale_name"]').val().length){
+			errors.push("请填写抢购活动名称");
+		}
+
+		if(!$('input[name="start_time"]').val().length){
+			errors.push("请填写抢购开始时间");
+		}
+
+		if(!$('input[name="end_time"]').val().length){
+			errors.push("请填写抢购结束时间");
+		}
+
+		if(!chosenData.list.length){
+			errors.push('请至少选择一个抢购商品');
+			
+		}
+
+		if(errors.length){
+			errorMsg(errors.join('<br>'));
+			return false;
+		}
+
+		$.each($('input[name="spu_id[]"]'),function(i,o){
+			if($(o).val().length==0 && !$(o).val()){
+				errorMsg('请完整填写抢购商品的信息');
+				fail = 1;
+			}
+		});
+
+		if(fail){
+			return false;
+		}
+
+		$.each($('input[name="sale_price[]"]'),function(i,o){
+			if($(o).val().length==0 && !$(o).val()){
+				errorMsg('请完整填写抢购商品的信息');
+				fail = 1;
+			}
+		});
+
+		if(fail){
+			return false;
+		}
+
+		$.each($('input[name="sale_stock[]"]'),function(i,o){
+			if($(o).val().length==0 && !$(o).val()){
+				errorMsg('请完整填写抢购商品的信息');
+				fail = 1;
+			}
+		});
+		
+		if(fail){
+			return false;
+		}
+
+		$.each($('input[name="per_limit[]"]'),function(i,o){
+			if($(o).val().length==0 && !$(o).val()){
+				errorMsg('请完整填写抢购商品的信息');
+				fail = 1;
+			}
+		});
+		
+		if(fail){
+			return false;
+		}
+
+	});
+})
+EOT;
+?>

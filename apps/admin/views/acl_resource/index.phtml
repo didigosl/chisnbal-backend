@@ -1,0 +1,46 @@
+<?php 
+use Phalcon\Tag;
+use Common\Components\Widgets\Grid;
+use Common\Models\Admin;
+ ?>
+
+
+<div class="row">
+    <div class="col-xs-12 searchBar">
+        <button id="addBtn" type="button" class="btn btn-success btn-sm addBtn" container="update">
+            <i class="ace-icon fa fa-plus bigger-110"></i>新增
+        </button>
+    </div>    
+    <div class="col-xs-12">
+
+    <?php
+    $grid = new Grid;
+    $grid->run(array(
+        'model'=>'Common\Models\AclResource',
+        'cols'=>[
+            ['ID','id'],
+            ['角色标识','name'],    
+            ['说明','intro'],
+        ],
+        'buttons'=>['update'],
+        'page'=>$page,
+        'basicUrl'=>$basicUrl,
+        ));
+    ?>
+
+    </div>
+</div>
+
+<div id="container" class="form" style="width: 80%; display: none">
+</div>
+
+
+<?php
+
+$this->assets->js['foot'][] = <<<EOT
+raw::$(function(){
+    
+});
+EOT;
+
+?>

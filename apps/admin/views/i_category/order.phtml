@@ -1,0 +1,29 @@
+<form method="post" action="<?=$this->url->get($base_url.'/order')?>">
+    <div class="dd dd-draghandle">
+        <ol class="dd-list">
+        <?php 
+        foreach($list as $Category):						
+        ?>
+            <li class="dd-item dd2-item" data-id="13">
+                <div class="dd-handle">
+                    <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+                    <?=$Category->category_name?>
+                    <input type="hidden" name="cates[]" value="<?=$Category->category_id?>">
+                </div>
+            </li>
+        <?php 
+        endforeach;
+        ?>
+        </ol>
+    </div>
+</form>
+<script>
+$(function(){
+    $('.dd').nestable();
+    $('.dd-handle a').on('mousedown', function(e){
+					e.stopPropagation();
+				});
+
+
+});
+</script>
