@@ -68,8 +68,12 @@ class ISpecController extends ControllerAuth {
 			'text'=>$this->controller_name,
 		];
 
+		if(empty($category_id)){
+            $category_id = -1; //默认-1
+        }
 		$this->view->setVars([
 			'action_name'=>'列表',
+            'global_spec'=>ISpec::getGlobalSpec(),
 			'page' => $paginator->getPaginate(),
 			'vars' => [
 				'category_id'=>$category_id
@@ -98,8 +102,23 @@ class ISpecController extends ControllerAuth {
 
 		$id = $this->request->getQuery('id','int');
 		$category_id = $this->request->getQuery('category_id','int');
+		if($category_id == -1 || $category_id == -2)
+        {
+            $global_spec = ISpec::getGlobalSpec();
+            if(!empty($global_spec))
+            {
+                $M = ISpec::findFirst($global_spec['spec_id']);
+                $M->spec_name = implode(",", $global_spec['color']);
+                $M->specs = implode(",", $global_spec['size']);
+            }
+            else{
+                $M = NULL;
+            }
 
-		$M = ISpec::findFirst($id);
+        }
+		else{
+            $M = ISpec::findFirst($id);
+        }
 		if(!$M){
 			$M = new ISpec;
 			$M->category_id = $category_id;
@@ -132,8 +151,16 @@ class ISpecController extends ControllerAuth {
 			$data['specs'] = $this->request->getPost('specs');
 			$data['specs'] = ISpec::fmtSpecs($data['specs']);
 			$data['category_id'] = $this->request->getPost('category_id','int');
+			if($data['category_id'] == -1 || $data['category_id'] == -2)
+            {
+                $global_specs = [
+                    'color' => explode(',', $data['spec_name']),
+                    'size' => explode(',', $data['specs']),
+                ];
+                $data['specs'] = json_encode($global_specs);
+                $data['spec_name'] = "全局商品规格";
 
-
+            }
 			if($id){
 				$Model = ISpec::findFirst($id);
 				if(!$Model){
@@ -268,5 +295,21 @@ class ISpecController extends ControllerAuth {
 		var_dump($spec_totals);
 		exit;
 	}
+
+	//更新全局的状态是否为开启
+    public function changeGlobalISpecAction(){
+        $status = $this->request->getQuery('status','int');
+        if(!in_array($status,[-1,-2]))
+        {
+            die("parameter error");
+        }
+        if(db()->execute("update i_spec set category_id=".$status." where category_id in(-1,-2)"))
+        {
+            die("Done");
+        }
+        else{
+            die("system error");
+        }
+    }
 
 }

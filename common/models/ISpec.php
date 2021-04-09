@@ -195,4 +195,29 @@ class ISpec extends Model
         );
     }
 
+    /**
+     * @return array|null
+     * 用于获取首页的全局商品规格的参数，默认
+     * category_id = -1 未启用状态
+     * category_id = -2 启用状态
+     * 特殊的商品分类id
+     */
+    public  static function getGlobalSpec()
+    {
+        $global_spec = db()->fetchOne("select * from i_spec where category_id in(-1,-2)");
+        $global_spec_info = json_decode($global_spec['specs'], true);
+        if(empty($global_spec_info) || empty($global_spec_info['color']) || empty($global_spec_info['size']))
+        {
+            return NULL;
+        }
+        else{
+            return [
+                'spec_id' => $global_spec['spec_id'],
+                'status' => $global_spec['category_id'], //-1为关闭 -2为启用
+                'color' => $global_spec_info['color'],
+                'size' => $global_spec_info['size']
+            ];
+        }
+    }
+
 }

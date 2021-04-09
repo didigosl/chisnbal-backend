@@ -573,6 +573,8 @@ class IGoodsSpu extends Model
             }
             
         }
+        //删除全局中，所有为空的
+        $db->execute("delete from i_goods_sku where spu_id=:spu_id AND stock=0 and spec_info like 'global_spec:%'",['spu_id'=>$this->spu_id]);
         
         
     }

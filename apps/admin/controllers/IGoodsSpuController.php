@@ -261,19 +261,47 @@ class IGoodsSpuController extends ControllerAuth {
 		$spec_data = $spec_data ? $spec_data : [];
 		$skus = [];
 
+		$global_spec = [];
+		$global_spec_info = ISpec::getGlobalSpec();
+		if($global_spec_info['status'] == -2)
+        {
+            $show_global_spec = true;
+        }
+		else{
+		    $show_global_spec = false;
+        }
 		if($M->skus){
 			foreach($M->skus as $Sku){
-				$skus[] = [
-					'sku_id'=>$Sku->sku_id,
-					'spec_info'=>$Sku->spec_info,
-					'status'=>$Sku->status,
-					'sn'=>$Sku->sku_sn,
-					'stock'=>$Sku->stock,
-					'price'=>fmtMoney($Sku->price),
-                    'default_flag'=>intval($Sku->default_flag),
-                    'weigh_flag'=>intval($Sku->weigh_flag)
-				];
+			    //全局库存
+			    if(substr($Sku->spec_info,0,12) == 'global_spec:')
+                {
+                    $global_spec[$Sku->spec_info] = [
+                        'sku_id'=>$Sku->sku_id,
+                        'spec_info'=>$Sku->spec_info,
+                        'status'=>$Sku->status,
+                        'sn'=>$Sku->sku_sn,
+                        'stock'=>$Sku->stock,
+                        'price'=>fmtMoney($Sku->price),
+                        'default_flag'=>intval($Sku->default_flag),
+                        'weigh_flag'=>intval($Sku->weigh_flag)
+                    ];
+                }
+			    else{
+                    $skus[] = [
+                        'sku_id'=>$Sku->sku_id,
+                        'spec_info'=>$Sku->spec_info,
+                        'status'=>$Sku->status,
+                        'sn'=>$Sku->sku_sn,
+                        'stock'=>$Sku->stock,
+                        'price'=>fmtMoney($Sku->price),
+                        'default_flag'=>intval($Sku->default_flag),
+                        'weigh_flag'=>intval($Sku->weigh_flag)
+                    ];
+                }
 			}
+
+			//print_r($skus);
+			//exit;
 
 		}
 		// var_dump(json_encode($skus,JSON_UNESCAPED_UNICODE));exit;
@@ -293,6 +321,9 @@ class IGoodsSpuController extends ControllerAuth {
 			'def_sort'=>$def_sort,
             'enable_no_sku'=>$this->conf['enable_no_sku'],
             'user_levels'=>$user_levels,
+            'show_global_spec' => $show_global_spec,
+            'global_spec' => $global_spec,
+            'global_spec_info' => $global_spec_info
 			]);		
 		
 		if($this->request->isAjax()){	
@@ -364,7 +395,30 @@ class IGoodsSpuController extends ControllerAuth {
             else{
                 $data['weigh_flag'] = $this->request->getPost('weigh_flag') ? 1 : 0;
             }
+            $global_spec_sku = $this->request->getPost('global_spec_sku');
+            if(!empty($global_spec_sku))
+            {
+                if(!is_array($skus))
+                {
+                    $skus = [];
+                }
 
+
+                foreach($global_spec_sku as $_spec_sn_all => $_spec_stock)
+                {
+                    list($_spec_sn,$_sku_id) = explode(":::",$_spec_sn_all);
+                    $skus[] = [
+                        'spec_info' => $_spec_sn,
+                        'status' => 1,
+                        'sn' => $_spec_sn,
+                        'stock' => $_spec_stock,
+                        'price' => 0,
+                        'sku_id' => $_sku_id,
+                        'default_flag' => 0,
+                        'weight_flag' => 0,
+                    ];
+                }
+            }
 			//优惠设置
 			$rebate_with_discount = $this->request->getPost('rebate_with_discount');
 			$data['rebate_with_discount'] = $rebate_with_discount ? 1 : 0;
@@ -428,6 +482,10 @@ class IGoodsSpuController extends ControllerAuth {
 			else{
 				$Model = new IGoodsSpu;
 			}
+
+			//print_r($_POST);
+			//exit;
+
 
 			$upload_dir = 'shop'.$this->auth->getShopId().'/image';
 			$images = FileSys::uploadAndThumb($upload_dir, ['cover']);
