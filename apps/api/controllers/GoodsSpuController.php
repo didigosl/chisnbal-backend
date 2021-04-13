@@ -6,6 +6,7 @@ use Api\Components\ControllerBase;
 use Common\Models\IGoodsSpu;
 use Common\Models\ICategory;
 use Common\Models\IOrderComment;
+use Common\Models\ISpec;
 use Common\Models\IUserKeyword;
 use Common\Models\IAd;
 use Common\Models\ISpuCollect;
@@ -589,11 +590,28 @@ class GoodsSpuController extends ControllerBase {
 		}
 		
 		$skus = [];
-
+        $global_spec = [];
 		if($Spu->skus){
 			foreach ($Spu->skus as $Sku) {
+                //全局库存
+                if(substr($Sku->spec_info,0,12) == 'global_spec:')
+                {
+                    $global_spec[$Sku->spec_info] = [
+                        'sku_id'=>$Sku->sku_id,
+                        'spec_info'=>$Sku->spec_info,
+                        'status'=>$Sku->status,
+                        'sn'=>$Sku->sku_sn,
+                        'stock'=>$Sku->stock,
+                        'price'=>fmtMoney($Sku->price),
+                        'default_flag'=>intval($Sku->default_flag),
+                        'weigh_flag'=>intval($Sku->weigh_flag)
+                    ];
+                    continue;
+                }
 
-				if($Sku->status>0){
+
+
+			    if($Sku->status>0){
 					$mode = [];	//记录当前sku的各个规格mode值
 					if($Sku->spec_info!=='default'){
 						$spec_info = explode(',',$Sku->spec_info);
@@ -673,7 +691,51 @@ class GoodsSpuController extends ControllerBase {
             $is_collect='1';
             $collect_id=$ISpuCollect->collect_id;
         }
+        //全局规格
+        $global_ipsec = ISpec::getGlobalSpec();
+        $global_sku = [];
+        $outTable = '';
+        if($global_ipsec['status'] == -2)
+        {
+            //头部标签
+            $outTable .= '<table style="border-collapse: collapse; width: 400px">';
+            $outTable .= "<thead>
+                            <tr>
+                             ";
+            foreach($global_ipsec['size'] as $_size)
+            {
+                $outTable .= '<th style="  border: 1px solid #ddd;padding: 8px">'.$_size.'</th>';
+            }
+            $outTable .= '</thead>';
+            $outTable .= '<tbody style="text-align: center">';
+
+            //获取数据库中已经配置的数据
+            foreach($global_ipsec['color'] as $_color)
+            {
+                $global_sku[$_color] = [];
+                $outTable .= '<tr>';
+                foreach($global_ipsec['size'] as $_size)
+                {
+                    $global_sku[$_color][$_size] = 0;
+                    $global_spec_key = "global_spec:".$_color."-".$_size;
+                    if(isset($global_spec[$global_spec_key]['stock']))
+                    {
+                        $global_sku[$_color][$_size] = $global_spec[$global_spec_key]['stock'];
+                    }
+                    else{
+                        $global_sku[$_color][$_size] = 0;
+                    }
+                    $outTable .="<td style='border: 1px solid #ddd;padding: 8px'>".$global_sku[$_color][$_size]."</td>";
+                }
+                $outTable .= '</tr>';
+            }
+
+            $outTable .= '</tbody>';
+            $outTable .= '</table>';
+        }
+
 		$data = [
+
 			'spu_id'=>$Spu->spu_id,
 			'is_collect'=>$is_collect,
 			'collect_id'=>$collect_id,
@@ -694,6 +756,7 @@ class GoodsSpuController extends ControllerBase {
 			'min_to_buy'=>$Spu->min_to_buy,
 			'per_limit'=>$per_limit?$per_limit:0,
 			'content'=>Func::contentStaticPath($Spu->content),
+            'global_ipsec'=>$outTable, //全局规格表格
 			'status'=>$Spu->status,
 			'status_text'=>$Spu->getStatusContext($Spu->status),
 			'has_default_sku'=>$Spu->has_default_sku,
