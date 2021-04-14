@@ -701,10 +701,11 @@ class GoodsSpuController extends ControllerBase {
             $outTable .= '<table style="border-collapse: collapse; width: 400px">';
             $outTable .= "<thead>
                             <tr>
+                            <th style='border: 1px solid #ddd;padding: 8px'>&nbsp;</th>
                              ";
             foreach($global_ipsec['size'] as $_size)
             {
-                $outTable .= '<th style="  border: 1px solid #ddd;padding: 8px">'.$_size.'</th>';
+                $outTable .= '<th style="border: 1px solid #ddd;padding: 8px">'.$_size.'</th>';
             }
             $outTable .= '</thead>';
             $outTable .= '<tbody style="text-align: center">';
@@ -713,7 +714,11 @@ class GoodsSpuController extends ControllerBase {
             foreach($global_ipsec['color'] as $_color)
             {
                 $global_sku[$_color] = [];
-                $outTable .= '<tr>';
+                $newTr = '';
+                $thisTrCount = 0;
+                
+                $newTr .= '<tr>';
+                $newTr .= '<td style="border: 1px solid #ddd;padding: 8px">'.$_color.'</td>';
                 foreach($global_ipsec['size'] as $_size)
                 {
                     $global_sku[$_color][$_size] = 0;
@@ -725,9 +730,14 @@ class GoodsSpuController extends ControllerBase {
                     else{
                         $global_sku[$_color][$_size] = 0;
                     }
-                    $outTable .="<td style='border: 1px solid #ddd;padding: 8px'>".$global_sku[$_color][$_size]."</td>";
+                    $thisTrCount = $thisTrCount + $global_sku[$_color][$_size];
+                    $newTr .="<td style='border: 1px solid #ddd;padding: 8px'>".$global_sku[$_color][$_size]."</td>";
                 }
-                $outTable .= '</tr>';
+                $newTr .= '</tr>';
+                if($thisTrCount > 0)
+                {
+                    $outTable .= $newTr;
+                }
             }
 
             $outTable .= '</tbody>';
