@@ -703,9 +703,25 @@ class GoodsSpuController extends ControllerBase {
                             <tr>
                             <th style='border: 1px solid #ddd;padding: 8px'>&nbsp;</th>
                              ";
-            foreach($global_ipsec['size'] as $_size)
+            foreach($global_ipsec['size'] as $_key => $_size)
             {
-                $outTable .= '<th style="border: 1px solid #ddd;padding: 8px">'.$_size.'</th>';
+                $size_count = 0;
+                foreach($global_ipsec['color'] as $_color)
+                {
+                    $global_spec_key = "global_spec:".$_color."-".$_size;
+                    $_stock = $global_spec[$global_spec_key]['stock'];
+                    if($_stock > 0)
+                    {
+                        $size_count = $size_count + $_stock;
+                    }
+                }
+                if($size_count > 0)
+                {
+                    $outTable .= '<th style="border: 1px solid #ddd;padding: 8px">'.$_size.'</th>';
+                }
+                else{
+                    unset($global_ipsec['size'][$_key]); //这一列全部为空，则删除
+                }
             }
             $outTable .= '</thead>';
             $outTable .= '<tbody style="text-align: center">';
