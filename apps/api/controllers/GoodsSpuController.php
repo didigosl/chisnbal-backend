@@ -611,6 +611,7 @@ class GoodsSpuController extends ControllerBase {
 
 
 
+
 			    if($Sku->status>0){
 					$mode = [];	//记录当前sku的各个规格mode值
 					if($Sku->spec_info!=='default'){
@@ -797,6 +798,7 @@ class GoodsSpuController extends ControllerBase {
 			'skus'=>$skus,
 			'specs'=>$specs,
             'global_specs_array' => $global_sku,
+            'global_specs' => $global_spec,
 			'comments'=>IOrderComment::getComments($Spu->spu_id,1,4),
             'flash_sale_flag'=>$Spu->sale_spu_id ? 1 : 0,
             
