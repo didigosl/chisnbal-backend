@@ -695,6 +695,7 @@ class GoodsSpuController extends ControllerBase {
         $global_ipsec = ISpec::getGlobalSpec();
         $global_sku = [];
         $outTable = '';
+        $global_ipsec_totals = 0;
         if($global_ipsec['status'] == -2)
         {
             //头部标签
@@ -723,6 +724,9 @@ class GoodsSpuController extends ControllerBase {
                     unset($global_ipsec['size'][$_key]); //这一列全部为空，则删除
                 }
             }
+
+
+
             $outTable .= '</thead>';
             $outTable .= '<tbody style="text-align: center">';
 
@@ -746,6 +750,7 @@ class GoodsSpuController extends ControllerBase {
                     else{
                         $global_sku[$_color][$_size] = 0;
                     }
+                    $global_ipsec_totals = $global_ipsec_totals + $global_sku[$_color][$_size];
                     $thisTrCount = $thisTrCount + $global_sku[$_color][$_size];
                     $newTr .="<td style='border: 1px solid #ddd;padding: 8px'>".$global_sku[$_color][$_size]."</td>";
                 }
@@ -758,6 +763,9 @@ class GoodsSpuController extends ControllerBase {
 
             $outTable .= '</tbody>';
             $outTable .= '</table>';
+        }
+        if($global_ipsec_totals ==0){
+            $global_sku = [];
         }
 
 		$data = [
@@ -788,6 +796,7 @@ class GoodsSpuController extends ControllerBase {
 			'has_default_sku'=>$Spu->has_default_sku,
 			'skus'=>$skus,
 			'specs'=>$specs,
+            'global_specs_array' => $global_sku,
 			'comments'=>IOrderComment::getComments($Spu->spu_id,1,4),
             'flash_sale_flag'=>$Spu->sale_spu_id ? 1 : 0,
             

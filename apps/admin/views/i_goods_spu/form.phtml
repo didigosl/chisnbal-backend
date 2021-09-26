@@ -1327,6 +1327,7 @@ $(function(){
 			
 		}
 		console.log('sku_length:'+skus.length);
+		_specIsInput = 0;
 		if(skus.length){
 			//检测sku
 			for(var i=0; i<skus.length; i++){
@@ -1347,11 +1348,20 @@ $(function(){
 				if(skus[i].status>0 && ((!skus[i].stock && !skus[i].stock!==0) || !skus[i].price)){
 				 	errors.push('必须完整填写全部商品规格的库存、价格信息');
 				}
+				else{
+				    _specIsInput = 1;
+				}
 			}
 			// return false;
 			// console.log(JSON.stringify(skus));
 			$('input[name="skus"]').val(JSON.stringify(skus));
 		}
+		
+		if($("#global_spec_count").val() > 0 && _specIsInput >0)
+		{
+		    errors.push('商品规格和全局规则只能选择一个输入');
+		}
+		
 		
 
 		if(errors.length>0){

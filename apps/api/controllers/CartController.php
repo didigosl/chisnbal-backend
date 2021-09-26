@@ -149,13 +149,46 @@ class CartController extends ControllerAuth {
         if(conf('enable_pending_user_permission') && $this->User->status==0){
             throw new \Exception('您还需通过商家审核');
         }
+        $data_array = $this->post['data'];
+        if(is_string($data_array)){
+            $data_array = json_decode($data_array,JSON_UNESCAPED_UNICODE);
+        }
+        if(is_array($data_array)){
+            $this->db->begin();
+            foreach($data_array as $data){
+                $Sku = Sku::findFirst($data['sku_id']);
+                if(!$Sku){
+                    throw new \Exception('商品信息不正确');
+                }
 
-		$data = [
+                $messages  = ICart::validator(array_keys($data))->validate($data);
+                ValidateMsg::run('Common\Models\ICart',$messages);
+
+                if($Cart = ICart::add($this->User->user_id,$data['sku_id'],$data['num'])){
+
+                    $total = $this->db->fetchColumn('SELECT count(1) FROM i_cart WHERE user_id=:user_id',['user_id'=>$this->User->user_id]);
+                    $spu_total = $this->db->fetchColumn('SELECT count(1) FROM i_cart WHERE user_id=:user_id AND spu_id=:spu_id',['user_id'=>$this->User->user_id,'spu_id'=>$Cart->spu_id]);
+                }
+                else{
+                    $this->db->rollback();
+                    throw new \Exception("加入购物车失败", 1002);
+
+                }
+            }
+            $this->db->commit();
+            $this->sendJSON([
+                'data'=>[
+                    'total'=>$total,
+                    'spu_total'=>$spu_total
+                ],
+            ]);
+        }
+        /*$data = [
 			'sku_id'=>$this->post['sku_id'],
 			'num'=>$this->post['num']
 		];
 
-		$this->db->begin();
+
 
 		$Sku = Sku::findFirst($data['sku_id']);
 		if(!$Sku){
@@ -181,7 +214,7 @@ class CartController extends ControllerAuth {
 			$this->db->rollback();
 			throw new \Exception("加入购物车失败", 1002);
 			
-		}
+		}*/
 
     }
     
