@@ -583,7 +583,6 @@ class GoodsSpuController extends ControllerBase {
 		}
 		*/
 		$specs = $Spu->getFmtSpecData();
-
 		$fmtSpecs = [];
 		foreach ($specs as $v) {
 			$fmtSpecs[$v['spec_name']] = $v['specs'];
@@ -602,6 +601,7 @@ class GoodsSpuController extends ControllerBase {
                         'status'=>$Sku->status,
                         'sn'=>$Sku->sku_sn,
                         'stock'=>$Sku->stock,
+                        'num'=>$Sku->num,
                         'price'=>fmtMoney($Sku->price),
                         'default_flag'=>intval($Sku->default_flag),
                         'weigh_flag'=>intval($Sku->weigh_flag)
@@ -644,6 +644,7 @@ class GoodsSpuController extends ControllerBase {
 						'sku_id'=>$Sku->sku_id,
 						'spec_info'=>$Sku->spec_info=='default'?'':$Sku->spec_info,
 						'stock'=>$Sku->stock,
+                        'num'=>$Sku->num,
 						'price'=>$sku_price,
 						'spec_mode'=>sprintf("%06s",implode('',$mode))
 					];
@@ -744,9 +745,9 @@ class GoodsSpuController extends ControllerBase {
                 {
                     $global_sku[$_color][$_size] = 0;
                     $global_spec_key = "global_spec:".$_color."-".$_size;
-                    if(isset($global_spec[$global_spec_key]['stock']))
+                    if(isset($global_spec[$global_spec_key]['num']))
                     {
-                        $global_sku[$_color][$_size] = $global_spec[$global_spec_key]['stock'];
+                        $global_sku[$_color][$_size] = $global_spec[$global_spec_key]['num'];
                     }
                     else{
                         $global_sku[$_color][$_size] = 0;
@@ -768,9 +769,14 @@ class GoodsSpuController extends ControllerBase {
         if($global_ipsec_totals ==0){
             $global_sku = [];
         }
-
+        if($Spu->global_space_status == 0){
+            $global_sku = [];
+            $global_spec = [];
+        }
+        if($Spu->nor_space_status == 0){
+            $specs = [];
+        }
 		$data = [
-
 			'spu_id'=>$Spu->spu_id,
 			'is_collect'=>$is_collect,
 			'collect_id'=>$collect_id,

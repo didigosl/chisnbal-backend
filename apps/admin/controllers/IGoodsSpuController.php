@@ -281,6 +281,7 @@ class IGoodsSpuController extends ControllerAuth {
                         'status'=>$Sku->status,
                         'sn'=>$Sku->sku_sn,
                         'stock'=>$Sku->stock,
+                        'num'=>$Sku->num,
                         'price'=>fmtMoney($Sku->price),
                         'default_flag'=>intval($Sku->default_flag),
                         'weigh_flag'=>intval($Sku->weigh_flag)
@@ -293,6 +294,7 @@ class IGoodsSpuController extends ControllerAuth {
                         'status'=>$Sku->status,
                         'sn'=>$Sku->sku_sn,
                         'stock'=>$Sku->stock,
+                        'num'=>$Sku->num,
                         'price'=>fmtMoney($Sku->price),
                         'default_flag'=>intval($Sku->default_flag),
                         'weigh_flag'=>intval($Sku->weigh_flag)
@@ -379,7 +381,19 @@ class IGoodsSpuController extends ControllerAuth {
             $data['height'] = $this->request->getPost('height');
             $data['content'] = $this->request->getPost('content');
             $data['seq'] = $this->request->getPost('seq');
-            
+            if($this->request->getPost('global_space_status')){
+                $global_space_status=$this->request->getPost('global_space_status');
+                $data['global_space_status'] = $global_space_status;
+            }else{
+                $data['global_space_status'] = 0;
+            }
+            if($this->request->getPost('nor_space_status')){
+                $nor_space_status=$this->request->getPost('nor_space_status');
+                $data['nor_space_status'] = $nor_space_status;
+            }else{
+                $data['nor_space_status'] = 0;
+            }
+
 			//商品选中的规格
 			$spec = $this->request->getPost('spec');
 			if(is_array($spec)){
@@ -390,6 +404,19 @@ class IGoodsSpuController extends ControllerAuth {
             $skus = $this->request->getPost('skus');
             if($skus){
                 $skus = json_decode($skus,JSON_UNESCAPED_UNICODE);
+                foreach($skus as $_sku){
+                    $skus[] = [
+                        'spec_info' => $_sku['spec_info'],
+                        'status' => 1,
+                        'sn' =>  $_sku['sn'],
+                        'stock' => 9999999,
+                        'num' => $_sku['num'],
+                        'price' => $_sku['price'],
+                        'sku_id' => $_sku['sku_id'],
+                        'default_flag' => $_sku['default_flag'],
+                        'weight_flag' => $_sku['weight_flag'],
+                    ];
+                }
                 $data['weigh_flag'] = 0;
             }
             else{
@@ -411,7 +438,8 @@ class IGoodsSpuController extends ControllerAuth {
                         'spec_info' => $_spec_sn,
                         'status' => 1,
                         'sn' => $_spec_sn,
-                        'stock' => $_spec_stock,
+                        'stock' => 9999999,
+                        'num' => $_spec_stock,
                         'price' => 0,
                         'sku_id' => $_sku_id,
                         'default_flag' => 0,
