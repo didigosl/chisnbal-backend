@@ -261,6 +261,21 @@ class IGoodsSpuController extends ControllerAuth {
 		$spec_data = $spec_data ? $spec_data : [];
 		$skus = [];
 
+		$show_spec_info = [];
+		$spec_data_key = array_keys($spec_data);
+		if(count($spec_data_key) > 1)
+        {
+            foreach($spec_data[$spec_data_key[0]] as $_f)
+            {
+                foreach($spec_data[$spec_data_key[1]] as $_e)
+                {
+                    $show_spec_info[] = $_f.','.$_e;
+                }
+            }
+        }
+
+
+
 		$global_spec = [];
 		$global_spec_info = ISpec::getGlobalSpec();
 		if($global_spec_info['status'] == -2)
@@ -288,24 +303,29 @@ class IGoodsSpuController extends ControllerAuth {
                     ];
                 }
 			    else{
-                    $skus[] = [
-                        'sku_id'=>$Sku->sku_id,
-                        'spec_info'=>$Sku->spec_info,
-                        'status'=>$Sku->status,
-                        'sn'=>$Sku->sku_sn,
-                        'stock'=>$Sku->stock,
-                        'num'=>$Sku->num,
-                        'price'=>fmtMoney($Sku->price),
-                        'default_flag'=>intval($Sku->default_flag),
-                        'weigh_flag'=>intval($Sku->weigh_flag)
-                    ];
+			        if(in_array($Sku->spec_info,$show_spec_info))
+                    {
+                        $skus[] = [
+                            'sku_id'=>$Sku->sku_id,
+                            'spec_info'=>$Sku->spec_info,
+                            'status'=>$Sku->status,
+                            'sn'=>$Sku->sku_sn,
+                            'stock'=>$Sku->stock,
+                            'num'=>$Sku->num,
+                            'price'=>fmtMoney($Sku->price),
+                            'default_flag'=>intval($Sku->default_flag),
+                            'weigh_flag'=>intval($Sku->weigh_flag)
+                        ];
+                    }
                 }
 			}
+
 
 			//print_r($skus);
 			//exit;
 
 		}
+
 		// var_dump(json_encode($skus,JSON_UNESCAPED_UNICODE));exit;
         // var_dump($spec_data);exit;
         
