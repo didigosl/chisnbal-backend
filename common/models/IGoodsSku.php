@@ -92,6 +92,7 @@ class IGoodsSku extends Model
      * @Column(type="string", nullable=false)
      */
     public $update_time;
+    public $num;
 
     /**
      * Initialize method for model.

@@ -583,7 +583,6 @@ class GoodsSpuController extends ControllerBase {
 		}
 		*/
 		$specs = $Spu->getFmtSpecData();
-
 		$fmtSpecs = [];
 		foreach ($specs as $v) {
 			$fmtSpecs[$v['spec_name']] = $v['specs'];
@@ -602,12 +601,14 @@ class GoodsSpuController extends ControllerBase {
                         'status'=>$Sku->status,
                         'sn'=>$Sku->sku_sn,
                         'stock'=>$Sku->stock,
+                        'num'=>$Sku->num,
                         'price'=>fmtMoney($Sku->price),
                         'default_flag'=>intval($Sku->default_flag),
                         'weigh_flag'=>intval($Sku->weigh_flag)
                     ];
                     continue;
                 }
+
 
 
 
@@ -643,6 +644,7 @@ class GoodsSpuController extends ControllerBase {
 						'sku_id'=>$Sku->sku_id,
 						'spec_info'=>$Sku->spec_info=='default'?'':$Sku->spec_info,
 						'stock'=>$Sku->stock,
+                        'num'=>$Sku->num,
 						'price'=>$sku_price,
 						'spec_mode'=>sprintf("%06s",implode('',$mode))
 					];
@@ -695,6 +697,7 @@ class GoodsSpuController extends ControllerBase {
         $global_ipsec = ISpec::getGlobalSpec();
         $global_sku = [];
         $outTable = '';
+        $global_ipsec_totals = 0;
         if($global_ipsec['status'] == -2)
         {
             //头部标签
@@ -723,6 +726,9 @@ class GoodsSpuController extends ControllerBase {
                     unset($global_ipsec['size'][$_key]); //这一列全部为空，则删除
                 }
             }
+
+
+
             $outTable .= '</thead>';
             $outTable .= '<tbody style="text-align: center">';
 
@@ -739,13 +745,14 @@ class GoodsSpuController extends ControllerBase {
                 {
                     $global_sku[$_color][$_size] = 0;
                     $global_spec_key = "global_spec:".$_color."-".$_size;
-                    if(isset($global_spec[$global_spec_key]['stock']))
+                    if(isset($global_spec[$global_spec_key]['num']))
                     {
-                        $global_sku[$_color][$_size] = $global_spec[$global_spec_key]['stock'];
+                        $global_sku[$_color][$_size] = $global_spec[$global_spec_key]['num'];
                     }
                     else{
                         $global_sku[$_color][$_size] = 0;
                     }
+                    $global_ipsec_totals = $global_ipsec_totals + $global_sku[$_color][$_size];
                     $thisTrCount = $thisTrCount + $global_sku[$_color][$_size];
                     $newTr .="<td style='border: 1px solid #ddd;padding: 8px'>".$global_sku[$_color][$_size]."</td>";
                 }
@@ -759,9 +766,17 @@ class GoodsSpuController extends ControllerBase {
             $outTable .= '</tbody>';
             $outTable .= '</table>';
         }
-
+        if($global_ipsec_totals ==0){
+            $global_sku = [];
+        }
+        if($Spu->global_space_status == 0){
+            $global_sku = [];
+            $global_spec = [];
+        }
+        if($Spu->nor_space_status == 0){
+            $specs = [];
+        }
 		$data = [
-
 			'spu_id'=>$Spu->spu_id,
 			'is_collect'=>$is_collect,
 			'collect_id'=>$collect_id,
@@ -788,6 +803,8 @@ class GoodsSpuController extends ControllerBase {
 			'has_default_sku'=>$Spu->has_default_sku,
 			'skus'=>$skus,
 			'specs'=>$specs,
+            'global_specs_array' => $global_sku,
+            'global_specs' => $global_spec,
 			'comments'=>IOrderComment::getComments($Spu->spu_id,1,4),
             'flash_sale_flag'=>$Spu->sale_spu_id ? 1 : 0,
             

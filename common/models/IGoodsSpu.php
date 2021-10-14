@@ -242,6 +242,8 @@ class IGoodsSpu extends Model
     public $remove_flag;
 
     public $import_mode = false;
+    public $global_space_status;
+    public $nor_space_status;
 
     /**
      * Initialize method for model.
@@ -548,6 +550,7 @@ class IGoodsSpu extends Model
                         'price'=>fmtPrice($sku['price']),
                         'status'=>$sku['status'],
                         'weigh_flag'=>$sku['weigh_flag'],
+                        'num'=>(int)$sku['num'],
                     ];
                     // var_dump($data);exit;
                     if($sku['sku_id']){

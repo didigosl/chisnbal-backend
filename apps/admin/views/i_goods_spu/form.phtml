@@ -391,7 +391,17 @@ $conf = conf();
 						
 					</div>
 				</div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label no-padding-right" for="">是否开启规格</label>
+                    <div class="col-sm-10">
+                        <label>
+                            <input class="ace ace-switch ace-switch-2" type="checkbox" name="nor_space_status" value="1"
+                            <?php if($M->nor_space_status == 1){  ?> checked="checked" <?php } ?> >
+                            <span class="lbl"></span>
+                        </label>
+                    </div>
 
+                </div>
 				<div class="form-group sku-row">
 					<label class="col-sm-2 control-label no-padding-right" for=""><span class="required">*</span> 规格设置</label>
 
@@ -402,7 +412,7 @@ $conf = conf();
 									<th></th>
 									<th>规格</th>
 									<th>货号</th>
-									<th>库存</th>
+									<th>购买数量</th>
                                     <th>价格</th>
                                 <?php if($this->conf['enable_distribution_type']):?>
                                     <th>需要称重</th>
@@ -415,6 +425,17 @@ $conf = conf();
 						<input type="hidden" name="skus" value="">
 					</div>
 				</div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label no-padding-right" for="">是否开启全局规格</label>
+                    <div class="col-sm-10">
+                        <label>
+                            <input class="ace ace-switch ace-switch-2" type="checkbox" name="global_space_status" value="1"
+                                <?php if($M->global_space_status == 1){  ?> checked="checked" <?php } ?> >
+                            <span class="lbl"></span>
+                        </label>
+                    </div>
+
+                </div>
                 <?php if($show_global_spec == true):?>
                 <!--全局商品规格设置-->
                 <div class="form-group">
@@ -438,7 +459,7 @@ $conf = conf();
                                     <?php
                                     foreach($global_spec_info['size'] as $_size){
                                         $global_spec_key = "global_spec:".$_color."-".$_size;
-                                        $_global_sku_stock = isset($global_spec[$global_spec_key]['stock'])?$global_spec[$global_spec_key]['stock']:'';
+                                        $_global_sku_stock = isset($global_spec[$global_spec_key]['num'])?$global_spec[$global_spec_key]['num']:'';
                                         $global_spec_count = $global_spec_count + intval($_global_sku_stock);
                                         if(isset($global_spec[$global_spec_key]['sku_id']))
                                         {
@@ -530,7 +551,7 @@ $conf = conf();
 		<input class="jsview-input" data-var="sn" type="text" value="" data-link="name{:'sku['+#getIndex()+'][sn]'} value{:sn}" >
 	</td>
 	<td>
-		<input class="jsview-input" data-var="stock" type="text" data-link="name{:'sku['+#getIndex()+'][stock]'} value{:stock}">
+		<input class="jsview-input" data-var="num" type="text" data-link="name{:'sku['+#getIndex()+'][num]'} value{:num}">
 	</td>
 	<td>
 		<input class="jsview-input" data-var="price" type="text" data-link="name{:'sku['+#getIndex()+'][price]'} value{:price}">
@@ -695,6 +716,7 @@ $(function(){
 		
 	});
 });
+
 EOT;
 ?>
 <?php 
@@ -1050,6 +1072,20 @@ raw::
 		}
     });
 });
+$(".ace-switch-2").click(function (){
+   _status = $(this).prop("checked");
+	if(_status == true)
+	{
+		console.log("abc");
+		$(".ace-switch-2").prop('checked',false);
+		$(this).prop('checked',true);
+	}
+	else{
+	    console.log("def");
+		$(".ace-switch-2").prop('checked',true);
+		$(this).prop('checked',false);
+	}	
+});
 EOT;
 ?>
 <?php
@@ -1327,6 +1363,7 @@ $(function(){
 			
 		}
 		console.log('sku_length:'+skus.length);
+		_specIsInput = 0;
 		if(skus.length){
 			//检测sku
 			for(var i=0; i<skus.length; i++){
@@ -1347,11 +1384,15 @@ $(function(){
 				if(skus[i].status>0 && ((!skus[i].stock && !skus[i].stock!==0) || !skus[i].price)){
 				 	errors.push('必须完整填写全部商品规格的库存、价格信息');
 				}
+				else{
+				    _specIsInput = 1;
+				}
 			}
 			// return false;
 			// console.log(JSON.stringify(skus));
 			$('input[name="skus"]').val(JSON.stringify(skus));
 		}
+		
 		
 
 		if(errors.length>0){
