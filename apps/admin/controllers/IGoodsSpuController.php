@@ -411,6 +411,7 @@ class IGoodsSpuController extends ControllerAuth {
                 $data['nor_space_status'] = 0;
             }
 
+
 			//商品选中的规格
 			$spec = $this->request->getPost('spec');
 			if(is_array($spec)){
