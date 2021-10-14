@@ -422,7 +422,7 @@ class IGoodsSpuController extends ControllerAuth {
             $skus = $this->request->getPost('skus');
             if($skus){
                 $skus = json_decode($skus,JSON_UNESCAPED_UNICODE);
-                foreach($skus as $k=>$_sku){
+               /* foreach($skus as $k=>$_sku){
                     $skus[$k] = [
                         'spec_info' => $_sku['spec_info'],
                         'status' => 1,
@@ -434,7 +434,7 @@ class IGoodsSpuController extends ControllerAuth {
                         'default_flag' => $_sku['default_flag'],
                         'weight_flag' => $_sku['weight_flag'],
                     ];
-                }
+                }*/
                 $data['weigh_flag'] = 0;
             }
             else{
