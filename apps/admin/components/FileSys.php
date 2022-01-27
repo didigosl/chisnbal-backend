@@ -1,6 +1,8 @@
 <?php
 namespace Admin\Components;
 
+use Common\Libs\Func;
+use Common\Models\SConf;
 use Phalcon\Mvc\User\Component;
 use Phalcon\Exception;
 use Common\Components\Image;
@@ -28,6 +30,12 @@ class FileSys extends Component {
 
                     $name = SITE_PATH.$file;
                     $url = "https://pic.manshiguang.it/api/pic/uploadFile";
+                    $data = array(
+                        "mark" => "chisnbal",
+                        "file" => new \CURLFile($name),
+                    );
+                    $result=Func::http_request($url,$data);
+                    /**
                     $ch = curl_init();
                     $data = array(
                         "mark" => "chisnbal",
@@ -40,6 +48,7 @@ class FileSys extends Component {
 
                     $result = curl_exec($ch);
                     curl_close($ch);
+                     */
 
                     $result_data = json_decode($result);
                     if($result_data->code == 1){
@@ -49,45 +58,6 @@ class FileSys extends Component {
                     }else{
                         throw new \Exception($result_data->msg, 1);
                     }
-
-
-//                    require_once './aws-autoloader.php';
-//                    $s3 = new \Aws\S3\S3Client([
-//                        'version' => 'latest',
-//                        'region'  => 'eu-central-1', #改为美国西部
-//                        'credentials' => [
-//                            'key'    => 'AKIAWSJGTEW2BNF5BVBP', #访问秘钥
-//                            'secret' => 'so/jkiRHVEKLzjT8kPbdecdH8UTXrik1HmrzxRWY' #私有访问秘钥
-//                        ]
-//                    ]);
-//                    $bucketName = 'manshiguang'; #存储桶的名字
-//                    // $file_Path/ = '/data/wwwroot/aws-sdk-php-laravel/QQ图片20180223091800.png'; #要上传的文件的路径
-//                    $file_Path = '.'.$file; #要上传的文件的路径
-//                    $key = basename($file_Path);
-//                    try{
-//                        $result = $s3->putObject([
-//                            'Bucket' => $bucketName,
-//                            'Key'    => $key,
-//                            'Body'   => fopen($file_Path, 'r'),
-//                            'ACL'    => 'public-read',
-//                        ]);
-//                        $images[$v]['large']=$result->get('ObjectURL');
-//                        $images[$v]['mid']=$result->get('ObjectURL');
-//                        $images[$v]['small']=$result->get('ObjectURL');
-//
-//                    } catch(\Exception $e){
-//                        echo "There was an error uploading the file.\n";
-//                        throw new \Exception($e->getMessage(), 1);
-//
-//                    }
-
-//					if($oss_status){
-//						$images[$v]['large'] = DI::getDefault()->get('config')->oss->domain.$large;
-//						$images[$v]['mid'] = DI::getDefault()->get('config')->oss->domain.$mid;
-//						$images[$v]['small'] = DI::getDefault()->get('config')->oss->domain.$small;
-//					}
-                    //var_dump($oss_status,$images);exit;
-
                 }
 
                 if($file){
@@ -246,16 +216,19 @@ class FileSys extends Component {
      */
     static public function fileUpload($file){
         require_once './aws-autoloader.php';
+
+        $s3_key=SConf::findFirst(['name=:name:','bind'=>['name'=>'s3_key']]);
+        $s3_secret=SConf::findFirst(['name=:name:','bind'=>['name'=>'s3_secret']]);
+
         $s3 = new \Aws\S3\S3Client([
             'version' => 'latest',
             'region'  => 'eu-central-1', #改为美国西部
             'credentials' => [
-                'key'    => 'AKIAWSJGTEW2BNF5BVBP', #访问秘钥
-                'secret' => 'so/jkiRHVEKLzjT8kPbdecdH8UTXrik1HmrzxRWY' #私有访问秘钥
+                'key'    => $s3_key->value, #访问秘钥
+                'secret' => $s3_secret->value #私有访问秘钥
             ]
         ]);
         $bucketName = 'chisnbal'; #存储桶的名字
-        // $file_Path/ = '/data/wwwroot/aws-sdk-php-laravel/QQ图片20180223091800.png'; #要上传的文件的路径
         $file_Path = '.'.$file; #要上传的文件的路径
         $key = basename($file_Path);
         try {
@@ -289,18 +262,18 @@ class FileSys extends Component {
         if(file_put_contents($name,$source)){
 //            $images = FileSys::fileUpload('/uploads/shop/'.$pic_name);
             $file = SITE_PATH.'/uploads/shop/'.$pic_name;
-
+            $s3_key=SConf::findFirst(['name=:name:','bind'=>['name'=>'s3_key']]);
+            $s3_secret=SConf::findFirst(['name=:name:','bind'=>['name'=>'s3_secret']]);
             $s3 = new \Aws\S3\S3Client([
                 'version' => 'latest',
                 'region'  => 'eu-central-1', #改为美国西部
                 'credentials' => [
-                    'key'    => 'AKIAWSJGTEW2BNF5BVBP', #访问秘钥
-                    'secret' => 'so/jkiRHVEKLzjT8kPbdecdH8UTXrik1HmrzxRWY' #私有访问秘钥
+                    'key'    => $s3_key->value, #访问秘钥
+                    'secret' => $s3_secret->value #私有访问秘钥
                 ]
             ]);
 
             $bucketName = 'chisnbal'; #存储桶的名字
-            // $file_Path/ = '/data/wwwroot/aws-sdk-php-laravel/QQ图片20180223091800.png'; #要上传的文件的路径
             $file_Path = $file; #要上传的文件的路径
             $key = basename($file_Path);
             try {

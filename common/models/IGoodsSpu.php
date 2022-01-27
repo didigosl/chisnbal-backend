@@ -490,7 +490,6 @@ class IGoodsSpu extends Model
             // throw new \Exception("商品单品规格数据错误", 2002);
             
         }
-
         //允许不添加规格时，系统添加一个默认规格数据
         $enable_no_sku = $this->getDi()->get('conf')['enable_no_sku'];
 
@@ -546,7 +545,7 @@ class IGoodsSpu extends Model
                     $data = [
                         'spec_info'=>$sku['spec_info'],
                         'sku_sn'=>$sku['sn'],
-                        'stock'=>(int)$sku['stock'],
+                        'stock'=>'9999999',
                         'price'=>fmtPrice($sku['price']),
                         'status'=>$sku['status'],
                         'weigh_flag'=>$sku['weigh_flag'],
