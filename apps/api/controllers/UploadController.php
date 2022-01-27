@@ -36,6 +36,12 @@ class UploadController extends ControllerAuth {
 
                 $name = SITE_PATH.$file;
                 $url = "https://pic.manshiguang.it/api/pic/uploadFile";
+                $data = array(
+                    "mark" => "chisnbal",
+                    "file" => new \CURLFile($name),
+                );
+                $result=Func::http_request($url,$data);
+                /**
                 $ch = curl_init();
                 $data = array(
                     "mark" => "chisnbal",
@@ -48,6 +54,7 @@ class UploadController extends ControllerAuth {
 
                 $result = curl_exec($ch);
                 curl_close($ch);
+                 */
 
                 $result_data = json_decode($result);
 

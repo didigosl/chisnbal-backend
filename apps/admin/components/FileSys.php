@@ -1,6 +1,7 @@
 <?php
 namespace Admin\Components;
 
+use Common\Libs\Func;
 use Common\Models\SConf;
 use Phalcon\Mvc\User\Component;
 use Phalcon\Exception;
@@ -29,6 +30,12 @@ class FileSys extends Component {
 
                     $name = SITE_PATH.$file;
                     $url = "https://pic.manshiguang.it/api/pic/uploadFile";
+                    $data = array(
+                        "mark" => "chisnbal",
+                        "file" => new \CURLFile($name),
+                    );
+                    $result=Func::http_request($url,$data);
+                    /**
                     $ch = curl_init();
                     $data = array(
                         "mark" => "chisnbal",
@@ -41,6 +48,7 @@ class FileSys extends Component {
 
                     $result = curl_exec($ch);
                     curl_close($ch);
+                     */
 
                     $result_data = json_decode($result);
                     if($result_data->code == 1){

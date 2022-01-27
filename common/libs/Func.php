@@ -52,4 +52,26 @@ class Func {
 
     	return substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 10);
     }
+
+    static public function http_request( $url, $post = [], $timeout = 5 ){
+        if( empty( $url ) ){
+            return ;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+        if( $post != '' && !empty( $post ) ){
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: '.strlen($post)));
+        }
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
 }
